@@ -9,7 +9,7 @@ import com.chunhe.custom.mybatis.BaseMapper;
  * </p>
  *
  * @author AutoGenerator from white
- * @since 2021-05-14
+ * @since 2021-05-30
  */
 public interface SysLogMapper extends BaseMapper<SysLog> {
 

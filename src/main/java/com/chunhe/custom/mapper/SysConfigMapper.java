@@ -11,11 +11,11 @@ import java.util.List;
  * </p>
  *
  * @author AutoGenerator from white
- * @since 2021-05-14
+ * @since 2021-05-30
  */
 public interface SysConfigMapper extends BaseMapper<SysConfig> {
 
-    List<SysConfig> findSysConfigList(SysConfig sysConfig);
+    List<SysConfig> listSysConfig(SysConfig sysConfig);
 
     SysConfig getSysConfig(SysConfig sysConfig);
 

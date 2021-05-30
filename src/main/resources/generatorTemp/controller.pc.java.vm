@@ -5,12 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * <p>
- * $!{table.comment} 控制层
+ * $!{table.comment} 后端-控制层
  * </p>
  *
  * @author ${author}
  * @since ${date}
  */
+
 @RestController
 @RequestMapping("/pc/${entity}")
 public class ${table.controllerName} {

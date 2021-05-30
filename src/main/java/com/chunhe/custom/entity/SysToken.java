@@ -2,10 +2,9 @@ package com.chunhe.custom.entity;
 
 import com.chunhe.custom.mybatis.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-
+import lombok.Data;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -15,16 +14,16 @@ import java.util.Date;
  * </p>
  *
  * @author AutoGenerator from white
- * @since 2021-05-14
+ * @since 2021-05-30
  */
 
-@Table(name = "sys_token" )
+@Table(name = "sys_token")
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class SysToken extends BaseEntity {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 用户id，admin表

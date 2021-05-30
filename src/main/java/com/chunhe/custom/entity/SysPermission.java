@@ -1,10 +1,9 @@
 package com.chunhe.custom.entity;
 
 import com.chunhe.custom.mybatis.BaseEntity;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-
+import lombok.Data;
 import javax.persistence.Table;
 
 /**
@@ -13,7 +12,7 @@ import javax.persistence.Table;
  * </p>
  *
  * @author AutoGenerator from white
- * @since 2021-05-22
+ * @since 2021-05-30
  */
 
 @Table(name = "sys_permission")
@@ -27,32 +26,32 @@ public class SysPermission extends BaseEntity {
     /**
      * 权限编码
      */
-    private String permissionCode;
+    private String sysPermissionCode;
 
     /**
      * 权限名
      */
-    private String permissionName;
+    private String sysPermissionName;
 
     /**
      * 权限分类
      */
-    private String permissionPname;
+    private String sysPermissionPname;
 
     /**
-     * 禁用/启用
+     * 禁用启用
      */
-    private Boolean permissionIsEnable;
+    private Boolean sysPermissionIsEnable;
 
     /**
      * 是否系统内置
      */
-    private Boolean permissionIsSystem;
+    private Boolean sysPermissionIsSystem;
 
     /**
      * 描述
      */
-    private String permissionRemark;
+    private String sysPermissionRemark;
 
 
 }

@@ -22,12 +22,13 @@ public class MysqlGenerator {
     public static String packageName = "com.chunhe.custom";
     public static String[] packageTypes = {"App", "Pc", "Fm"};
     //多表写法：{"test1", "test2"};
-    public static String[] tableNames = {"sys_permission", "sys_role_permission", "sys_user_role"};
+    public static String[] tableNames = {"sys_config", "sys_log", "sys_permission",
+            "sys_role", "sys_role_permission", "sys_token", "sys_user", "sys_user_role", "sys_wx_user"};
 
     private static String datasourceDriver = "com.mysql.jdbc.Driver";
     private static String datasourceUrl = "jdbc:mysql://localhost:3306/custom?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC";
     private static String datasourceUsername = "root";
-    private static String datasourcePassword = "root";
+    private static String datasourcePassword = "123456";
 
     /**
      * RUN THIS
@@ -48,7 +49,11 @@ public class MysqlGenerator {
             gc.setBaseColumnList(true);
             gc.setBaseResultMap(true);
             gc.setControllerName(packageType + "%sController");
-            gc.setServiceName("%sService");
+            if (packageType.toLowerCase().equals("fm")) {
+                gc.setServiceName(packageType + "%sService");
+            } else {
+                gc.setServiceName("%sService");
+            }
             mpg.setGlobalConfig(gc);
 
             // 数据源配置
@@ -63,6 +68,11 @@ public class MysqlGenerator {
             PackageConfig pc = new PackageConfig();
             pc.setParent(packageName);
             pc.setController("controller." + packageType.toLowerCase());
+            if (packageType.toLowerCase().equals("fm")) {
+                pc.setService("service." + packageType.toLowerCase());
+            } else {
+                pc.setService("service");
+            }
             mpg.setPackageInfo(pc);
 
             // 自定义配置
@@ -78,7 +88,11 @@ public class MysqlGenerator {
             TemplateConfig tc = new TemplateConfig();
             tc.setServiceImpl(null);
             tc.setXml(null);
-            tc.setService("generatorTemp/service.java");
+            if (packageType.toLowerCase().equals("fm")) {
+                tc.setService("generatorTemp/service." + packageType.toLowerCase() + ".java");
+            } else {
+                tc.setService("generatorTemp/service.java");
+            }
             tc.setController("generatorTemp/controller." + packageType.toLowerCase() + ".java");
             tc.setEntity("generatorTemp/entity.java");
             mpg.setTemplate(tc);
@@ -95,8 +109,9 @@ public class MysqlGenerator {
             strategy.setTablePrefix(pc.getModuleName() + "_");
             strategy.setEntityLombokModel(true);
             strategy.setSuperEntityColumns("id", "create_date", "update_date", "delete_date");
+            strategy.setSuperControllerClass("com.chunhe.custom.mybatis.BaseController");
             strategy.setSuperEntityClass("com.chunhe.custom.mybatis.BaseEntity");
-            strategy.setSuperMapperClass("com.chunhe.custom.mybatis.BaseMapper");//模板中，再继承BaseWrapperMapper
+            strategy.setSuperMapperClass("com.chunhe.custom.mybatis.BaseMapper");
             strategy.setSuperServiceClass("com.chunhe.custom.mybatis.BaseService");
             mpg.setStrategy(strategy);
 

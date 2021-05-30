@@ -1,18 +1,21 @@
 package com.chunhe.custom.controller.fm;
 
-import org.springframework.web.bind.annotation.RestController;
+import ${superControllerClassPackage};
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 
 /**
  * <p>
- * $!{table.comment} 控制层
+ * $!{table.comment} freemarker-控制层
  * </p>
  *
  * @author ${author}
  * @since ${date}
  */
-@RestController
+
+@Controller
 @RequestMapping("/${entity}")
-public class ${table.controllerName} {
+public class ${table.controllerName} extends ${superControllerClass} {
 
 }

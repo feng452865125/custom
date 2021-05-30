@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.chunhe.custom.framework.mapper.SysPermissionMapper" >
-    <resultMap id="PermissionMap" type="com.chunhe.custom.framework.model.SysPermission" >
+<mapper namespace="com.chunhe.custom.mapper.SysPermissionMapper" >
+    <resultMap id="PermissionMap" type="com.chunhe.custom.entity.SysPermission" >
         <result column="id" property="id" jdbcType="BIGINT" />
         <result column="create_date" property="createDate" />
         <result column="update_date" property="updateDate" />
@@ -12,7 +12,8 @@
         <result column="description" property="description" jdbcType="VARCHAR" />
         <result column="is_system" property="isSystem" jdbcType="BIT" />
     </resultMap>
-    <select id="selectBycodes" resultType="com.chunhe.custom.framework.model.SysPermission" resultMap="PermissionMap">
+
+    <select id="selectBycodes" resultType="com.chunhe.custom.entity.SysPermission" resultMap="PermissionMap">
         select * from sys_permission where code in
         <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
             #{item}

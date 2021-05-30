@@ -86,7 +86,7 @@
     </appenders>
 
     <loggers>
-        <AsyncLogger name="com.chunhe.custom.mapper" level="DEBUG" includeLocation="false" additivity="false">
+        <AsyncLogger name="com.chunhe.custom.framework.mapper" level="DEBUG" includeLocation="false" additivity="false">
             <AppenderRef ref="FILE-DEBUG"/>
             <AppenderRef ref="Console"/>
         </AsyncLogger>

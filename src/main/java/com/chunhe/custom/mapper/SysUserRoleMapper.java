@@ -9,8 +9,9 @@ import com.chunhe.custom.mybatis.BaseMapper;
  * </p>
  *
  * @author AutoGenerator from white
- * @since 2021-05-22
+ * @since 2021-05-30
  */
 public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
 
+    public SysUserRole selectRoleIdsByUserId(Long userId);
 }

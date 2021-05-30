@@ -1,52 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.chunhe.custom.framework.mapper.SysUserMapper">
+<mapper namespace="com.chunhe.custom.mapper.SysUserMapper">
 
-    <resultMap id="BaseResultMap" type="com.chunhe.custom.framework.model.SysUser">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.entity.SysUser">
         <!--
           WARNING - @mbg.generated
         -->
         <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="username" jdbcType="VARCHAR" property="username"/>
-        <result column="password" jdbcType="VARCHAR" property="password"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="is_system" jdbcType="BIT" property="isSystem"/>
-        <result column="login_ip" jdbcType="VARCHAR" property="loginIp"/>
-        <result column="login_date" jdbcType="TIMESTAMP" property="loginDate"/>
-        <result column="login_failure_count" jdbcType="INTEGER" property="loginFailureCount"/>
-        <result column="locked" jdbcType="BIT" property="locked"/>
-        <result column="locked_date" jdbcType="TIMESTAMP" property="lockedDate"/>
-        <result column="enabled" jdbcType="BIT" property="enabled"/>
+        <result column="sys_user_username" jdbcType="VARCHAR" property="sysUserUsername"/>
+        <result column="sys_user_password" jdbcType="VARCHAR" property="sysUserPassword"/>
+        <result column="sys_user_is_enable" jdbcType="BIT" property="sysUserIsEnable"/>
+        <result column="sys_user_is_locked" jdbcType="BIT" property="sysUserIsLocked"/>
+        <result column="sys_user_is_root" jdbcType="BIT" property="sysUserIsRoot"/>
+        <result column="sys_user_name" jdbcType="VARCHAR" property="sysUserName"/>
+        <result column="sys_user_mobile" jdbcType="VARCHAR" property="sysUserMobile"/>
         <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
         <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
-        <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate"/>
-        <result column="address" jdbcType="VARCHAR" property="address"/>
-        <result column="pos" jdbcType="VARCHAR" property="pos"/>
-        <result column="status" jdbcType="INTEGER" property="status"/>
-        <result column="longitude" jdbcType="DECIMAL" property="longitude"/>
-        <result column="latitude" jdbcType="DECIMAL" property="latitude"/>
-        <result column="uuid" jdbcType="VARCHAR" property="uuid"/>
-        <result column="price_multiple" jdbcType="VARCHAR" property="priceMultiple"/>
+        <result column="delete_date" jdbcType="TIMESTAMP" property="deleteDate"/>
     </resultMap>
-    <sql id="Base_Column_List">
-        <!--
-          WARNING - @mbg.generated
-        -->
-        su.`id` as `su_id`, su.`username` as `su_username`, su.`password` as `su_password`,
-        su.`name` as `su_name`, su.`is_system` as `su_is_system`, su.`login_ip` as `su_login_ip`, su.`login_date` as `su_login_date`,
-        su.`login_failure_count` as `su_login_failure_count`, su.`locked` as `su_locked`,
-        su.`locked_date` as `su_locked_date`, su.`enabled` as `su_enabled`, su.`create_date` as `su_create_date`,
-        su.`update_date` as `su_update_date`, su.`expire_date` as `su_expire_date`, su.`address` as `su_address`,
-        su.`pos` as `su_pos`, su.`status` as `su_status`, su.`longitude` as `su_longitude`,
-        su.`latitude` as `su_latitude`, su.`uuid` as `su_uuid`, su.`price_multiple` as `su_price_multiple`
-    </sql>
 
     <select id="findSysUserList" resultMap="BaseResultMap">
         SELECT su.* FROM `sys_user` su
         <where>
             1=1
-            and su.expire_date is null
-            and su.username != 'admin'
+            and su.delete_date is null
+            and su.sys_user_username != 'admin'
         </where>
     </select>
 
@@ -54,21 +32,21 @@
         SELECT su.* FROM `sys_user` su
         <where>
             1=1
-            and su.expire_date is null
-            <if test="username != null">
-                and su.username = #{username}
+            and su.delete_date is null
+            <if test="sysUserUsername != null">
+                and su.sys_user_username = #{sysUserUsername}
             </if>
-            <if test="enabled != null">
-                and su.enabled = #{enabled}
+            <if test="sysUserIsEnable != null">
+                and su.sys_user_is_enable = #{sysUserIsEnable}
             </if>
             limit 1
         </where>
     </select>
 
-    <update id="setNewPassword" parameterType="com.chunhe.custom.framework.model.SysUser">
+    <update id="setNewPassword" parameterType="com.chunhe.custom.entity.SysUser">
         update `sys_user` set password = #{password}
-        where expire_date is null
-        and username != 'admin'
+        where delete_date is null
+        and sys_user_username != 'admin'
     </update>
 
     <!--附近的店铺-->
@@ -79,7 +57,7 @@
         FROM sys_user
         <where>
             1=1
-            and expire_date is null
+            and delete_date is null
             <if test="enabled != null">
                 and enabled = #{enabled}
             </if>
@@ -92,10 +70,10 @@
       select * from `sys_user` su
         where
         1=1
-        and su.expire_date is null
-        and su.username = #{username}
-        and su.enabled = #{enabled}
-        and su.locked = #{locked}
+        and su.delete_date is null
+        and su.sys_user_username = #{sysUserUsername}
+        and su.sys_user_is_enable = #{sysUserIsEnable}
+        and su.sys_user_is_locked = #{sysUserIsLocked}
     </select>
 
 

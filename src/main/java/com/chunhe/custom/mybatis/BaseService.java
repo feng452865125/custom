@@ -1,7 +1,7 @@
 package com.chunhe.custom.mybatis;
 
-import com.chunhe.custom.entity.datatables.DataTablesRequest;
-import com.chunhe.custom.entity.datatables.DataTablesResponse;
+import com.chunhe.custom.datatables.DataTablesRequest;
+import com.chunhe.custom.datatables.DataTablesResponse;
 import com.github.pagehelper.ISelect;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -25,9 +25,9 @@ public abstract class BaseService<T> {
     protected Logger log = LogManager.getLogger(getClass());
 
     @Autowired
-    protected MyMapper<T> mapper;
+    protected BaseMapper<T> mapper;
 
-    protected MyMapper<T> getMapper() {
+    protected BaseMapper<T> getMapper() {
         return mapper;
     }
 
@@ -106,7 +106,7 @@ public abstract class BaseService<T> {
             return Lists.newArrayList();
         }
         if (keys.length <= 1000) {
-            return ((MyMapper<T>) getMapper()).selectByIds(StringUtils.join(keys, ','));
+            return ((BaseMapper<T>) getMapper()).selectByIds(StringUtils.join(keys, ','));
         }
 
         List<T> result = new ArrayList<>(keys.length);

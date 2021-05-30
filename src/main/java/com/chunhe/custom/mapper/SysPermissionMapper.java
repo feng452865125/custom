@@ -12,10 +12,8 @@ import java.util.List;
  * </p>
  *
  * @author AutoGenerator from white
- * @since 2021-05-22
+ * @since 2021-05-30
  */
 public interface SysPermissionMapper extends BaseMapper<SysPermission> {
-
-    List<SysPermission> selectPermissionByCodes(@Param("permissionCodes") String[] permissionCodes);
-
+    List<SysPermission> selectBycodes(@Param("permissionCodes") String[] permissionCodes);
 }

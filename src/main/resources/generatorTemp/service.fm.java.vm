@@ -1,0 +1,23 @@
+package ${package.Service};
+
+import ${superServiceClassPackage};
+import ${package.Entity}.${entity};
+import org.springframework.stereotype.Service;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+/**
+ * <p>
+ * $!{table.comment} freemarker-服务层
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+
+@Service
+public class Fm${entity}Service extends ${superServiceClass}<${entity}> {
+
+    private Logger logger = LogManager.getLogger(getClass());
+
+}

@@ -1,10 +1,9 @@
 package com.chunhe.custom.entity;
 
 import com.chunhe.custom.mybatis.BaseEntity;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-
+import lombok.Data;
 import javax.persistence.Table;
 
 /**
@@ -13,16 +12,16 @@ import javax.persistence.Table;
  * </p>
  *
  * @author AutoGenerator from white
- * @since 2021-05-14
+ * @since 2021-05-30
  */
 
 @Table(name = "sys_config")
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class SysConfig extends BaseEntity {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 前端显示用
