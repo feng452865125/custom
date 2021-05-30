@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.RelStylePrintingMapper">
+  <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.RelStylePrinting">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="style_id" jdbcType="INTEGER" property="styleId" />
+    <result column="printing_id" jdbcType="INTEGER" property="printingId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    rsp.`id` as `rsp_id`, rsp.`style_id` as `rsp_style_id`, rsp.`printing_id` as `rsp_printing_id`
+  </sql>
+</mapper>

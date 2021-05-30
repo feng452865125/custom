@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.ThreeDFileMapper">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.ThreeDFile">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate"/>
+        <result column="modules" jdbcType="VARCHAR" property="modules"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        tdf.`id` as `tdf_id`, tdf.`name` as `tdf_name`, tdf.`url` as `tdf_url`, tdf.`type` as `tdf_type`,
+        tdf.`remark` as `tdf_remark`, tdf.`create_date` as `tdf_create_date`, tdf.`update_date` as `tdf_update_date`,
+        tdf.`expire_date` as `tdf_expire_date`, tdf.`modules` as `tdf_modules`
+    </sql>
+
+    <select id="findThreeDModulesList" resultMap="BaseResultMap">
+        SELECT td.modules, td.type, td.remark FROM `three_d_file` td
+        group by td.modules
+    </select>
+
+    <select id="findThreeDFileList" resultMap="BaseResultMap">
+        SELECT td.* FROM `three_d_file` td
+        <where>
+            1=1
+            and td.expire_date is null
+            <if test="type != null">
+                and td.type = #{type}
+            </if>
+            <if test="modules != null">
+                and td.modules = #{modules}
+            </if>
+        </where>
+    </select>
+
+    <select id="getThreeDFile" resultMap="BaseResultMap">
+        SELECT td.* FROM `three_d_file` td
+        <where>
+            1=1
+            and td.expire_date is null
+            <if test="id != null">
+                and td.id = #{id}
+            </if>
+            <if test="type != null">
+                and td.type = #{type}
+            </if>
+            <if test="modules != null">
+                and td.modules = #{modules}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+</mapper>

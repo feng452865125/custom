@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xi="http://www.w3.org/2001/XInclude" status="debug">
+    <Properties>
+        <Property name="logsDir">logs</Property>
+        <Property name="logsPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level [%logger{50}:%L] [%X{X-B3-TraceId},%X{X-B3-SpanId}] - %msg%n"/>
+    </Properties>
+
+    <appenders>
+        <!-- 输出到控制台，仅在本地开发环境使用 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${logsPattern}"/>
+        </Console>
+
+        <RollingRandomAccessFile name="FILE-INFO" fileName="logs/log-info.log"
+                                 filePattern="logs/log-info.%d{yyyy-MM-dd-HH}.log">
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${logsPattern}"/>
+            <!--默认一天一个文件-->
+            <TimeBasedTriggeringPolicy interval="1"/>
+            <!--一天内大于size就单独分隔-->
+            <SizeBasedTriggeringPolicy size="1 GB"/>
+            <!-- max=2标识一小时内最多产生1个日志文件 -->
+            <DefaultRolloverStrategy max="2">
+                <Delete basePath="${logsDir}" maxDepth="2">
+                    <!--匹配文件，保留72小时-->
+                    <IfFileName glob="*system-info.*.log"/>
+                    <IfLastModified age="72h"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+
+        <RollingRandomAccessFile name="FILE-DEBUG" fileName="logs/log-debug.log"
+                                 filePattern="logs/log-debug.%d{yyyy-MM-dd-HH}.log">
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${logsPattern}"/>
+            <!--默认一天一个文件-->
+            <TimeBasedTriggeringPolicy interval="1"/>
+            <!--一天内大于size就单独分隔-->
+            <SizeBasedTriggeringPolicy size="1 GB"/>
+            <!-- max=2标识一小时内最多产生1个日志文件 -->
+            <DefaultRolloverStrategy max="2">
+                <Delete basePath="${logsDir}" maxDepth="2">
+                    <!--匹配文件，保留72小时-->
+                    <IfFileName glob="*system-info.*.log"/>
+                    <IfLastModified age="72h"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="FILE-WARN" fileName="logs/log-warn.log"
+                                 filePattern="logs/log-warn.%d{yyyy-MM-dd-HH}.log">
+            <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${logsPattern}"/>
+            <!--默认一天一个文件-->
+            <TimeBasedTriggeringPolicy interval="1"/>
+            <!--一天内大于size就单独分隔-->
+            <SizeBasedTriggeringPolicy size="1 GB"/>
+            <!-- max=2标识一小时内最多产生1个日志文件 -->
+            <DefaultRolloverStrategy max="2">
+                <Delete basePath="${logsDir}" maxDepth="2">
+                    <!--匹配文件，保留72小时-->
+                    <IfFileName glob="*system-info.*.log"/>
+                    <IfLastModified age="72h"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="FILE-ERROR" fileName="logs/log-error.log"
+                                 filePattern="logs/log-error.%d{yyyy-MM-dd-HH}.log">
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${logsPattern}"/>
+            <!--默认一天一个文件-->
+            <TimeBasedTriggeringPolicy interval="1"/>
+            <!--一天内大于size就单独分隔-->
+            <SizeBasedTriggeringPolicy size="1 GB"/>
+            <!-- max=2标识一小时内最多产生1个日志文件 -->
+            <DefaultRolloverStrategy max="2">
+                <Delete basePath="${logsDir}" maxDepth="2">
+                    <!--匹配文件，保留72小时-->
+                    <IfFileName glob="*system-info.*.log"/>
+                    <IfLastModified age="72h"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+    </appenders>
+
+    <loggers>
+        <AsyncLogger name="com.chunhe.custom.mapper" level="DEBUG" includeLocation="false" additivity="false">
+            <AppenderRef ref="FILE-DEBUG"/>
+            <AppenderRef ref="Console"/>
+        </AsyncLogger>
+
+        <AsyncRoot level="INFO" includeLocation="false" additivity="false">
+            <AppenderRef ref="FILE-DEBUG"/>
+            <AppenderRef ref="FILE-INFO"/>
+            <AppenderRef ref="FILE-WARN"/>
+            <AppenderRef ref="FILE-ERROR"/>
+            <AppenderRef ref="Console"/>
+        </AsyncRoot>
+    </loggers>
+</configuration>

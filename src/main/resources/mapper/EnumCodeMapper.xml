@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.EnumCodeMapper">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.EnumCode">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        ec.`id` as `ec_id`, ec.`code` as `ec_code`, ec.`name` as `ec_name`, ec.`type` as `ec_type`,
+        ec.`remark` as `ec_remark`
+    </sql>
+
+    <select id="findEnumCodeList" resultMap="BaseResultMap">
+        SELECT ec.* FROM `enum_code` ec
+        <where>
+            1=1
+            <if test="type != null">
+                and ec.type = #{type}
+            </if>
+            and LENGTH(ec.name) > 0
+        </where>
+    </select>
+
+    <select id="getEnumCode" resultMap="BaseResultMap">
+        SELECT ec.* FROM `enum_code` ec
+        <where>
+            1=1
+            <if test="type != null">
+                and ec.type = #{type}
+            </if>
+            <if test="code != null">
+                and ec.code = #{code}
+            </if>
+            <if test="name != null">
+                and ec.name = #{name}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+</mapper>

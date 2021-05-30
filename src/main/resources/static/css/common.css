@@ -1,0 +1,178 @@
+/*图片的相关设置*/
+.img_shadow {
+    border: 1px solid #dadada;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#909090, direction=120, strength=4); /*ie*/
+    -moz-box-shadow: 2px 2px 10px #909090; /*firefox*/
+    -webkit-box-shadow: 2px 2px 10px #909090; /*safari或chrome*/
+    box-shadow: 2px 2px 10px #909090; /*opera或ie9*/
+}
+
+.img_upload_show{
+    min-height: 130px;
+    max-height: 250px;
+    margin: 10px 0;
+    min-width: 150px;
+    max-width: 300px;
+}
+
+.img_td {
+    width: 100px;
+}
+
+.img_img {
+    height: 100%;
+}
+
+.form-group .build-floor {
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.form-group .build-floor .around {
+    width: 30%;
+}
+
+.form-group .build-floor .around .text {
+    position: absolute;
+    right: 30px;
+    top: 32px;
+}
+
+.form-group .build-floor .center {
+    width: 30%;
+    margin: 0 5%;
+}
+
+/*备注设置*/
+.form-group .remark_style {
+    height: 108px;
+    resize: none;
+}
+
+/*list里的表格居中*/
+.table_style thead tr th,
+.table_style tbody tr td {
+    vertical-align: middle;
+}
+
+/*list表格标题不换行*/
+.table_style thead tr th {
+    white-space: nowrap;
+}
+.table_img_style tbody tr td {
+    height: 60px;
+}
+
+.table_style thead tr th:first-child,
+.table_style tbody tr td:first-child {
+    text-align: center;
+}
+
+.ad_view thead tr th:last-child,
+.ad_view tbody tr td:last-child {
+    text-align: center;
+    padding-right: 0;
+}
+
+.dada_style_view thead tr th:last-child,
+.dada_style_view tbody tr td:last-child {
+    text-align: center;
+    padding-right: 0;
+}
+
+/*报修订单设置--orderRepair--view*/
+.cut_line {
+    height: 2px;
+    background-color: #dadada;
+    padding-left: 0;
+}
+
+.img_show_div {
+    height: 108px;
+}
+
+.img_view_show {
+    margin-right: 40px;
+    height: 100%;
+}
+
+/*评价里的设置*/
+.evaluate_star {
+    display: inline;
+    margin-left: 10px;
+}
+
+.evaluate_star_gold{
+    color: gold;
+}
+
+/*弹窗的select提醒*/
+.select-tip {
+    color: red;
+    margin-top: 10px;
+    display: none;
+}
+
+/*上传文件（无预览），上传成功、失败、上传中三种状态*/
+.bc_upload {
+    background-color: #3c8dbc;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 3px;
+    box-shadow: none;
+    border: #367fa9 1px solid;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    position: absolute;
+    top: 26px;
+    right: 15px;
+}
+.bc_upload_tip {
+    position: absolute;
+    display: none;
+    left: 90px;
+    top: 32px;
+}
+.bc_upload_tip_top8 {
+    position: absolute;
+    display: none;
+    left: 90px;
+    top: 8px;
+}
+.bc_upload_tip_right_null {
+    position: absolute;
+    display: none;
+    top: 32px;
+}
+.tip_success {
+    color: green;
+    font-size: 20px;
+}
+.tip_fail {
+    color: red;
+    font-size: 20px;
+}
+.tip_loading {
+    font-size: 25px;
+}
+
+.hidden-input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+input[type=radio] {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin: 12px 0;
+    vertical-align: bottom;
+}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chunhe.custom.framework.mapper.SysUserMapper">
+
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.framework.model.SysUser">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="is_system" jdbcType="BIT" property="isSystem"/>
+        <result column="login_ip" jdbcType="VARCHAR" property="loginIp"/>
+        <result column="login_date" jdbcType="TIMESTAMP" property="loginDate"/>
+        <result column="login_failure_count" jdbcType="INTEGER" property="loginFailureCount"/>
+        <result column="locked" jdbcType="BIT" property="locked"/>
+        <result column="locked_date" jdbcType="TIMESTAMP" property="lockedDate"/>
+        <result column="enabled" jdbcType="BIT" property="enabled"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="pos" jdbcType="VARCHAR" property="pos"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="longitude" jdbcType="DECIMAL" property="longitude"/>
+        <result column="latitude" jdbcType="DECIMAL" property="latitude"/>
+        <result column="uuid" jdbcType="VARCHAR" property="uuid"/>
+        <result column="price_multiple" jdbcType="VARCHAR" property="priceMultiple"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        su.`id` as `su_id`, su.`username` as `su_username`, su.`password` as `su_password`,
+        su.`name` as `su_name`, su.`is_system` as `su_is_system`, su.`login_ip` as `su_login_ip`, su.`login_date` as `su_login_date`,
+        su.`login_failure_count` as `su_login_failure_count`, su.`locked` as `su_locked`,
+        su.`locked_date` as `su_locked_date`, su.`enabled` as `su_enabled`, su.`create_date` as `su_create_date`,
+        su.`update_date` as `su_update_date`, su.`expire_date` as `su_expire_date`, su.`address` as `su_address`,
+        su.`pos` as `su_pos`, su.`status` as `su_status`, su.`longitude` as `su_longitude`,
+        su.`latitude` as `su_latitude`, su.`uuid` as `su_uuid`, su.`price_multiple` as `su_price_multiple`
+    </sql>
+
+    <select id="findSysUserList" resultMap="BaseResultMap">
+        SELECT su.* FROM `sys_user` su
+        <where>
+            1=1
+            and su.expire_date is null
+            and su.username != 'admin'
+        </where>
+    </select>
+
+    <select id="getSysUser" resultMap="BaseResultMap">
+        SELECT su.* FROM `sys_user` su
+        <where>
+            1=1
+            and su.expire_date is null
+            <if test="username != null">
+                and su.username = #{username}
+            </if>
+            <if test="enabled != null">
+                and su.enabled = #{enabled}
+            </if>
+            limit 1
+        </where>
+    </select>
+
+    <update id="setNewPassword" parameterType="com.chunhe.custom.framework.model.SysUser">
+        update `sys_user` set password = #{password}
+        where expire_date is null
+        and username != 'admin'
+    </update>
+
+    <!--附近的店铺-->
+    <select id="findSysUserNearbyList" resultMap="BaseResultMap">
+        select `id`, `username`, `name`, `address`, `longitude`, `latitude`, `pos`,
+        ROUND(6378.138*2*ASIN(SQRT(POW(SIN((#{latitude}*PI()/180-latitude*PI()/180)/2),2)+COS(#{latitude}*PI()/180)*COS(latitude*PI()/180)*POW(SIN((#{longitude}*PI()/180-longitude*PI()/180)/2),2)))*1000)
+        AS distance
+        FROM sys_user
+        <where>
+            1=1
+            and expire_date is null
+            <if test="enabled != null">
+                and enabled = #{enabled}
+            </if>
+        </where>
+        having #{nearbyDistance}>= distance
+        order by distance asc
+    </select>
+
+    <select id="selectByUsername" resultMap="BaseResultMap">
+      select * from `sys_user` su
+        where
+        1=1
+        and su.expire_date is null
+        and su.username = #{username}
+        and su.enabled = #{enabled}
+        and su.locked = #{locked}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.PartsMiddleMapper">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.PartsMiddle">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="group_type" jdbcType="INTEGER" property="groupType"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="price" jdbcType="INTEGER" property="price"/>
+        <result column="imgs" jdbcType="VARCHAR" property="imgs"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="video" jdbcType="VARCHAR" property="video"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="ex_yy" jdbcType="VARCHAR" property="exYy"/>
+        <result column="ex_qghy" jdbcType="VARCHAR" property="exQghy"/>
+        <result column="ex_jbkd" jdbcType="INTEGER" property="exJbkd"/>
+        <result column="ex_jscz" jdbcType="VARCHAR" property="exJscz"/>
+        <result column="ex_jsys" jdbcType="VARCHAR" property="exJsys"/>
+        <result column="ex_jszl" jdbcType="INTEGER" property="exJszl"/>
+        <result column="ex_zs_xz" jdbcType="VARCHAR" property="exZsXz"/>
+        <result column="ex_zs_zs" jdbcType="VARCHAR" property="exZsZs"/>
+        <result column="ex_zs_zl" jdbcType="INTEGER" property="exZsZl"/>
+        <result column="ex_zs_ys" jdbcType="VARCHAR" property="exZsYs"/>
+        <result column="ex_zs_jd" jdbcType="VARCHAR" property="exZsJd"/>
+        <result column="ex_zs_qg" jdbcType="VARCHAR" property="exZsQg"/>
+        <result column="ex_zs_pg" jdbcType="VARCHAR" property="exZsPg"/>
+        <result column="ex_zs_dc" jdbcType="VARCHAR" property="exZsDc"/>
+        <result column="ex_zs_yg" jdbcType="VARCHAR" property="exZsYg"/>
+        <result column="ex_zs_bh" jdbcType="VARCHAR" property="exZsBh"/>
+        <result column="ex_zs_ym" jdbcType="VARCHAR" property="exZsYm"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate"/>
+        <result column="kk" jdbcType="VARCHAR" property="kk"/>
+        <result column="ys" jdbcType="VARCHAR" property="ys"/>
+        <result column="fs_kd" jdbcType="VARCHAR" property="fsKd"/>
+        <result column="is_show" jdbcType="BIT" property="isShow"/>
+        <result column="three_d30" jdbcType="VARCHAR" property="threeD30"/>
+        <result column="three_d50" jdbcType="VARCHAR" property="threeD50"/>
+        <result column="three_d70" jdbcType="VARCHAR" property="threeD70"/>
+        <result column="three_d100" jdbcType="VARCHAR" property="threeD100"/>
+        <result column="ex_sc" jdbcType="VARCHAR" property="exSc"/>
+        <result column="is_recommend" jdbcType="BIT" property="isRecommend"/>
+        <result column="jb_ys_recommend" jdbcType="VARCHAR" property="jbYsRecommend"/>
+        <result column="side_img_url" jdbcType="VARCHAR" property="sideImgUrl"/>
+        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="company" jdbcType="VARCHAR" property="company"/>
+        <result column="lock_status" jdbcType="INTEGER" property="lockStatus"/>
+        <result column="dollar_price" jdbcType="INTEGER" property="dollarPrice"/>
+        <result column="inter_price" jdbcType="INTEGER" property="interPrice"/>
+        <result column="sale_back" jdbcType="VARCHAR" property="saleBack"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="bic" jdbcType="VARCHAR" property="bic"/>
+        <result column="bis" jdbcType="VARCHAR" property="bis"/>
+        <result column="milky" jdbcType="VARCHAR" property="milky"/>
+        <result column="colsh" jdbcType="VARCHAR" property="colsh"/>
+        <result column="eyeclean" jdbcType="VARCHAR" property="eyeclean"/>
+        <result column="green" jdbcType="VARCHAR" property="green"/>
+        <result column="table" jdbcType="VARCHAR" property="table"/>
+        <result column="black_inc" jdbcType="VARCHAR" property="blackInc"/>
+        <result column="hues" jdbcType="VARCHAR" property="hues"/>
+        <result column="batch" jdbcType="VARCHAR" property="batch"/>
+        <result column="stone_status" jdbcType="VARCHAR" property="stoneStatus"/>
+        <result column="original_data" jdbcType="VARCHAR" property="originalData"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        p.`id` as `p_id`, p.`code` as `p_code`, p.`name` as `p_name`, p.`type` as `p_type`,
+        p.`group_type` as `p_group_type`, p.`status` as `p_status`, p.`price` as `p_price`,
+        p.`imgs` as `p_imgs`, p.`img_url` as `p_img_url`, p.`video` as `p_video`, p.`remark` as `p_remark`,
+        p.`note` as `p_note`, p.`ex_yy` as `p_ex_yy`, p.`ex_qghy` as `p_ex_qghy`, p.`ex_jbkd` as `p_ex_jbkd`,
+        p.`ex_jscz` as `p_ex_jscz`, p.`ex_jsys` as `p_ex_jsys`, p.`ex_jszl` as `p_ex_jszl`,
+        p.`ex_zs_xz` as `p_ex_zs_xz`,
+        p.`ex_zs_zs` as `p_ex_zs_zs`, p.`ex_zs_zl` as `p_ex_zs_zl`, p.`ex_zs_ys` as `p_ex_zs_ys`,
+        p.`ex_zs_jd` as `p_ex_zs_jd`, p.`ex_zs_qg` as `p_ex_zs_qg`, p.`ex_zs_pg` as `p_ex_zs_pg`,
+        p.`ex_zs_dc` as `p_ex_zs_dc`, p.`ex_zs_yg` as `p_ex_zs_yg`, p.`ex_zs_bh` as `p_ex_zs_bh`, p.`ex_zs_ym` as
+        `p_ex_zs_ym`,
+        p.`create_date` as `p_create_date`, p.`update_date` as `p_update_date`, p.`expire_date` as `p_expire_date`,
+        p.`kk` as `p_kk`, p.`ys` as `p_ys`, p.`fs_kd` as `p_fs_kd`, p.`is_show` as `p_is_show`,
+        p.`three_d30` as `p_three_d30`, p.`three_d50` as `p_three_d50`, p.`three_d70` as `p_three_d70`,
+        p.`three_d100` as `p_three_d100`, p.`ex_sc` as `p_ex_sc`, p.`is_recommend` as `p_is_recommend`,
+        p.`jb_ys_recommend` as `p_jb_ys_recommend`, p.`side_img_url` as `p_side_img_url`, p.`level` as `p_level`,
+        p.`company` as `p_company`, p.`lock_status` as `p_lock_status`, p.`dollar_price` as `p_dollar_price`,
+        p.`inter_price` as `p_inter_price`, p.`sale_back` as `p_sale_back`,
+        p.`location` as `p_location`, p.`bic` as `p_bic`, p.`bis` as `p_bis`, p.`milky` as `p_milky`,
+        p.`colsh` as `p_colsh`, p.`eyeclean` as `p_eyeclean`, p.`green` as `p_green`,
+        p.`table` as `p_table`, p.`black_inc` as `p_black_inc`, p.`hues` as `p_hues`, p.`batch` as `p_batch`,
+        p.`stone_status` as `p_stone_status`, p.`original_data` as `p_original_data`
+    </sql>
+
+    <!--获取已存在的列表-->
+    <select id="findPartsMiddleList" resultMap="BaseResultMap">
+        select * from parts_middle pm
+        <where>
+            1 = 1
+            and expire_date is null
+            <if test="company != null and company != ''">
+                and pm.company = #{company}
+            </if>
+            <if test="type != null and type != ''">
+                and pm.type = #{type}
+            </if>
+        </where>
+    </select>
+
+    <!--获取创建时间在24小时内的列表-->
+    <select id="findCreatePartsList" resultMap="BaseResultMap">
+        select *
+        from parts_middle pm
+        where expire_date is null
+        and  create_date >=(NOW() - interval 24 hour)
+        <if test="company != null and company != ''">
+            and pm.company = #{company}
+        </if>
+        <if test="type != null and type != ''">
+            and pm.type = #{type}
+        </if>
+    </select>
+
+    <!--获取更新时间在24小时内的列表-->
+    <select id="findUpdatePartsList" resultMap="BaseResultMap">
+        select *
+        from parts_middle pm
+        where expire_date is null
+        and  update_date >=(NOW() - interval 24 hour)
+        <if test="company != null and company != ''">
+            and pm.company = #{company}
+        </if>
+        <if test="type != null and type != ''">
+            and pm.type = #{type}
+        </if>
+    </select>
+
+
+    <!--获取失效时间在24小时内的列表-->
+    <select id="findExpirePartsList" resultMap="BaseResultMap">
+        select *
+        from parts_middle pm
+        where expire_date is not null
+        and  expire_date >=(NOW() - interval 24 hour)
+        <if test="company != null and company != ''">
+            and pm.company = #{company}
+        </if>
+        <if test="type != null and type != ''">
+            and pm.type = #{type}
+        </if>
+    </select>
+
+
+
+</mapper>

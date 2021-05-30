@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.DadaJewelryTypeMapper">
+  <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.DadaJewelryType">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    djt.`id` as `djt_id`, djt.`code` as `djt_code`, djt.`name` as `djt_name`, djt.`remark` as `djt_remark`, 
+    djt.`create_date` as `djt_create_date`, djt.`update_date` as `djt_update_date`, djt.`expire_date` as `djt_expire_date`
+  </sql>
+
+  <select id="findDadaJewelryTypeList" resultMap="BaseResultMap">
+    SELECT djt.* FROM `dada_jewelry_type` djt
+    <where>
+      1=1
+      and djt.expire_date is null
+    </where>
+    order by djt.create_date desc
+  </select>
+
+  <select id="getDadaJewelryType" resultMap="BaseResultMap">
+    SELECT djt.* FROM `dada_jewelry_type` djt
+    <where>
+      1=1
+      and djt.expire_date is null
+      <if test="id != null">
+        and djt.id = #{id}
+      </if>
+      <if test="code != null">
+        and djt.code = #{code}
+      </if>
+      limit 1
+    </where>
+  </select>
+
+
+</mapper>

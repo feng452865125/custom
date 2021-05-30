@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.RelYsMapper">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.RelYs">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="kk" jdbcType="VARCHAR" property="kk"/>
+        <result column="ht_ys" jdbcType="VARCHAR" property="htYs"/>
+        <result column="fs" jdbcType="VARCHAR" property="fs"/>
+        <result column="jb_ys" jdbcType="VARCHAR" property="jbYs"/>
+        <result column="kd" jdbcType="VARCHAR" property="kd"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        ry.`id` as `ry_id`, ry.`kk` as `ry_kk`, ry.`ht_ys` as `ry_ht_ys`, ry.`fs` as `ry_fs`,
+        ry.`jb_ys` as `ry_jb_ys`, ry.`kd` as `ry_kd`
+    </sql>
+
+    <select id="findRelYsList" resultMap="BaseResultMap">
+        SELECT st.id, ry.kk, ry.ht_ys, ry.fs, ry.jb_ys, ry.kd, pr.ex_sc as productExSc,
+        st.name as styleName, st.moral as styleMoral, pt.three_d50 as threeDHt, pt2.three_d50 as threeDJb
+        from rel_ys ry
+        LEFT JOIN (SELECT * from style WHERE expire_date is null and series = "UNIQUE") st on st.jb_ys = ry.jb_ys and st.ht_ys = ry.ht_ys
+        LEFT JOIN (SELECT * from parts WHERE expire_date is null and `type` = 3) pt on pt.ys = ry.ht_ys and pt.kk = ry.kk and pt.fs_kd = ry.fs
+        LEFT JOIN (SELECT * from parts WHERE expire_date is null and `type` = 2) pt2 on pt2.ys = ry.jb_ys and pt2.kk = ry.kk
+        ,product pr
+        WHERE pr.expire_date is null
+        AND pt.ys is not null
+		AND pt2.ys is not null
+        and pr.style_id = st.id
+        GROUP BY ry.id
+        ORDER BY ht_ys asc
+     </select>
+
+    <select id="getRelYs" resultMap="BaseResultMap">
+        SELECT ry.* from rel_ys ry
+        <where>
+            1=1
+            <if test="htYs != null">
+                and ry.ht_ys = #{htYs}
+            </if>
+            <if test="jbYs != null">
+                and ry.jb_ys = #{jbYs}
+            </if>
+            <if test="fs != null">
+                and ry.fs = #{fs}
+            </if>
+        </where>
+        limit 1
+    </select>
+</mapper>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.GroupInfoMapper">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.GroupInfo">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate"/>
+        <result column="ys" jdbcType="VARCHAR" property="ys"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        g.`id` as `g_id`, g.`code` as `g_code`, g.`name` as `g_name`, g.`remark` as `g_remark`,
+        g.`type` as `g_type`, g.`create_date` as `g_create_date`, g.`update_date` as `g_update_date`,
+        g.`expire_date` as `g_expire_date`, g.`ys` as `g_ys`
+    </sql>
+
+    <select id="findGroupInfoList" resultMap="BaseResultMap">
+        SELECT gi.* FROM `group_info` gi
+        <where>
+            1=1
+            and gi.expire_date is null
+            <if test="type != null">
+                and gi.type = #{type}
+            </if>
+            order by gi.id asc
+        </where>
+    </select>
+
+    <select id="getGroupInfo" resultMap="BaseResultMap">
+        SELECT gi.* FROM `group_info` gi
+        <where>
+            1=1
+            and gi.expire_date is null
+            <if test="id != null">
+                and gi.id = #{id}
+            </if>
+            <if test="code != null">
+                and gi.code = #{code}
+            </if>
+            limit 1
+        </where>
+    </select>
+
+    <select id="getGroupInfoYs" resultMap="BaseResultMap">
+        SELECT gi.* FROM `group_info` gi
+        <where>
+            1=1
+            and gi.expire_date is null
+            <if test="type != null">
+                and gi.type = #{type}
+            </if>
+            <if test="ys != null">
+                and gi.ys like concat('%', #{ys}, '%')
+            </if>
+            limit 1
+        </where>
+    </select>
+
+</mapper>

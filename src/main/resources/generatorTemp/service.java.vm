@@ -1,0 +1,19 @@
+package ${package.Service};
+
+import org.springframework.stereotype.Service;
+import ${package.Entity}.${entity};
+import ${superServiceClassPackage};
+
+/**
+ * <p>
+ * $!{table.comment} 服务层
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+
+@Service
+public class ${entity}Service extends BaseService<${entity}> {
+
+}

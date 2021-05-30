@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.BasePriceMapper">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.BasePrice">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="kl_min" jdbcType="INTEGER" property="klMin"/>
+        <result column="kl_max" jdbcType="INTEGER" property="klMax"/>
+        <result column="ys" jdbcType="VARCHAR" property="ys"/>
+        <result column="jd" jdbcType="VARCHAR" property="jd"/>
+        <result column="qg" jdbcType="VARCHAR" property="qg"/>
+        <result column="pg" jdbcType="VARCHAR" property="pg"/>
+        <result column="dc" jdbcType="VARCHAR" property="dc"/>
+        <result column="yg" jdbcType="VARCHAR" property="yg"/>
+        <result column="zs" jdbcType="VARCHAR" property="zs"/>
+        <result column="price" jdbcType="INTEGER" property="price"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate"/>
+        <result column="status" jdbcType="BIT" property="status"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        bp.`id` as `bp_id`, bp.`name` as `bp_name`, bp.`kl_min` as `bp_kl_min`, bp.`kl_max` as `bp_kl_max`,
+        bp.`ys` as `bp_ys`, bp.`jd` as `bp_jd`, bp.`qg` as `bp_qg`, bp.`pg` as `bp_pg`, bp.`dc` as `bp_dc`,
+        bp.`yg` as `bp_yg`, bp.`zs` as `bp_zs`, bp.`price` as `bp_price`,
+        bp.`remark` as `bp_remark`, bp.`create_date` as `bp_create_date`, bp.`update_date` as `bp_update_date`,
+        bp.`expire_date` as `bp_expire_date`, bp.`status` as `bp_status`
+    </sql>
+
+
+    <select id="findBasePriceList" resultMap="BaseResultMap">
+        select bp.* from `base_price` bp
+        <where>
+            1=1
+            and bp.expire_date is null
+            <if test="status != null">
+                and bp.status = #{status}
+            </if>
+            <if test="klMin != null">
+                and #{klMin} >= bp.kl_min
+                and bp.kl_max >= #{klMin}
+            </if>
+            <if test="orderBy != null">
+                order by ${orderBy}
+            </if>
+        </where>
+    </select>
+
+    <select id="getBasePrice" resultMap="BaseResultMap">
+        select bp.* from `base_price` bp
+        <where>
+            1=1
+            and bp.expire_date is null
+            <if test="id != null">
+                and bp.id = #{id}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+
+    <!--钻石列表，按4C标准显示-->
+    <!--APP查找钻石list关联优选钻石-->
+    <resultMap id="findDiamondGroupListWithParts" type="com.chunhe.custom.pc.model.BasePrice" extends="BaseResultMap">
+        <collection property="parts" column="{exZsYs = exZsYs, exZsJd = exZsJd, exZsQg = exZsQg, exZsPg = exZsPg,
+        exZsDc = exZsDc, exZsYg = exZsYg, exZsZs = exZsZs, exZsZl = exZsZl}"
+                    select="com.chunhe.custom.pc.mapper.PartsMapper.getMinParts">
+        </collection>
+    </resultMap>
+    <!--钻石列表，按4C标准显示-->
+    <!--根据子查询语句进行分组 颜色 精度 切光 抛光 对称 荧光 证书 质量  -->
+    <select id="findDiamondGroupList" resultMap="BaseResultMap">
+        select * from (
+
+        (
+        SELECT nbp.id, npa.ex_zs_zl AS zl, nbp.kl_min, nbp.kl_max, nbp.ys, nbp.jd, nbp.qg, nbp.pg, nbp.dc, nbp.yg,
+        nbp.zs,
+        (nbp.price * (npa.ex_zs_zl / 1000) * ${priceMultiple1} + npr.price) AS price,
+        npa.id AS diamondId, npa.company AS stoneCompany, npa.location AS stoneLocation, npa.ex_zs_bh AS stoneZsh,
+        "small" AS stoneType
+        from
+        (
+        SELECT bp.id, bp.kl_min, bp.kl_max, bp.ys, bp.jd, bp.qg, bp.pg, bp.dc, bp.yg, bp.zs, bp.price, "small" AS
+        stoneType,
+        case when bp.qg = 'EX' and bp.pg = 'EX' and bp.dc = 'EX' then 1 else 2 end as bpType
+        FROM base_price bp
+        WHERE bp.expire_date IS NULL
+        and bp.`status` = 1
+
+        ) as nbp
+
+        LEFT JOIN (
+
+        SELECT * from (SELECT pa.id, pa.ex_zs_zl, pa.ex_zs_qg, pa.ex_zs_pg, pa.ex_zs_dc, pa.ex_zs_ys, pa.ex_zs_jd,
+        pa.ex_zs_yg, pa.ex_zs_zs,
+        case when pa.ex_zs_qg = 'EX' and pa.ex_zs_pg = 'EX' and pa.ex_zs_dc = 'EX' then 1 else 2 end as paType,
+        CASE ts.short_name
+        WHEN "CHINASTAR" THEN pa.dollar_price * 7
+        WHEN "HB" THEN pa.dollar_price * 7
+        WHEN "JP" THEN pa.dollar_price * 7
+        WHEN "PG" THEN pa.dollar_price * 7
+        WHEN "DIAMART" THEN pa.dollar_price * 7
+        WHEN "OPO" THEN pa.dollar_price * 7
+        WHEN "DHA" THEN pa.dollar_price * 7
+        WHEN "KBS" THEN pa.dollar_price * 7
+        WHEN "HB2" THEN pa.dollar_price * 7
+        WHEN "KDL" THEN pa.dollar_price * 7
+        ELSE pa.dollar_price END AS rmbPrice,
+        pa.company, pa.location, pa.ex_zs_bh
+        from parts pa
+        left join third_supplier ts on ts.short_name = pa.company and ts.expire_date is null
+        where pa.expire_date is null and pa.type = 1
+        and pa.lock_status = 1
+        and pa.enable_status = 1
+        and pa.ex_zs_bh IS NOT NULL and pa.ex_zs_bh != "" AND pa.company != "KEER"
+        and pa.ex_zs_qg in ('EX', 'VG')
+        and pa.ex_zs_pg in ('EX', 'VG')
+        and pa.ex_zs_dc in ('EX', 'VG')
+        <if test="zsZlMin != null and zsZlMin != 0">
+            and pa.ex_zs_zl >= #{zsZlMin}
+        </if>
+        <if test="zsZlMax != null and zsZlMax != 0">
+            and #{zsZlMax} >= pa.ex_zs_zl
+        </if>
+        <if test="locationIndia != null">
+            and pa.location != "印度"
+            and pa.location != "INDIA"
+        </if>
+        ORDER BY ts.score DESC, pa.location desc, rmbPrice ASC, ts.work_date ASC
+        limit 50000) as ppa
+        GROUP BY ppa.paType, ppa.ex_zs_zl, ppa.ex_zs_ys, ppa.ex_zs_jd, ppa.ex_zs_yg, ppa.ex_zs_zs
+
+        ) AS npa ON npa.ex_zs_ys = nbp.ys
+        AND npa.ex_zs_jd = nbp.jd
+        AND npa.ex_zs_yg = nbp.yg
+        AND npa.ex_zs_zs = nbp.zs
+        AND npa.ex_zs_zl >= nbp.kl_min
+        AND nbp.kl_max >= npa.ex_zs_zl
+        AND nbp.bpType = npa.paType
+
+        LEFT JOIN (
+        SELECT pr.id, pr.ex_diamond_fs_min, pr.ex_diamond_fs_max, pr.price
+        FROM product pr
+        WHERE pr.expire_date IS NULL
+        and pr.expire_date is null
+        and pr.kt_code != '0'
+        <if test="styleId != null">
+            and pr.style_id = #{styleId}
+        </if>
+        <if test="productJbkd != null">
+            and pr.ex_jb_kd = #{productJbkd}
+        </if>
+        <if test="productJscz != null">
+            and pr.jscz = #{productJscz}
+        </if>
+        <if test="productJsys != null">
+            and pr.jsys = #{productJsys}
+        </if>
+        GROUP BY pr.ex_fs
+        ) AS npr ON nbp.kl_min >= npr.ex_diamond_fs_min
+        AND npr.ex_diamond_fs_max >= nbp.kl_max
+        where 1=1
+        AND npr.id IS NOT NULL
+        AND nbp.id IS NOT NULL
+        AND npa.id IS NOT NULL
+        AND nbp.jd != "SI2"
+        AND (
+        (nbp.ys NOT IN ("K", "L", "M") AND nbp.qg NOT IN ("G") AND 1000 > nbp.kl_max )
+        OR ( nbp.ys NOT IN ("M") AND nbp.qg NOT IN ("G") AND 1499 = nbp.kl_max )
+        OR nbp.kl_min > 1499 )
+
+        )
+
+        union all
+
+        (
+
+        SELECT pb.id, pb.zs_zl as zl, pb.zs_zl as kl_min, "" as kl_max, pb.zs_ys as ys, pb.zs_jd as jd, pb.zs_qg as qg,
+        pb.zs_pg as pg,
+        pb.zs_dc as dc, pb.zs_yg as yg, "GIA" as zs,
+        (pb.zs_price * ${priceMultiple1} / ${priceStoreMultiple} + npr.price) as price,
+        pb.id as diamondId, pb.company AS stoneCompany, "" AS stoneLocation, pb.zs_zsh AS stoneZsh, "big" as stoneType
+        FROM parts_big pb
+        LEFT JOIN (SELECT pr.ex_diamond_fs_min, pr.ex_diamond_fs_max, pr.price, pr.id
+        FROM product pr where pr.expire_date is null
+        and pr.kt_code != '0'
+        GROUP BY pr.ex_fs
+
+        ) as npr
+        on pb.zs_zl >= npr.ex_diamond_fs_min
+        and npr.ex_diamond_fs_max >= pb.zs_zl
+        where
+        1=1
+        and pb.expire_date is null
+        and pb.lock_status = 1
+        and pb.enabled = true
+        and npr.id is not null
+
+        )
+
+        ) as stoneAll
+        <where>
+            1=1
+            <choose>
+                <when test="exZsQg == null and exZsDc == null and exZsPg == null">
+
+                </when>
+                <when test="exZsQg == 'EX' and exZsDc == 'EX' and exZsPg == 'EX'">
+                    and stoneAll.qg = 'EX' and stoneAll.pg = 'EX' and stoneAll.dc = 'EX'
+                </when>
+                <otherwise>
+                    and (
+                    (stoneAll.qg = 'EX' and stoneAll.pg = 'EX' and stoneAll.dc = 'VG')
+                    or (stoneAll.qg = 'EX' and stoneAll.pg = 'VG' and stoneAll.dc = 'EX')
+                    or (stoneAll.qg = 'EX' and stoneAll.pg = 'VG' and stoneAll.dc = 'VG')
+                    or (stoneAll.qg = 'VG' and stoneAll.pg = 'EX' and stoneAll.dc = 'EX')
+                    or (stoneAll.qg = 'VG' and stoneAll.pg = 'EX' and stoneAll.dc = 'VG')
+                    or (stoneAll.qg = 'VG' and stoneAll.pg = 'VG' and stoneAll.dc = 'EX')
+                    or (stoneAll.qg = 'VG' and stoneAll.pg = 'VG' and stoneAll.dc = 'VG')
+                    )
+                </otherwise>
+            </choose>
+            <if test="exZsYsArr != null and exZsYsArr.length > 0">
+                and stoneAll.ys in ${exZsYsArr}
+            </if>
+            <if test="exZsJdArr != null and exZsJdArr.length > 0">
+                and stoneAll.jd in ${exZsJdArr}
+            </if>
+            <if test="exZsYs != null">
+                and stoneAll.ys = #{exZsYs}
+            </if>
+            <if test="exZsJd != null">
+                and stoneAll.jd = #{exZsJd}
+            </if>
+            <if test="priceMin != null and priceMin != 0">
+                and stoneAll.price >= #{priceMin}
+            </if>
+            <if test="priceMax != null and priceMax != 0">
+                and #{priceMax} >= stoneAll.price
+            </if>
+            <if test="zsZlMin != null and zsZlMin != 0">
+                and stoneAll.zl >= #{zsZlMin}
+            </if>
+            <if test="zsZlMax != null and zsZlMax != 0">
+                and #{zsZlMax} >= stoneAll.zl
+            </if>
+        </where>
+        <if test="orderBy != null">
+            order by ${orderBy}
+        </if>
+
+    </select>
+
+    <select id="findDiamondGroupListPC" resultMap="BaseResultMap">
+        select * from (
+
+        (
+        SELECT nbp.id, npa.ex_zs_zl AS zl, nbp.kl_min, nbp.kl_max, nbp.ys, nbp.jd, nbp.qg, nbp.pg, nbp.dc, nbp.yg,
+        nbp.zs,
+        (nbp.price * (npa.ex_zs_zl / 1000) * ${priceMultiple1} + npr.price) AS price,
+        (nbp.price * (npa.ex_zs_zl / 1000) * ${priceStoreMultiple} + npr.price) AS sgPrice,
+        npa.id as diamondId, npa.company as stoneCompany, npa.location as stoneLocation, npa.ex_zs_bh AS stoneZsh,
+        "small" as stoneType
+        from
+        (
+        SELECT bp.id, bp.kl_min, bp.kl_max, bp.ys, bp.jd, bp.qg, bp.pg, bp.dc, bp.yg, bp.zs, bp.price, "small" as
+        stoneType,
+        case when bp.qg = 'EX' and bp.pg = 'EX' and bp.dc = 'EX' then 1 else 2 end as bpType
+        FROM base_price bp
+        WHERE bp.expire_date IS NULL
+        and bp.`status` = 1
+
+        ) as nbp
+
+        LEFT JOIN (
+
+        SELECT * from (SELECT pa.id, pa.ex_zs_zl, pa.ex_zs_qg, pa.ex_zs_pg, pa.ex_zs_dc, pa.ex_zs_ys, pa.ex_zs_jd,
+        pa.ex_zs_yg, pa.ex_zs_zs,
+        case when pa.ex_zs_qg = 'EX' and pa.ex_zs_pg = 'EX' and pa.ex_zs_dc = 'EX' then 1 else 2 end as paType,
+        CASE ts.short_name
+        WHEN "CHINASTAR" THEN pa.dollar_price * 7
+        WHEN "HB" THEN pa.dollar_price * 7
+        WHEN "JP" THEN pa.dollar_price * 7
+        WHEN "PG" THEN pa.dollar_price * 7
+        WHEN "DIAMART" THEN pa.dollar_price * 7
+        WHEN "OPO" THEN pa.dollar_price * 7
+        WHEN "DHA" THEN pa.dollar_price * 7
+        WHEN "KBS" THEN pa.dollar_price * 7
+        WHEN "HB2" THEN pa.dollar_price * 7
+        WHEN "KDL" THEN pa.dollar_price * 7
+        ELSE pa.dollar_price END AS rmbPrice,
+        pa.company, pa.location, pa.ex_zs_bh
+        from parts pa
+        left join third_supplier ts on ts.short_name = pa.company and ts.expire_date is null
+        where pa.expire_date is null and pa.type = 1
+        and pa.lock_status = 1
+        and pa.enable_status = 1
+        and pa.ex_zs_bh IS NOT NULL and pa.ex_zs_bh != "" AND pa.company != "KEER"
+        and pa.ex_zs_qg in ('EX', 'VG')
+        and pa.ex_zs_pg in ('EX', 'VG')
+        and pa.ex_zs_dc in ('EX', 'VG')
+        <if test="zsZlMin != null and zsZlMin != 0">
+            and pa.ex_zs_zl >= #{zsZlMin}
+        </if>
+        <if test="zsZlMax != null and zsZlMax != 0">
+            and #{zsZlMax} >= pa.ex_zs_zl
+        </if>
+        <if test="locationIndia != null">
+            and pa.location != "印度"
+            and pa.location != "INDIA"
+        </if>
+        ORDER BY ts.score DESC, pa.location desc, rmbPrice ASC, ts.work_date ASC
+        limit 50000) as ppa
+        GROUP BY ppa.paType, ppa.ex_zs_zl, ppa.ex_zs_ys, ppa.ex_zs_jd, ppa.ex_zs_yg, ppa.ex_zs_zs
+
+        ) AS npa ON npa.ex_zs_ys = nbp.ys
+        AND npa.ex_zs_jd = nbp.jd
+        AND npa.ex_zs_yg = nbp.yg
+        AND npa.ex_zs_zs = nbp.zs
+        AND npa.ex_zs_zl >= nbp.kl_min
+        AND nbp.kl_max >= npa.ex_zs_zl
+        AND nbp.bpType = npa.paType
+
+        LEFT JOIN (
+        SELECT pr.id, pr.ex_diamond_fs_min, pr.ex_diamond_fs_max, pr.price
+        FROM product pr
+        WHERE pr.expire_date IS NULL
+        and pr.expire_date is null
+        and pr.kt_code != '0'
+        <if test="styleId != null">
+            and pr.style_id = #{styleId}
+        </if>
+        <if test="productJbkd != null">
+            and pr.ex_jb_kd = #{productJbkd}
+        </if>
+        <if test="productJscz != null">
+            and pr.jscz = #{productJscz}
+        </if>
+        <if test="productJsys != null">
+            and pr.jsys = #{productJsys}
+        </if>
+        GROUP BY pr.ex_fs
+        ) AS npr ON nbp.kl_min >= npr.ex_diamond_fs_min
+        AND npr.ex_diamond_fs_max >= nbp.kl_max
+        where 1=1
+        AND npr.id IS NOT NULL
+        AND nbp.id IS NOT NULL
+        AND npa.id IS NOT NULL
+        AND nbp.jd != "SI2"
+        AND (
+        (nbp.ys NOT IN ("K", "L", "M") AND nbp.qg NOT IN ("G") AND 1000 > nbp.kl_max )
+        OR ( nbp.ys NOT IN ("M") AND nbp.qg NOT IN ("G") AND 1499 = nbp.kl_max )
+        OR nbp.kl_min > 1499 )
+
+        )
+
+        union all
+
+        (
+
+        SELECT pb.id, pb.zs_zl as zl, pb.zs_zl as kl_min, "" as kl_max, pb.zs_ys as ys, pb.zs_jd as jd, pb.zs_qg as qg,
+        pb.zs_pg as pg,
+        pb.zs_dc as dc, pb.zs_yg as yg, "GIA" as zs,
+        (pb.zs_price * ${priceMultiple1} / ${priceStoreMultiple}+ npr.price) as price,
+        (pb.zs_price + npr.price) as sgPrice,
+        pb.id as diamondId, pb.company as stoneCompany, "" as stoneLocation, pb.zs_zsh AS stoneZsh, "big" as stoneType
+        FROM parts_big pb
+        LEFT JOIN (SELECT pr.ex_diamond_fs_min, pr.ex_diamond_fs_max, pr.price, pr.id
+        FROM product pr where pr.expire_date is null
+        and pr.kt_code != '0'
+        GROUP BY pr.ex_fs
+
+        ) as npr
+        on pb.zs_zl >= npr.ex_diamond_fs_min
+        and npr.ex_diamond_fs_max >= pb.zs_zl
+        where
+        1=1
+        and pb.expire_date is null
+        and pb.lock_status = 1
+        and pb.enabled = true
+        and npr.id is not null
+
+        )
+
+        ) as stoneAll
+        <where>
+            1=1
+            <choose>
+                <when test="exZsQg == null and exZsDc == null and exZsPg == null">
+
+                </when>
+                <when test="exZsQg == 'EX' and exZsDc == 'EX' and exZsPg == 'EX'">
+                    and stoneAll.qg = 'EX' and stoneAll.pg = 'EX' and stoneAll.dc = 'EX'
+                </when>
+                <otherwise>
+                    and (
+                    (stoneAll.qg = 'EX' and stoneAll.pg = 'EX' and stoneAll.dc = 'VG')
+                    or (stoneAll.qg = 'EX' and stoneAll.pg = 'VG' and stoneAll.dc = 'EX')
+                    or (stoneAll.qg = 'EX' and stoneAll.pg = 'VG' and stoneAll.dc = 'VG')
+                    or (stoneAll.qg = 'VG' and stoneAll.pg = 'EX' and stoneAll.dc = 'EX')
+                    or (stoneAll.qg = 'VG' and stoneAll.pg = 'EX' and stoneAll.dc = 'VG')
+                    or (stoneAll.qg = 'VG' and stoneAll.pg = 'VG' and stoneAll.dc = 'EX')
+                    or (stoneAll.qg = 'VG' and stoneAll.pg = 'VG' and stoneAll.dc = 'VG')
+                    )
+                </otherwise>
+            </choose>
+            <if test="exZsYsArr != null and exZsYsArr.length > 0">
+                and stoneAll.ys in ${exZsYsArr}
+            </if>
+            <if test="exZsJdArr != null and exZsJdArr.length > 0">
+                and stoneAll.jd in ${exZsJdArr}
+            </if>
+            <if test="exZsYs != null">
+                and stoneAll.ys = #{exZsYs}
+            </if>
+            <if test="exZsJd != null">
+                and stoneAll.jd = #{exZsJd}
+            </if>
+            <if test="priceMin != null and priceMin != 0">
+                and stoneAll.price >= #{priceMin}
+            </if>
+            <if test="priceMax != null and priceMax != 0">
+                and #{priceMax} >= stoneAll.price
+            </if>
+            <if test="zsZlMin != null and zsZlMin != 0">
+                and stoneAll.zl >= #{zsZlMin}
+            </if>
+            <if test="zsZlMax != null and zsZlMax != 0">
+                and #{zsZlMax} >= stoneAll.zl
+            </if>
+        </where>
+        <if test="orderBy != null">
+            order by ${orderBy}
+        </if>
+    </select>
+
+    <select id="getDiamondFilter" resultMap="BaseResultMap">
+        select bp.* from `base_price` bp
+        <where>
+            1=1
+            and bp.expire_date is null
+            <if test="zl != null">
+                and bp.kl_max >= #{zl}
+                and #{zl} >= bp.kl_min
+            </if>
+            <if test="ys != null">
+                and bp.ys = #{ys}
+            </if>
+            <if test="jd != null">
+                and bp.jd = #{jd}
+            </if>
+            <if test="qg != null">
+                and bp.qg = #{qg}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+
+    <select id="getBasePriceByProperty" resultMap="BaseResultMap">
+        select bp.* from `base_price` bp
+        <where>
+            1=1
+            and bp.expire_date is null
+            <if test="ys != null and ys != ''">
+                and bp.ys = #{ys}
+            </if>
+            <if test="jd != null and jd != ''">
+                and bp.jd = #{jd}
+            </if>
+            <if test="qg != null and qg != ''">
+                and bp.qg = #{qg}
+            </if>
+            <if test="pg != null and pg != ''">
+                and bp.pg = #{pg}
+            </if>
+            <if test="dc != null and dc != ''">
+                and bp.dc = #{dc}
+            </if>
+            <if test="yg != null and yg != ''">
+                and bp.yg = #{yg}
+            </if>
+            <if test="klMin != null">
+                and bp.kl_min = #{klMin}
+            </if>
+            order by bp.create_date desc
+        </where>
+        limit 1
+    </select>
+
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.CustomCardTaskMapper">
+  <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.CustomCardTask">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="card_task_name" jdbcType="VARCHAR" property="cardTaskName" />
+    <result column="card_task_company" jdbcType="VARCHAR" property="cardTaskCompany" />
+    <result column="card_task_count" jdbcType="INTEGER" property="cardTaskCount" />
+    <result column="card_task_price" jdbcType="VARCHAR" property="cardTaskPrice" />
+    <result column="card_task_last_date" jdbcType="TIMESTAMP" property="cardTaskLastDate" />
+    <result column="card_task_code_before" jdbcType="VARCHAR" property="cardTaskCodeBefore" />
+    <result column="card_task_code_middle" jdbcType="VARCHAR" property="cardTaskCodeMiddle" />
+    <result column="card_task_code_after" jdbcType="VARCHAR" property="cardTaskCodeAfter" />
+    <result column="card_task_enable" jdbcType="INTEGER" property="cardTaskEnable" />
+    <result column="card_task_status" jdbcType="INTEGER" property="cardTaskStatus" />
+    <result column="card_task_create_user" jdbcType="VARCHAR" property="cardTaskCreateUser" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    cct.`id` as `cct_id`, cct.`card_task_name` as `cct_card_task_name`, cct.`card_task_company` as `cct_card_task_company`,
+    cct.`card_task_count` as `cct_card_task_count`, cct.`card_task_price` as `cct_card_task_price`,
+    cct.`card_task_last_date` as `cct_card_task_last_date`, cct.`card_task_code_before` as `cct_card_task_code_before`,
+    cct.`card_task_code_middle` as `cct_card_task_code_middle`, cct.`card_task_code_after` as `cct_card_task_code_after`,
+    cct.`card_task_enable` as `cct_card_task_enable`, cct.`card_task_status` as `cct_card_task_status`,
+    cct.`card_task_create_user` as `cct_card_task_create_user`, cct.`create_date` as `cct_create_date`,
+    cct.`update_date` as `cct_update_date`, cct.`expire_date` as `cct_expire_date`
+  </sql>
+
+
+</mapper>

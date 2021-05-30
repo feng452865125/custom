@@ -1,0 +1,31 @@
+
+
+form input{
+    border:none;
+    width: 250px;
+}
+
+form label{
+    width: 80px;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #ffffff;
+}
+
+#contractNoForce {
+    border: 1px solid #ccc;
+    width: 200px;
+    height: 30px;
+}
+
+.btn-query {
+    height: 30px;
+    width: 60px;
+    vertical-align: bottom;
+    margin-left: 10px;
+    line-height: 14px;
+}
+
+

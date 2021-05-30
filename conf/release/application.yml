@@ -1,0 +1,90 @@
+debug: true
+logging:
+  level:
+#    root: WARN
+    com.dingjust.custom.framework: WARN
+    com.dingjust.custom.pc: WARN
+    com.dingjust.custom.app: WARN
+    org.hibernate: ERROR
+    org.springframework.security.oauth2: TRACE
+    com.ibatis: DEBUG
+    com.ibatis.common.jdbc.SimpleDataSource: DEBUG
+    com.ibatis.common.jdbc.ScriptRunner: DEBUG
+    com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate: DEBUG
+    java.sql.Connection: DEBUG
+    java.sql.Statement: DEBUG
+    java.sql.PreparedStatement: DEBUG
+    java.sql.ResultSet: DEBUG
+    tk.mybatis: WARN
+  pattern:
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{50} - %msg%n'
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{50} - %msg%n'
+  path: ./logs
+
+druid:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.58.80:3306/custom_plus?useUnicode=true&characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
+    username: root
+    password: keer201807@Keer
+#    url: jdbc:mysql://127.0.0.1:3306/custom_plus?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&useSSL=false
+#    username: root
+#    password: root
+
+mybatis:
+    type-aliases-package: tk.mybatis.springboot.model
+    mapper-locations: classpath:mapper/*.xml
+
+mapper:
+    mappers:
+        - tk.mybatis.mapper.common.IdsMapper
+        - tk.mybatis.mapper.common.Mapper
+        - tk.mybatis.mapper.common.SqlServerMapper
+    not-empty: false
+    identity: MYSQL
+
+pagehelper:
+    helperDialect: mysql
+    pageSizeZero: true
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+##redis 配置
+#redis:
+#    database: 1
+#    host: 192.168.58.80
+#    port: 6379
+#    lettuce:
+#      pool:
+#        max-active: -1
+#        max-wait: -1ms
+#        max-idle: 100
+#        min-idle: 10
+#    timeout: 5000ms
+
+spring:
+  aop:
+    proxy-target-class: true
+  freemarker:
+    cache: false
+    settings:
+      template_update_delay: 0
+      tag_syntax: square_bracket
+      number_format: 0.##
+  jackson:
+    time-zone: GMT+8
+  http:
+    multipart:
+      #上传文件中单个文件大小限制
+      max-file-size: 100MB
+      # 上传请求中文件总大小限制
+      max-request-size: 100MB
+  devtools:
+    restart:
+      enabled: true
+
+server:
+  port: 8090
+
+

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.DadaStyleMapper">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.DadaStyle">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="price" jdbcType="INTEGER" property="price"/>
+        <result column="imgs_url" jdbcType="VARCHAR" property="imgsUrl"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="video_url" jdbcType="VARCHAR" property="videoUrl"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="moral" jdbcType="VARCHAR" property="moral"/>
+        <result column="story" jdbcType="VARCHAR" property="story"/>
+        <result column="series" jdbcType="VARCHAR" property="series"/>
+        <result column="meaning" jdbcType="VARCHAR" property="meaning"/>
+        <result column="wear_url" jdbcType="VARCHAR" property="wearUrl"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate"/>
+        <result column="count" jdbcType="INTEGER" property="count"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        ds.`id` as `ds_id`, ds.`code` as `ds_code`, ds.`name` as `ds_name`, ds.`type` as `ds_type`,
+        ds.`price` as `ds_price`, ds.`imgs_url` as `ds_imgs_url`, ds.`img_url` as `ds_img_url`,
+        ds.`video_url` as `ds_video_url`, ds.`remark` as `ds_remark`,
+        ds.`moral` as `ds_moral`, ds.`story` as `ds_story`, ds.`series` as `ds_series`, ds.`meaning` as `ds_meaning`,
+        ds.`wear_url` as `ds_wear_url`, ds.`create_date` as `ds_create_date`,
+        ds.`update_date` as `ds_update_date`, ds.`expire_date` as `ds_expire_date`, ds.`count` as `ds_count`
+    </sql>
+
+    <select id="findDadaStyleList" resultMap="BaseResultMap">
+        SELECT dj.`name` as typeName, ds.* FROM `dada_style` ds
+        LEFT JOIN `dada_jewelry_type` dj on dj.id = ds.type
+        <where>
+            1=1
+            and ds.expire_date is null
+            <if test="series != null">
+                and ds.series = #{series}
+            </if>
+            <if test="type != null">
+                and ds.type = #{type}
+            </if>
+            <if test="count != null">
+                and ds.count > #{count}
+            </if>
+            <if test="code != null">
+                and ds.code like concat('%', #{code}, '%')
+            </if>
+            <if test="name != null">
+                and ds.name like concat('%', #{name}, '%')
+            </if>
+            <if test="moral != null">
+                and ds.moral like concat('%', #{moral}, '%')
+            </if>
+            <if test="orderBy == null">
+                order by ds.type asc
+            </if>
+            <if test="orderBy != null">
+                order by ${orderBy}
+            </if>
+        </where>
+    </select>
+
+    <select id="getDadaStyle" resultMap="BaseResultMap">
+        SELECT dj.`name` as typeName, ds.* FROM `dada_style` ds
+        LEFT JOIN `dada_jewelry_type` dj on dj.id = ds.type
+        <where>
+            1=1
+            and ds.expire_date is null
+            <if test="id != null">
+                and ds.id = #{id}
+            </if>
+            <if test="code != null">
+                and ds.code = #{code}
+            </if>
+            limit 1
+        </where>
+    </select>
+
+    <select id="findDadaStyleTypeList" resultMap="BaseResultMap">
+        SELECT dj.`name` as typeName, ds.type FROM `dada_style` ds
+        LEFT JOIN `dada_jewelry_type` dj on dj.id = ds.type
+        <where>
+            1=1
+            and ds.expire_date is null
+            <if test="series != null">
+                and ds.series = #{series}
+            </if>
+            <if test="type != null">
+                and ds.type = #{type}
+            </if>
+            <if test="count != null">
+                and ds.count > #{count}
+            </if>
+            <if test="code != null">
+                and ds.code like concat('%', #{code}, '%')
+            </if>
+            <if test="name != null">
+                and ds.name like concat('%', #{name}, '%')
+            </if>
+            <if test="moral != null">
+                and ds.moral like concat('%', #{moral}, '%')
+            </if>
+            group by ds.type
+            order by ds.type asc
+        </where>
+    </select>
+
+    <select id="findDadaStyleByPartsList" resultMap="BaseResultMap">
+        SELECT ds.* FROM `dada_rel_style_parts` drsp
+        LEFT JOIN `dada_style` ds on ds.id = drsp.style_id
+        <where>
+            1=1
+            and ds.expire_date is null
+            <if test="search != null">
+                and drsp.parts_id in ${search}
+            </if>
+            GROUP BY drsp.style_id HAVING count(ds.id) >= ${searchLength}
+        </where>
+    </select>
+
+</mapper>

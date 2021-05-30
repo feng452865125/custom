@@ -1,0 +1,54 @@
+/*上传成功标志*/
+.preview {
+    position: relative;
+}
+.preview .success {
+    display: none;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+    z-index: 200;
+    background: url(../img/success.png) no-repeat right bottom;
+}
+/*上传中*/
+.preview .loading {
+    display: none;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    transform: scale(0.6);
+    width: 100%;
+    z-index: 200;
+    background: url(../img/loading.gif) no-repeat center center;
+}
+
+
+.img_div {
+    border: 1px solid #dadada;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.btn_div {
+    display: flex;
+    justify-content: space-around;
+}
+
+/*预览*/
+.uploadimg {
+    /*height: 100%;*/
+    /*max-width: 100%;*/
+    border: 1px solid #dadada;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#909090, direction=120, strength=4); /*ie*/
+    -moz-box-shadow: 2px 2px 10px #909090; /*firefox*/
+    -webkit-box-shadow: 2px 2px 10px #909090; /*safari或chrome*/
+    box-shadow: 2px 2px 10px #909090; /*opera或ie9*/
+}
+
+.startUpload,
+.cancelUpload {
+    display: none;
+}

@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.PartsMapper">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.Parts">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="group_type" jdbcType="INTEGER" property="groupType"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="price" jdbcType="INTEGER" property="price"/>
+        <result column="imgs" jdbcType="VARCHAR" property="imgs"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="video" jdbcType="VARCHAR" property="video"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="ex_yy" jdbcType="VARCHAR" property="exYy"/>
+        <result column="ex_qghy" jdbcType="VARCHAR" property="exQghy"/>
+        <result column="ex_jbkd" jdbcType="INTEGER" property="exJbkd"/>
+        <result column="ex_jscz" jdbcType="VARCHAR" property="exJscz"/>
+        <result column="ex_jsys" jdbcType="VARCHAR" property="exJsys"/>
+        <result column="ex_jszl" jdbcType="INTEGER" property="exJszl"/>
+        <result column="ex_zs_xz" jdbcType="VARCHAR" property="exZsXz"/>
+        <result column="ex_zs_zs" jdbcType="VARCHAR" property="exZsZs"/>
+        <result column="ex_zs_zl" jdbcType="INTEGER" property="exZsZl"/>
+        <result column="ex_zs_ys" jdbcType="VARCHAR" property="exZsYs"/>
+        <result column="ex_zs_jd" jdbcType="VARCHAR" property="exZsJd"/>
+        <result column="ex_zs_qg" jdbcType="VARCHAR" property="exZsQg"/>
+        <result column="ex_zs_pg" jdbcType="VARCHAR" property="exZsPg"/>
+        <result column="ex_zs_dc" jdbcType="VARCHAR" property="exZsDc"/>
+        <result column="ex_zs_yg" jdbcType="VARCHAR" property="exZsYg"/>
+        <result column="ex_zs_bh" jdbcType="VARCHAR" property="exZsBh"/>
+        <result column="ex_zs_ym" jdbcType="VARCHAR" property="exZsYm"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate"/>
+        <result column="kk" jdbcType="VARCHAR" property="kk"/>
+        <result column="ys" jdbcType="VARCHAR" property="ys"/>
+        <result column="fs_kd" jdbcType="VARCHAR" property="fsKd"/>
+        <result column="is_show" jdbcType="BIT" property="isShow"/>
+        <result column="three_d30" jdbcType="VARCHAR" property="threeD30"/>
+        <result column="three_d50" jdbcType="VARCHAR" property="threeD50"/>
+        <result column="three_d70" jdbcType="VARCHAR" property="threeD70"/>
+        <result column="three_d100" jdbcType="VARCHAR" property="threeD100"/>
+        <result column="ex_sc" jdbcType="VARCHAR" property="exSc"/>
+        <result column="is_recommend" jdbcType="BIT" property="isRecommend"/>
+        <result column="jb_ys_recommend" jdbcType="VARCHAR" property="jbYsRecommend"/>
+        <result column="side_img_url" jdbcType="VARCHAR" property="sideImgUrl"/>
+        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="company" jdbcType="VARCHAR" property="company"/>
+        <result column="lock_status" jdbcType="INTEGER" property="lockStatus"/>
+        <result column="dollar_price" jdbcType="INTEGER" property="dollarPrice"/>
+        <result column="inter_price" jdbcType="INTEGER" property="interPrice"/>
+        <result column="sale_back" jdbcType="VARCHAR" property="saleBack"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="bic" jdbcType="VARCHAR" property="bic"/>
+        <result column="bis" jdbcType="VARCHAR" property="bis"/>
+        <result column="milky" jdbcType="VARCHAR" property="milky"/>
+        <result column="colsh" jdbcType="VARCHAR" property="colsh"/>
+        <result column="eyeclean" jdbcType="VARCHAR" property="eyeclean"/>
+        <result column="green" jdbcType="VARCHAR" property="green"/>
+        <result column="table" jdbcType="VARCHAR" property="table"/>
+        <result column="black_inc" jdbcType="VARCHAR" property="blackInc"/>
+        <result column="hues" jdbcType="VARCHAR" property="hues"/>
+        <result column="batch" jdbcType="VARCHAR" property="batch"/>
+        <result column="enable_status" jdbcType="INTEGER" property="enableStatus"/>
+        <result column="enable_date" jdbcType="TIMESTAMP" property="enableDate"/>
+        <result column="enable_over_date" jdbcType="TIMESTAMP" property="enableOverDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        p.`id` as `p_id`, p.`code` as `p_code`, p.`name` as `p_name`, p.`type` as `p_type`,
+        p.`group_type` as `p_group_type`, p.`status` as `p_status`, p.`price` as `p_price`,
+        p.`imgs` as `p_imgs`, p.`img_url` as `p_img_url`, p.`video` as `p_video`, p.`remark` as `p_remark`,
+        p.`note` as `p_note`, p.`ex_yy` as `p_ex_yy`, p.`ex_qghy` as `p_ex_qghy`, p.`ex_jbkd` as `p_ex_jbkd`,
+        p.`ex_jscz` as `p_ex_jscz`, p.`ex_jsys` as `p_ex_jsys`, p.`ex_jszl` as `p_ex_jszl`,
+        p.`ex_zs_xz` as `p_ex_zs_xz`,
+        p.`ex_zs_zs` as `p_ex_zs_zs`, p.`ex_zs_zl` as `p_ex_zs_zl`, p.`ex_zs_ys` as `p_ex_zs_ys`,
+        p.`ex_zs_jd` as `p_ex_zs_jd`, p.`ex_zs_qg` as `p_ex_zs_qg`, p.`ex_zs_pg` as `p_ex_zs_pg`,
+        p.`ex_zs_dc` as `p_ex_zs_dc`, p.`ex_zs_yg` as `p_ex_zs_yg`, p.`ex_zs_bh` as `p_ex_zs_bh`, p.`ex_zs_ym` as
+        `p_ex_zs_ym`,
+        p.`create_date` as `p_create_date`, p.`update_date` as `p_update_date`, p.`expire_date` as `p_expire_date`,
+        p.`kk` as `p_kk`, p.`ys` as `p_ys`, p.`fs_kd` as `p_fs_kd`, p.`is_show` as `p_is_show`,
+        p.`three_d30` as `p_three_d30`, p.`three_d50` as `p_three_d50`, p.`three_d70` as `p_three_d70`,
+        p.`three_d100` as `p_three_d100`, p.`ex_sc` as `p_ex_sc`, p.`is_recommend` as `p_is_recommend`,
+        p.`jb_ys_recommend` as `p_jb_ys_recommend`, p.`side_img_url` as `p_side_img_url`, p.`level` as `p_level`,
+        p.`company` as `p_company`, p.`lock_status` as `p_lock_status`, p.`dollar_price` as `p_dollar_price`,
+        p.`inter_price` as `p_inter_price`, p.`sale_back` as `p_sale_back`,
+        p.`location` as `p_location`, p.`bic` as `p_bic`, p.`bis` as `p_bis`, p.`milky` as `p_milky`,
+        p.`colsh` as `p_colsh`, p.`eyeclean` as `p_eyeclean`, p.`green` as `p_green`,
+        p.`table` as `p_table`, p.`black_inc` as `p_black_inc`, p.`hues` as `p_hues`, p.`batch` as `p_batch`,
+        p.`enable_status` as `p_enable_status`, p.`enable_date` as `p_enable_date`, p.`enable_over_date` as
+        `p_enable_over_date`
+
+    </sql>
+
+    <select id="findPartsList" resultMap="BaseResultMap">
+        SELECT pa.* FROM `parts` pa
+        <if test="styleId != null">
+            , (SELECT p.fs_kd, s.ht_ys FROM `parts` p, style s
+            <where>
+                1=1
+                and p.expire_date is null
+                and s.expire_date is null
+                <if test="styleId != null">
+                    and s.id = #{styleId}
+                </if>
+                and p.ys = s.ht_ys
+            </where>
+            ) as ps
+            <where>
+                1=1
+                and pa.expire_date is null
+                and pa.ex_zs_zl = ps.fs_kd *10
+            </where>
+        </if>
+        <if test="styleId == null">
+            <where>
+                1=1
+                and pa.expire_date is null
+            </where>
+        </if>
+        <if test="groupType != null">
+            and pa.group_type = #{groupType}
+        </if>
+        <if test="type != null">
+            and pa.type = #{type}
+        </if>
+        <if test="ys != null">
+            and pa.ys = #{ys}
+        </if>
+        <if test="isShow != null">
+            and pa.is_show = #{isShow}
+        </if>
+        <if test="exZsZlMin != null and exZsZlMin != 0">
+            and pa.ex_zs_zl >= #{exZsZlMin}
+        </if>
+        <if test="exZsZlMax != null and exZsZlMax != 0">
+            and #{exZsZlMax} >= pa.ex_zs_zl
+        </if>
+        <if test="priceMin != null and priceMin != 0">
+            and pa.price >= #{priceMin}
+        </if>
+        <if test="priceMax != null and priceMax != 0">
+            and #{priceMax} >= pa.price
+        </if>
+        <if test="exZsQg != null">
+            and pa.ex_zs_qg = #{exZsQg}
+        </if>
+        <if test="exZsDc != null">
+            and pa.ex_zs_dc = #{exZsDc}
+        </if>
+        <if test="exZsPg != null">
+            and pa.ex_zs_pg = #{exZsPg}
+        </if>
+        <if test="exZsYsArr != null and exZsYsArr.length > 0">
+            and pa.ex_zs_ys in ${exZsYsArr}
+        </if>
+        <if test="exZsJdArr != null and exZsJdArr.length > 0">
+            and pa.ex_zs_jd in ${exZsJdArr}
+        </if>
+        <if test="exZsYs != null">
+            and pa.ex_zs_ys = #{exZsYs}
+        </if>
+        <if test="exZsJd != null">
+            and pa.ex_zs_jd = #{exZsJd}
+        </if>
+        <if test="company != null">
+            and pa.company = #{company}
+        </if>
+        <if test="lockStatus != null">
+            and pa.lock_status = #{lockStatus}
+        </if>
+        <if test="orderBy == null">
+            order by pa.is_show desc
+        </if>
+        <if test="orderBy != null">
+            order by ${orderBy}
+        </if>
+    </select>
+
+    <!--钻石列表，不做限制，全部钻石-->
+    <select id="findPartsDiamondList" resultMap="BaseResultMap">
+        SELECT pa.* FROM `parts` pa
+        <where>
+            1=1
+            and pa.expire_date is null
+            <if test="type != null">
+                and pa.type = #{type}
+            </if>
+            <if test="status != null">
+                and pa.status = #{status}
+            </if>
+            <if test="exZsZlMin != null and exZsZlMin != 0">
+                and pa.ex_zs_zl >= #{exZsZlMin}
+            </if>
+            <if test="exZsZlMax != null and exZsZlMax != 0">
+                and #{exZsZlMax} >= pa.ex_zs_zl
+            </if>
+            <if test="priceMin != null and priceMin != 0">
+                and pa.price >= #{priceMin}
+            </if>
+            <if test="priceMax != null and priceMax != 0">
+                and #{priceMax} >= pa.price
+            </if>
+            <if test="exZsQg != null">
+                and pa.ex_zs_qg = #{exZsQg}
+            </if>
+            <if test="exZsDc != null">
+                and pa.ex_zs_dc = #{exZsDc}
+            </if>
+            <if test="exZsPg != null">
+                and pa.ex_zs_pg = #{exZsPg}
+            </if>
+            <if test="exZsYsArr != null and exZsYsArr.length > 0">
+                and pa.ex_zs_ys in ${exZsYsArr}
+            </if>
+            <if test="exZsJdArr != null and exZsJdArr.length > 0">
+                and pa.ex_zs_jd in ${exZsJdArr}
+            </if>
+            <if test="exZsYs != null">
+                and pa.ex_zs_ys = #{exZsYs}
+            </if>
+            <if test="exZsJd != null">
+                and pa.ex_zs_jd = #{exZsJd}
+            </if>
+            <if test="company != null">
+                and pa.company = #{company}
+            </if>
+            <if test="lockStatus != null">
+                and pa.lock_status = #{lockStatus}
+            </if>
+            <if test="orderBy != null">
+                order by ${orderBy}
+            </if>
+        </where>
+    </select>
+
+    <!--组件列表，戒臂宽度列表，花头样式列表，group by-->
+    <select id="findPartsListByYsGroup" resultMap="BaseResultMap">
+        SELECT pa.* FROM `parts` pa
+        <where>
+            1=1
+            and pa.expire_date is null
+            <if test="type != null">
+                and pa.type = #{type}
+            </if>
+            <if test="ys != null">
+                and pa.ys = #{ys}
+            </if>
+            <if test="groupBy != null">
+                group by ${groupBy}
+            </if>
+            <if test="orderBy != null">
+                order by ${orderBy}
+            </if>
+        </where>
+    </select>
+
+    <select id="getParts" resultMap="BaseResultMap">
+        SELECT pa.* FROM `parts` pa
+        <where>
+            1=1
+            and pa.expire_date is null
+            <if test="id != null">
+                and pa.id = #{id}
+            </if>
+            <if test="type != null">
+                and pa.type = #{type}
+            </if>
+            <if test="ys != null">
+                and pa.ys = #{ys}
+            </if>
+            <if test="isShow != null">
+                and pa.is_show = #{isShow}
+            </if>
+            <if test="code != null and code != ''">
+                and pa.code = #{code}
+            </if>
+            <if test="company != null">
+                and pa.company = #{company}
+            </if>
+            <if test="lockStatus != null">
+                and pa.lock_status = #{lockStatus}
+            </if>
+            <if test="exZsBh != null and exZsBh != ''">
+                and pa.ex_zs_bh = #{exZsBh}
+            </if>
+            <if test="batch != null and batch != ''">
+                and pa.batch = #{batch}
+            </if>
+            limit 1
+        </where>
+    </select>
+
+    <select id="findRelPartsList" resultMap="BaseResultMap">
+        SELECT st.id as styleId, pa.* FROM `style` st
+        LEFT JOIN parts pa on pa.ys = st.ht_ys
+        <where>
+            1=1
+            and st.expire_date is null
+            and pa.expire_date is null
+            and pa.is_show = 1
+            <if test="jbYs != null">
+                and st.jb_ys = #{jbYs}
+            </if>
+            <if test="htYs != null">
+                and st.ht_ys = #{htYs}
+            </if>
+            <if test="type != null">
+                and pa.type = #{type}
+            </if>
+        </where>
+    </select>
+
+    <select id="getYsRecommend" resultMap="BaseResultMap">
+        SELECT pt.id, gi.ys as groupYs FROM `parts` pt
+        LEFT JOIN group_info gi on gi.id = pt.group_type
+        <where>
+            1=1
+            and pt.expire_date is null
+            and gi.expire_date is null
+            <if test="type != null">
+                and pt.type = #{type}
+            </if>
+            <if test="isShow != null">
+                and pt.is_show = #{isShow}
+            </if>
+            <if test="ys != null">
+                and pt.ys = #{ys}
+            </if>
+            limit 1
+        </where>
+    </select>
+
+    <select id="getDiamondByBaseScore" resultMap="BaseResultMap">
+        SELECT pa.id, pa.`code`, pa.ex_zs_zs, pa.ex_zs_zl, pa.ex_zs_ys, pa.ex_zs_jd, pa.ex_zs_qg,
+        pa.ex_zs_pg, pa.ex_zs_dc, pa.ex_zs_yg , pa.dollar_price, pa.company, pa.sale_back,
+        ts.sap_code,pa.ex_zs_bh, pa.batch,
+        CASE ts.short_name
+        WHEN "CHINASTAR" THEN pa.dollar_price * 7
+        WHEN "HB" THEN pa.dollar_price * 7
+        WHEN "JP" THEN pa.dollar_price * 7
+        WHEN "PG" THEN pa.dollar_price * 7
+        WHEN "DIAMART" THEN pa.dollar_price * 7
+        WHEN "OPO" THEN pa.dollar_price * 7
+        WHEN "DHA" THEN pa.dollar_price * 7
+        WHEN "KBS" THEN pa.dollar_price * 7
+        WHEN "HB2" THEN pa.dollar_price * 7
+        WHEN "KDL" THEN pa.dollar_price * 7
+        ELSE pa.dollar_price END AS rmbPrice,
+        pa.location
+        from parts pa
+        left join third_supplier ts on ts.short_name = pa.company and ts.expire_date is null
+        <where>
+            1=1
+            and pa.expire_date is null
+            and ts.expire_date is null
+            and pa.enable_status = 1
+            <if test="id != null and id != ''">
+                and pa.id = #{id}
+            </if>
+            <if test="exZsBh != null and exZsBh != ''">
+                and pa.ex_zs_bh = #{exZsBh}
+            </if>
+            <if test="locationIndia != null">
+                and pa.location != "印度"
+                and pa.location != "INDIA"
+            </if>
+            <if test="type != null and type != ''">
+                and pa.type = #{type}
+            </if>
+            <if test="lockStatus != null and lockStatus != ''">
+                and pa.lock_status = #{lockStatus}
+            </if>
+            <choose>
+                <when test="exZsQg == 'EX' and exZsDc == 'EX' and exZsPg == 'EX'">
+                    and pa.ex_zs_qg = 'EX' and pa.ex_zs_pg = 'EX' and pa.ex_zs_dc = 'EX'
+                </when>
+                <otherwise>
+                    and (
+                    (pa.ex_zs_qg = 'EX' and pa.ex_zs_pg = 'EX' and pa.ex_zs_dc = 'VG')
+                    or (pa.ex_zs_qg = 'EX' and pa.ex_zs_pg = 'VG' and pa.ex_zs_dc = 'EX')
+                    or (pa.ex_zs_qg = 'EX' and pa.ex_zs_pg = 'VG' and pa.ex_zs_dc = 'VG')
+                    or (pa.ex_zs_qg = 'VG' and pa.ex_zs_pg = 'EX' and pa.ex_zs_dc = 'EX')
+                    or (pa.ex_zs_qg = 'VG' and pa.ex_zs_pg = 'EX' and pa.ex_zs_dc = 'VG')
+                    or (pa.ex_zs_qg = 'VG' and pa.ex_zs_pg = 'VG' and pa.ex_zs_dc = 'EX')
+                    or (pa.ex_zs_qg = 'VG' and pa.ex_zs_pg = 'VG' and pa.ex_zs_dc = 'VG')
+                    )
+                </otherwise>
+            </choose>
+            <if test="exZsZl != null and exZsZl != ''">
+                and #{exZsZl} = pa.ex_zs_zl
+            </if>
+            <if test="exZsYs != null and exZsYs != ''">
+                and pa.ex_zs_ys = #{exZsYs}
+            </if>
+            <if test="exZsJd != null and exZsJd != ''">
+                and pa.ex_zs_jd = #{exZsJd}
+            </if>
+            <if test="exZsYg != null and exZsYg != ''">
+                and pa.ex_zs_yg = #{exZsYg}
+            </if>
+            <if test="exZsZs != null and exZsZs != ''">
+                and pa.ex_zs_zs = #{exZsZs}
+            </if>
+            <if test="exZsZlMin != null and exZsZlMin != ''">
+                and pa.ex_zs_zl >= #{exZsZlMin}
+            </if>
+            <if test="exZsZlMax != null and exZsZlMax != ''">
+                and #{exZsZlMax} >= pa.ex_zs_zl
+            </if>
+        </where>
+        ORDER BY ts.score DESC, pa.location desc, rmbPrice ASC, ts.work_date ASC
+        LIMIT 1
+    </select>
+
+    <select id="getMinParts" resultMap="BaseResultMap">
+        SELECT pa.id, pa.`code`, pa.ex_zs_zs, pa.ex_zs_zl, pa.ex_zs_ys, pa.ex_zs_jd, pa.ex_zs_qg,
+        pa.ex_zs_pg, pa.ex_zs_dc, pa.ex_zs_yg , pa.dollar_price, pa.company, pa.sale_back,
+        ts.sap_code,pa.ex_zs_bh, pa.batch,
+        CASE ts.short_name WHEN "YBL" THEN pa.dollar_price WHEN "HAO" THEN pa.dollar_price
+        ELSE pa.dollar_price * 7 END AS rmbPrice, pa.location
+        from parts pa
+        left join third_supplier ts on ts.short_name = pa.company and ts.expire_date is null
+        <where>
+            1=1
+            and pa.expire_date is null
+            and ts.expire_date is null
+            and pa.company != "KEER"
+            and pa.type = 1
+            and pa.lock_status = 1
+            and pa.enable_status = 1
+            <if test="locationIndia != null">
+                and pa.location != "印度"
+                and pa.location != "INDIA"
+            </if>
+            <choose>
+                <when test="exZsQg == 'EX' and exZsDc == 'EX' and exZsPg == 'EX'">
+                    and pa.ex_zs_qg = 'EX' and pa.ex_zs_pg = 'EX' and pa.ex_zs_dc = 'EX'
+                </when>
+                <otherwise>
+                    and (
+                    (pa.ex_zs_qg = 'EX' and pa.ex_zs_pg = 'EX' and pa.ex_zs_dc = 'VG')
+                    or (pa.ex_zs_qg = 'EX' and pa.ex_zs_pg = 'VG' and pa.ex_zs_dc = 'EX')
+                    or (pa.ex_zs_qg = 'EX' and pa.ex_zs_pg = 'VG' and pa.ex_zs_dc = 'VG')
+                    or (pa.ex_zs_qg = 'VG' and pa.ex_zs_pg = 'EX' and pa.ex_zs_dc = 'EX')
+                    or (pa.ex_zs_qg = 'VG' and pa.ex_zs_pg = 'EX' and pa.ex_zs_dc = 'VG')
+                    or (pa.ex_zs_qg = 'VG' and pa.ex_zs_pg = 'VG' and pa.ex_zs_dc = 'EX')
+                    or (pa.ex_zs_qg = 'VG' and pa.ex_zs_pg = 'VG' and pa.ex_zs_dc = 'VG')
+                    )
+                </otherwise>
+            </choose>
+            <if test="exZsZl != null and exZsZl != ''">
+                and #{exZsZl} = pa.ex_zs_zl
+            </if>
+            <if test="id != null and id != ''">
+                and pa.id = #{id}
+            </if>
+            and pa.ex_zs_ys = #{exZsYs}
+            and pa.ex_zs_jd = #{exZsJd}
+            and pa.ex_zs_yg = #{exZsYg}
+            and pa.ex_zs_zs = #{exZsZs}
+            and pa.ex_zs_zl >= #{exZsZlMin}
+            and #{exZsZlMax} >= pa.ex_zs_zl
+        </where>
+        ORDER BY ts.score DESC, pa.location desc, rmbPrice ASC, ts.work_date ASC
+        LIMIT 1
+    </select>
+
+    <!--根据条件获取列表-->
+    <select id="partsList" resultMap="BaseResultMap">
+        select * from parts
+        where
+        1 = 1
+        and expire_date is null
+        <if test="company != null and company != ''">
+            and company = #{company}
+        </if>
+        <if test="type != null and type != ''">
+            and type = #{type}
+        </if>
+    </select>
+
+    <!--获取创建时间在24小时内的列表-->
+    <select id="findCreatePartsList" resultMap="BaseResultMap">
+        select *
+        from parts_middle pm
+        where expire_date is null
+        and create_date >=(NOW() - interval 24 hour)
+        <if test="company != null and company != ''">
+            and pm.company = #{company}
+        </if>
+        <if test="type != null and type != ''">
+            and pm.type = #{type}
+        </if>
+    </select>
+
+
+    <!--获取更新时间在24小时内的列表-->
+    <select id="findUpdatePartsList" resultMap="BaseResultMap">
+        select *
+        from parts_middle pm
+        where expire_date is null
+        and update_date >=(NOW() - interval 24 hour)
+        <if test="company != null and company != ''">
+            and pm.company = #{company}
+        </if>
+        <if test="type != null and type != ''">
+            and pm.type = #{type}
+        </if>
+    </select>
+
+
+    <select id="findPartsid" resultMap="BaseResultMap">
+        select * from parts
+        where expire_date is null
+        <if test="exZsBh != null">
+            and ex_zs_bh = #{exZsBh}
+        </if>
+        <if test="code != null">
+            and code = #{code}
+        </if>
+        limit 1
+    </select>
+
+
+    <select id="priceInquiry" resultMap="BaseResultMap">
+        SELECT pa.*
+        from parts pa , third_supplier ts
+        where
+        1 = 1
+        and pa.lock_status = 1
+        and pa.enable_status = 1
+        and pa.expire_date is null
+        and ts.expire_date is null
+        <if test="exZsYs != null and exZsYs != ''">
+            and pa.ex_zs_ys = #{exZsYs}
+        </if>
+        <if test="exZsJd != null and exZsJd != ''">
+            and pa.ex_zs_jd = #{exZsJd}
+        </if>
+        <if test="exZsQg != null and exZsQg != ''">
+            and pa.ex_zs_qg = #{exZsQg}
+            <choose>
+                <when test="exZsQg == 'EX'">
+                    and pa.ex_zs_pg = "EX"
+                    and pa.ex_zs_dc = "EX"
+                </when>
+                <otherwise>
+
+                    and pa.ex_zs_pg = #{exZsPg}
+                    and pa.ex_zs_dc = #{exZsDc}
+                </otherwise>
+            </choose>
+        </if>
+
+        <if test="exZsYg != null and exZsYg != ''">
+            and pa.ex_zs_yg = #{exZsYg}
+        </if>
+        <if test="exZsZs != null and exZsZs != ''">
+            and pa.ex_zs_zs = #{exZsZs}
+        </if>
+        <if test="exZsZl != null and exZsZl != ''">
+            and pa.ex_zs_zl = #{exZsZl}
+        </if>
+        and pa.company != "KEER"
+        order by ts.score desc, pa.dollar_price asc, ts.work_date asc
+        LIMIT 1
+    </select>
+
+    <update id="setDiamondExpire" parameterType="com.chunhe.custom.pc.model.Parts">
+        update `parts`
+        set expire_date = now()
+        where expire_date is null
+          and `lock_status` = 1
+          and `type` = #{type}
+          and company = #{company}
+    </update>
+
+    <!--第三方石头维护-查询石头列表-->
+    <select id="findThirdStoneList" resultMap="BaseResultMap">
+        select pa.id, pa.ex_zs_bh, pa.ex_zs_zs, pa.ex_zs_zl, pa.ex_zs_ys, pa.ex_zs_jd,
+        pa.ex_zs_qg, pa.ex_zs_pg, pa.ex_zs_dc, pa.ex_zs_yg, pa.inter_price, pa.sale_back,
+        pa.company, pa.location, pa.dollar_price, pa.create_date,
+        pa.enable_status, pa.enable_date, pa.enable_over_date
+        from parts pa
+        <where>
+            pa.expire_date is NULL
+            and pa.type = 1
+            and pa.lock_status = 1
+            <if test="enableOver != null">
+                and pa.enable_over_date is null
+            </if>
+            <if test="startDate != null">
+                and pa.create_date >= #{startDate}
+            </if>
+            <if test="endDate != null">
+                and #{endDate} >= pa.create_date
+            </if>
+        </where>
+    </select>
+
+    <!--第三方石头维护-查询石头详情-->
+    <select id="getThirdStone" resultMap="BaseResultMap">
+        select pa.id, pa.ex_zs_bh,pa.ex_zs_zs, pa.ex_zs_zl, pa.ex_zs_ys, pa.ex_zs_jd,
+        pa.ex_zs_qg, pa.ex_zs_pg, pa.ex_zs_dc, pa.ex_zs_yg,
+        pa.sale_back, pa.location, pa.bic, pa.bis, pa.milky, pa.colsh, pa.eyeclean,
+        pa.green, pa.`table`, pa.black_inc, pa.hues, pa.batch,
+        pa.company, pa.dollar_price, pa.create_date,
+        pa.lock_status, pa.enable_status, pa.enable_date, pa.enable_over_date
+        from parts pa
+        <where>
+            pa.expire_date is NULL
+            and pa.type = 1
+            and pa.lock_status = 1
+            <if test="id != null">
+                and pa.id = #{id}
+            </if>
+            limit 1
+        </where>
+    </select>
+
+    <!--批量导入，上架/下架-->
+    <update id="enablePartsByImport" parameterType="com.chunhe.custom.pc.model.Parts">
+        update `parts`
+        set enable_status    = #{enableType},
+            enable_date      = now(),
+            enable_over_date = now()
+        where expire_date is null
+          and `type` = 1
+          and lock_status = 1
+          and ex_zs_bh in (${zsbhArr})
+    </update>
+
+    <!--结束操作-->
+    <update id="enablePartsByOver" parameterType="com.chunhe.custom.pc.model.Parts">
+        update `parts`
+        set enable_date      = now(),
+            enable_over_date = now()
+        where expire_date is null
+          and enable_over_date is null
+          and `type` = 1
+          and lock_status = 1
+          and create_date >= #{startDate}
+          and #{endDate} >= create_date
+    </update>
+
+    <!--关闭合作，下架-->
+    <update id="setDiamondEnableOff" parameterType="com.chunhe.custom.pc.model.Parts">
+        update `parts`
+        set expire_date = now(),
+            lock_status = 2
+        where expire_date is null
+          and `lock_status` = 1
+          and `type` = #{type}
+          and company = #{company}
+    </update>
+    <!--开启合作，上架-->
+    <update id="setDiamondEnableOn" parameterType="com.chunhe.custom.pc.model.Parts">
+        update `parts`
+        set expire_date = null,
+            lock_status = 1
+        where expire_date is not null
+          and `lock_status` = 2
+          and `type` = #{type}
+          and company = #{company}
+    </update>
+
+    <!--过滤库存地更新，失效掉去掉的库存地-->
+    <update id="setDiamondExpireByFilterAddress" parameterType="com.chunhe.custom.pc.model.Parts">
+        update `parts`
+        set expire_date = now()
+        where expire_date is null
+          and `lock_status` = 1
+          and `type` = #{type}
+          and company = #{company}
+          and location in (${filterAddress})
+    </update>
+
+    <!--查询所有的lock=1,enable=1的上架石头-->
+    <select id="findAllLockEnableDiamondList" resultMap="BaseResultMap">
+        SELECT pa.company,
+               pa.ex_zs_zs,
+               pa.ex_zs_bh,
+               pa.ex_zs_ys,
+               pa.ex_zs_jd,
+               pa.ex_zs_qg,
+               pa.ex_zs_pg,
+               pa.ex_zs_dc,
+               pa.ex_zs_yg,
+               pa.location,
+               IFNULL(pa.ex_zs_zl, 0)     as ex_zs_zl,
+               IFNULL(pa.dollar_price, 0) as dollar_price,
+               IFNULL(pa.inter_price, 0)  as inter_price,
+               pa.sale_back,
+               pa.create_date,
+               pa.enable_status,
+               pa.enable_date,
+               pa.enable_over_date
+        from parts pa
+                 left join third_supplier ts on ts.short_name = pa.company
+        where pa.expire_date is null
+          and pa.type = 1
+          and pa.lock_status = 1
+          and pa.enable_status = 1
+        ORDER BY pa.create_date desc, pa.enable_date desc
+    </select>
+
+    <!--默认上架下架改动，批量处理-->
+    <update id="updateEnableByLocation" parameterType="com.chunhe.custom.pc.model.Parts">
+        update `parts`
+        set enable_status    = #{enableStatus},
+            enable_date      = now(),
+            enable_over_date = now()
+        where expire_date is null
+          and `lock_status` = 1
+          and `type` = 1
+          and location = #{location}
+          and company = #{company}
+    </update>
+
+    <!--检查石头上一条被失效的数据是否是上架状态-->
+    <select id="getLatelyExpireParts" resultMap="BaseResultMap">
+        SELECT ex_zs_bh, location, enable_status, enable_date, enable_over_date from parts
+        <where>
+            expire_date is not NULL
+            <if test="type != null">
+                and `type` = #{type}
+            </if>
+            <if test="company != null and company != ''">
+                and company = #{company}
+            </if>
+            <if test="exZsBh != null and exZsBh != ''">
+                and ex_zs_bh = #{exZsBh}
+            </if>
+            order by expire_date desc
+            limit 1
+        </where>
+    </select>
+
+</mapper>

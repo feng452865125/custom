@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<app>
+    <dicts>
+        <dic type="ringType" name="情侣戒类型">
+            <key value="1" label="男戒"/>
+            <key value="2" label="女戒"/>
+        </dic>
+
+        <dic type="userStatusName" name="店铺状态">
+            <key value="1" label="正常营业"/>
+            <!--<key value="2" label="暂停营业"/>-->
+            <!--<key value="3" label="待撤"/>-->
+            <!--<key value="4" label="待开业"/>-->
+            <key value="5" label="闭店"/>
+        </dic>
+
+        <dic type="groupInfoType" name="分组类别">
+            <key value="1" label="花头"/>
+            <key value="2" label="戒臂"/>
+        </dic>
+
+        <dic type="orderMetalMaterial" name="金属材质">
+            <key value="1" label="18K金"/>
+            <key value="2" label="PT900"/>
+        </dic>
+
+        <dic type="orderMetalColor" name="金属颜色">
+            <key value="1" label="白色"/>
+            <key value="2" label="红色"/>
+            <key value="3" label="红白双色"/>
+            <key value="4" label="红黄白三色"/>
+        </dic>
+
+        <dic type="zsQg" name="钻石切工">
+            <key value="1" label="EX"/>
+            <key value="2" label="VG"/>
+            <key value="3" label="G"/>
+            <key value="4" label=""/>
+        </dic>
+
+        <dic type="zsPg" name="钻石抛光">
+            <key value="1" label="VG"/>
+            <key value="2" label="G"/>
+            <key value="3" label=""/>
+        </dic>
+
+        <dic type="zsDc" name="钻石对称">
+            <key value="1" label="EX"/>
+            <key value="2" label="VG"/>
+            <key value="3" label="G"/>
+            <key value="4" label=""/>
+        </dic>
+
+        <dic type="zsYg" name="钻石荧光">
+            <key value="1" label="none"/>
+            <key value="2" label="faint"/>
+            <key value="3" label="medium blue"/>
+            <key value="4" label="strong blue"/>
+            <key value="5" label=""/>
+        </dic>
+
+        <dic type="mosaicGems" name="内嵌宝石">
+            <key value="1" label="无"/>
+            <key value="2" label="红宝石"/>
+            <key value="3" label="蓝宝石"/>
+            <key value="4" label="祖母绿"/>
+            <key value="5" label="钻石"/>
+        </dic>
+
+        <dic type="diamondStatus" name="钻石状态">
+            <key value="1" label="现货"/>
+            <key value="2" label="全球"/>
+        </dic>
+
+        <dic type="actionType" name="操作类型">
+            <key value="1" label="转发"/>
+            <key value="2" label="试戴"/>
+            <key value="3" label="定制"/>
+        </dic>
+
+        <dic type="sourceType" name="来源类型">
+            <key value="1" label="app"/>
+            <key value="2" label="h5"/>
+        </dic>
+
+        <dic type="dataSynch" name="数据同步">
+            <key value="1" label="店铺信息"/>
+            <key value="2" label="员工信息"/>
+        </dic>
+
+        <dic type="dataSynch" name="数据同步">
+            <key value="1" label="店铺信息"/>
+            <key value="2" label="员工信息"/>
+        </dic>
+
+        <dic type="diamondOrderBy" name="钻石排序">
+            <key value="1" label="price asc"/>
+            <key value="2" label="price desc"/>
+            <key value="3" label="ex_zs_ys asc"/>
+            <key value="4" label="ex_zs_ys desc"/>
+            <key value="5" label="ex_zs_jd asc"/>
+            <key value="6" label="ex_zs_jd desc"/>
+            <key value="7" label="ex_zs_zl asc"/>
+            <key value="8" label="ex_zs_zl desc"/>
+        </dic>
+
+        <dic type="ordersStyleStatus" name="预约状态">
+            <key value="1" label="未联系"/>
+            <key value="2" label="已联系"/>
+        </dic>
+
+        <dic type="diamondKelaStatus" name="钻石状态">
+            <key value="1" label="未销售"/>
+            <key value="2" label="已销售"/>
+            <key value="3" label="供应链"/>
+        </dic>
+
+        <dic type="thirdSupplierStatus" name="供应商合作状态">
+            <key value="0" label="关闭"/>
+            <key value="1" label="开启"/>
+        </dic>
+
+        <dic type="basePriceYs" name="4C标准颜色">
+            <key value="1" label="D"/>
+            <key value="2" label="E"/>
+            <key value="3" label="F"/>
+            <key value="4" label="G"/>
+            <key value="5" label="H"/>
+            <key value="6" label="I"/>
+            <key value="7" label="J"/>
+            <key value="8" label="K"/>
+            <key value="9" label="L"/>
+            <key value="10" label="M"/>
+        </dic>
+
+        <dic type="basePriceJd" name="4C标准净度">
+            <key value="1" label="IF"/>
+            <key value="2" label="SI1"/>
+            <key value="3" label="SI2"/>
+            <key value="4" label="VS1"/>
+            <key value="5" label="VS2"/>
+            <key value="6" label="VVS1"/>
+            <key value="7" label="VVS2"/>
+        </dic>
+
+        <dic type="basePriceQg" name="4C标准切工">
+            <key value="1" label="EX"/>
+            <key value="2" label="G"/>
+            <key value="3" label="VG"/>
+        </dic>
+
+        <dic type="basePricePg" name="4C标准抛光">
+            <key value="1" label="EX"/>
+            <key value="2" label="G"/>
+            <key value="3" label="VG"/>
+        </dic>
+
+        <dic type="basePriceDc" name="4C标准对称">
+            <key value="1" label="EX"/>
+            <key value="2" label="G"/>
+            <key value="3" label="VG"/>
+        </dic>
+
+        <dic type="basePriceYg" name="4C标准荧光">
+            <key value="1" label="N"/>
+            <key value="2" label="F"/>
+            <key value="3" label="faint"/>
+            <key value="4" label="M"/>
+            <key value="5" label="medium"/>
+            <key value="6" label="medium blue"/>
+            <key value="7" label="S"/>
+            <key value="8" label="strong blue"/>
+        </dic>
+
+        <dic type="basePriceZs" name="4C标准证书">
+            <key value="1" label="GIA"/>
+        </dic>
+
+        <dic type="baseOrderBy" name="基价钻石排序">
+            <key value="1" label="price asc"/>
+            <key value="2" label="price desc"/>
+            <key value="3" label="ys asc"/>
+            <key value="4" label="ys desc"/>
+            <key value="5" label="jd asc"/>
+            <key value="6" label="jd desc"/>
+            <key value="7" label="zl asc"/>
+            <key value="8" label="zl desc"/>
+            <key value="9" label="price asc, zl desc"/>
+        </dic>
+
+
+        <dic type="customCardTaskStatus" name="制卡任务状态">
+            <key value="0" label="创建中"/>
+            <key value="1" label="已完成"/>
+        </dic>
+
+        <dic type="customCardStatus" name="卡片状态">
+            <key value="0" label="未激活"/>
+            <key value="1" label="已激活"/>
+            <key value="2" label="已使用"/>
+            <key value="3" label="已过期"/>
+        </dic>
+    </dicts>
+
+</app>
+

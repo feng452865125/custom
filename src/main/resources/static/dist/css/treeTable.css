@@ -1,0 +1,90 @@
+/*树表格*/
+.icon_div a {
+    display: inline-block;
+    width: 27px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/*ztree表格*/
+.ztree {
+    padding: 0;
+    background: #fff;
+    border: 2px solid #CDD6D5;
+}
+
+.ztree li{
+    line-height: 30px !important;
+}
+
+.ztree a:hover{
+    outline: none;
+    text-decoration: none;
+    background: #ecf0f5 !important;
+}
+
+.ztree li a {
+    vertical-align: middle;
+    height: 30px !important;
+    color: #3c8dbc !important;
+    text-decoration: none;
+}
+
+.ztree li > a {
+    width: 100%;
+    text-decoration: none !important;
+}
+
+.ztree li > a,
+.ztree li a.curSelectedNode {
+    padding-top: 0;
+    background: none;
+    height: auto;
+    border: none;
+    cursor: auto !important;
+    opacity: 1;
+}
+
+.ztree li ul {
+    padding-left: 0
+}
+
+.ztree div.diy span {
+    line-height: 30px;
+    vertical-align: middle;
+}
+
+.ztree div.diy {
+    height: 30px;
+    line-height: 30px;
+    border-left: 1px solid #f4f4f4;
+    border-top: 1px solid #f4f4f4;
+    text-align: center;
+    display: inline-block;
+    box-sizing: border-box;
+    color: #333;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.ztree div.diy:first-child {
+    text-align: left;
+    text-indent: 10px;
+    border-left: none;
+}
+
+.ztree .head {
+    background: #fff;
+}
+
+/*表格标题栏*/
+.ztree .head div.diy {
+    border-top: none;
+    font-size: 14px;
+    color: #000;
+    font-weight: bold;
+}
+
+.ztree li ul{
+    padding:0 !important;
+}

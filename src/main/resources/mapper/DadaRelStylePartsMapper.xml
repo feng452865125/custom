@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.DadaRelStylePartsMapper">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.DadaRelStyleParts">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="style_id" jdbcType="INTEGER" property="styleId"/>
+        <result column="parts_id" jdbcType="INTEGER" property="partsId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        drsp.`id` as `drsp_id`, drsp.`style_id` as `drsp_style_id`, drsp.`parts_id` as `drsp_parts_id`
+    </sql>
+
+    <resultMap id="styleAndParts" type="com.chunhe.custom.pc.model.DadaParts" extends="BaseResultMap">
+        <id column="id2" jdbcType="INTEGER" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="series" jdbcType="INTEGER" property="series"/>
+        <result column="ex_yy" jdbcType="VARCHAR" property="exYy"/>
+        <result column="expire_date" jdbcType="VARCHAR" property="expireDate"/>
+    </resultMap>
+
+    <!--平台在款式详情中增加绑定组件-->
+    <select id="findDadaRelStyleParts" resultMap="styleAndParts">
+        SELECT dp.id as id2, dj.name as typeName, dp.code, dp.name, dp.img_url, dp.series, dp.type, dp.ex_yy,
+        dp.expire_date, drsp.*, CASE
+        WHEN style_id THEN true ELSE false END as enabled
+        FROM `dada_parts` dp
+        LEFT JOIN
+        (SELECT * FROM `dada_rel_style_parts`
+        <where>
+            1=1
+            <if test="styleId != null">
+                and style_id = #{styleId}
+            </if>
+        </where>
+        ) as drsp on drsp.parts_id = dp.id
+        LEFT JOIN dada_jewelry_type dj on dj.id = dp.type
+        <where>
+            1=1
+            and dp.expire_date is null
+            <if test="id != null">
+                and dp.`id` = #{id}
+            </if>
+            <if test="price != null">
+                and dp.price != #{price}
+            </if>
+            <if test="series != null">
+                and dp.`series` = #{series}
+            </if>
+            <if test="type != null">
+                and dp.`type` = #{type}
+            </if>
+            <if test="code != null">
+                and dp.`code` like concat('%', #{code}, '%')
+            </if>
+            <if test="exYy != null">
+                and dp.`ex_yy` like concat('%', #{exYy}, '%')
+            </if>
+        </where>
+        ORDER BY enabled desc, dp.type asc
+    </select>
+
+    <select id="getDadaRelStyleParts" resultMap="BaseResultMap">
+        SELECT drsp.* FROM `dada_rel_style_parts` drsp
+        <where>
+            1=1
+            <if test="id != null">
+                and drsp.id = #{id}
+            </if>
+            <if test="styleId != null">
+                and drsp.style_id = #{styleId}
+            </if>
+            <if test="partsId != null">
+                and drsp.parts_id = #{partsId}
+            </if>
+            limit 1
+        </where>
+    </select>
+
+</mapper>

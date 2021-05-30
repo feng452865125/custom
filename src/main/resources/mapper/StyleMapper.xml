@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.StyleMapper">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.Style">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="price" jdbcType="INTEGER" property="price"/>
+        <result column="imgs_url" jdbcType="VARCHAR" property="imgsUrl"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="video_url" jdbcType="VARCHAR" property="videoUrl"/>
+        <result column="three_d_url" jdbcType="VARCHAR" property="threeDUrl"/>
+        <result column="rate45img_url" jdbcType="VARCHAR" property="rate45imgUrl"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="moral" jdbcType="VARCHAR" property="moral"/>
+        <result column="hot_seq" jdbcType="INTEGER" property="hotSeq"/>
+        <result column="recom_seq" jdbcType="INTEGER" property="recomSeq"/>
+        <result column="story" jdbcType="VARCHAR" property="story"/>
+        <result column="series" jdbcType="VARCHAR" property="series"/>
+        <result column="auth_cert" jdbcType="VARCHAR" property="authCert"/>
+        <result column="meaning" jdbcType="VARCHAR" property="meaning"/>
+        <result column="img_max_url" jdbcType="VARCHAR" property="imgMaxUrl"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate"/>
+        <result column="is_recommend" jdbcType="BIT" property="isRecommend"/>
+        <result column="jb_ys" jdbcType="VARCHAR" property="jbYs"/>
+        <result column="ht_ys" jdbcType="VARCHAR" property="htYs"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+        <result column="features" jdbcType="VARCHAR" property="features"/>
+        <result column="wear_url30" jdbcType="VARCHAR" property="wearUrl30"/>
+        <result column="wear_url50" jdbcType="VARCHAR" property="wearUrl50"/>
+        <result column="wear_url70" jdbcType="VARCHAR" property="wearUrl70"/>
+        <result column="wear_url100" jdbcType="VARCHAR" property="wearUrl100"/>
+        <result column="is_kt" jdbcType="BIT" property="isKt"/>
+        <result column="zheng_url" jdbcType="VARCHAR" property="zhengUrl"/>
+        <result column="fan_url" jdbcType="VARCHAR" property="fanUrl"/>
+        <result column="is_zs" jdbcType="BIT" property="isZs"/>
+        <result column="unique_group_id" jdbcType="INTEGER" property="uniqueGroupId"/>
+        <result column="is_printing" jdbcType="BIT" property="isPrinting"/>
+        <result column="is_nxbs" jdbcType="BIT" property="isNxbs"/>
+        <result column="enabled" jdbcType="BIT" property="enabled"/>
+        <result column="is_gq" jdbcType="BIT" property="isGq"/>
+        <result column="gd_sc" jdbcType="VARCHAR" property="gdSc"/>
+        <result column="gd_jsys" jdbcType="VARCHAR" property="gdJsys"/>
+        <result column="gd_ysfw" jdbcType="VARCHAR" property="gdYsfw"/>
+        <result column="gd_jdfw" jdbcType="VARCHAR" property="gdJdfw"/>
+        <result column="gd_price_min" jdbcType="VARCHAR" property="gdPriceMin"/>
+        <result column="gd_price_max" jdbcType="VARCHAR" property="gdPriceMax"/>
+        <result column="gd_zl_all" jdbcType="VARCHAR" property="gdZlAll"/>
+        <result column="gd_zl_min" jdbcType="VARCHAR" property="gdZlMin"/>
+        <result column="gd_zl_max" jdbcType="VARCHAR" property="gdZlMax"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        s.`id` as `s_id`, s.`code` as `s_code`, s.`name` as `s_name`, s.`type` as `s_type`,
+        s.`status` as `s_status`, s.`price` as `s_price`, s.`imgs_url` as `s_imgs_url`, s.`img_url` as `s_img_url`,
+        s.`video_url` as `s_video_url`, s.`three_d_url` as `s_three_d_url`, s.`rate45img_url` as `s_rate45img_url`,
+        s.`remark` as `s_remark`, s.`note` as `s_note`, s.`moral` as `s_moral`, s.`hot_seq` as `s_hot_seq`,
+        s.`recom_seq` as `s_recom_seq`, s.`story` as `s_story`, s.`series` as `s_series`,
+        s.`auth_cert` as `s_auth_cert`, s.`meaning` as `s_meaning`, s.`img_max_url` as `s_img_max_url`,
+        s.`create_date` as `s_create_date`, s.`update_date` as `s_update_date`, s.`expire_date` as `s_expire_date`,
+        s.`is_recommend` as `s_is_recommend`, s.`jb_ys` as `s_jb_ys`, s.`ht_ys` as `s_ht_ys`,
+        s.`introduction` as `s_introduction`, s.`wear_url30` as `s_wear_url30`,
+        s.`wear_url50` as `s_wear_url50`, s.`wear_url70` as `s_wear_url70`, s.`wear_url100` as `s_wear_url100`,
+        s.`is_kt` as `s_is_kt`, s.`zheng_url` as `s_zheng_url`, s.`fan_url` as `s_fan_url`, s.`is_zs` as `s_is_zs`,
+        s.`unique_group_id` as `s_unique_group_id`, s.`is_printing` as `s_is_printing`,
+        s.`is_nxbs` as `s_is_nxbs`, s.`features` as `s_features`, s.`enabled` as `s_enabled`, s.`is_gq` as `s_is_gq`,
+        s.`gd_sc` as `s_gd_sc`, s.`gd_jsys` as `s_gd_jsys`, s.`gd_ysfw` as `s_gd_ysfw`, s.`gd_jdfw` as `s_gd_jdfw`,
+        s.`gd_price_min` as `s_gd_price_min`, s.`gd_price_max` as `s_gd_price_max`,
+        s.`gd_zl_all` as `s_gd_zl_all`, s.`gd_zl_min` as `s_gd_zl_min`, s.`gd_zl_max` as `s_gd_zl_max`
+    </sql>
+
+
+    <!--获取下拉框-->
+    <select id="dropDownBox" resultMap="BaseResultMap">
+        select id ,moral  from  `style`
+        where
+        expire_date is null
+        and moral like CONCAT("%",#{name},"%")
+        and series = #{series}
+    </select>
+
+
+    <select id="findStyleList" resultMap="BaseResultMap">
+        SELECT st.* FROM `style` st
+        <where>
+            1=1
+            and st.expire_date is null
+            <if test="series != null">
+                and st.series = #{series}
+            </if>
+            <if test="type != null">
+                and st.type = #{type}
+            </if>
+            <if test="enabled != null">
+                and st.enabled = #{enabled}
+            </if>
+            <if test="code != null">
+                and st.code like concat('%', #{code}, '%')
+            </if>
+            <if test="name != null">
+                and st.name like concat('%', #{name}, '%')
+            </if>
+             <if test="htYs != null">
+                and st.ht_ys like concat('%', #{htYs}, '%')
+            </if>
+             <if test="jbYs != null">
+                and st.jb_ys like concat('%', #{jbYs}, '%')
+            </if>
+            <if test="orderBy != null">
+                order by ${orderBy}
+            </if>
+        </where>
+    </select>
+
+    <select id="getStyle" resultMap="BaseResultMap">
+        SELECT st.*, se.introduction_word as introductionWord, se.introduction_video as introductionVideo, se.introduction_imgs as introductionImgs
+        FROM `style` st
+        left join `series` se on se.name = st.series
+        <where>
+            1=1
+            and st.expire_date is null
+            <if test="id != null">
+                and st.id = #{id}
+            </if>
+            <if test="enabled != null">
+                and st.enabled = #{enabled}
+            </if>
+            <if test="code != null">
+                and st.code = #{code}
+            </if>
+            <if test="jbYs != null">
+                and st.jb_ys = #{jbYs}
+            </if>
+            <if test="htYs != null">
+                and st.ht_ys = #{htYs}
+            </if>
+            limit 1
+        </where>
+    </select>
+
+    <select id="findStyleListApp" resultMap="BaseResultMap">
+        SELECT st.* FROM `style` st
+        <where>
+            1=1
+            and st.expire_date is null
+            <if test="series != null">
+                and st.series = #{series}
+            </if>
+            <if test="type != null">
+                and st.type = #{type}
+            </if>
+            <if test="enabled != null">
+                and st.enabled = #{enabled}
+            </if>
+            <if test="jbYs != null">
+                and st.jb_ys = #{jbYs}
+            </if>
+            <if test="htYs != null">
+                and st.ht_ys = #{htYs}
+            </if>
+            <if test="isRecommend != null">
+                and st.is_recommend = #{isRecommend}
+            </if>
+            <if test="moral != null and moral.length > 0">
+                and st.moral like concat('%', #{moral}, '%')
+            </if>
+            <if test="search != null and search.length > 0">
+                and st.type in ${search}
+            </if>
+            <if test="uniqueGroup != null and uniqueGroup.length > 0">
+                and st.unique_group_id in ${uniqueGroup}
+            </if>
+        </where>
+        order by st.create_date desc
+    </select>
+
+    <select id="findRelAdvertisementStyle" resultMap="BaseResultMap">
+        SELECT st.id, st.code, st.img_url, st.name, st.series, st.moral, st.type FROM
+        (SELECT * FROM `rel_advertisement_style` ras
+        <where>
+            1=1
+            <if test="advertisementId != null">
+                and advertisement_id = #{advertisementId}
+            </if>
+        </where>
+        ) as ras
+        LEFT JOIN `style` st on st.id = ras.style_id
+        <where>
+            1=1
+            and expire_date is null
+            <if test="enabled != null">
+                and st.enabled = #{enabled}
+            </if>
+            <if test="code != null">
+                and st.`code` like concat('%', #{code}, '%')
+            </if>
+            <if test="name != null">
+                and st.`name` like concat('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="findStyleRecommendList" resultMap="BaseResultMap">
+        SELECT st.* from style st
+        <where>
+            1=1
+            and st.expire_date is null
+            <if test="enabled != null">
+                and st.enabled = #{enabled}
+            </if>
+            <if test="series != null">
+                and st.series = #{series}
+            </if>
+            <if test="groupYs != null and groupYs.length > 0">
+                and CONCAT(st.ht_ys, st.jb_ys) in ${groupYs}
+            </if>
+        </where>
+    </select>
+
+    <update id="openOnOff">
+        update style st set  st.enabled = #{enabled} where series = #{series}
+    </update>
+
+</mapper>

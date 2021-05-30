@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<app>
+    <dicts>
+        <dic type="sexType" name="性别">
+            <key value="1" label="男"/>
+            <key value="2" label="女"/>
+        </dic>
+
+
+    </dicts>
+</app>
+

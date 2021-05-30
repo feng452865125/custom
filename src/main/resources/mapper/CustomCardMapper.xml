@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.CustomCardMapper">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.CustomCard">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="card_task_id" jdbcType="INTEGER" property="cardTaskId"/>
+        <result column="card_code" jdbcType="VARCHAR" property="cardCode"/>
+        <result column="card_code_num" jdbcType="INTEGER" property="cardCodeNum"/>
+        <result column="card_password" jdbcType="VARCHAR" property="cardPassword"/>
+        <result column="card_company" jdbcType="VARCHAR" property="cardCompany"/>
+        <result column="card_price" jdbcType="VARCHAR" property="cardPrice"/>
+        <result column="card_create_user" jdbcType="VARCHAR" property="cardCreateUser"/>
+        <result column="card_create_date" jdbcType="TIMESTAMP" property="cardCreateDate"/>
+        <result column="card_activate_user" jdbcType="VARCHAR" property="cardActivateUser"/>
+        <result column="card_activate_date" jdbcType="TIMESTAMP" property="cardActivateDate"/>
+        <result column="card_use_user" jdbcType="VARCHAR" property="cardUseUser"/>
+        <result column="card_use_date" jdbcType="TIMESTAMP" property="cardUseDate"/>
+        <result column="card_enable" jdbcType="INTEGER" property="cardEnable"/>
+        <result column="card_enable_user" jdbcType="VARCHAR" property="cardEnableUser"/>
+        <result column="card_enable_date" jdbcType="TIMESTAMP" property="cardEnableDate"/>
+        <result column="card_status" jdbcType="INTEGER" property="cardStatus"/>
+        <result column="card_use_store" jdbcType="VARCHAR" property="cardUseStore"/>
+        <result column="card_expire_date" jdbcType="TIMESTAMP" property="cardExpireDate"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate"/>
+        <result column="card_platform" jdbcType="VARCHAR" property="cardPlatform"/>
+        <result column="card_platform_order" jdbcType="VARCHAR" property="cardPlatformOrder"/>
+        <result column="card_remark" jdbcType="VARCHAR" property="cardRemark"/>
+        <result column="card_pos_xml" jdbcType="VARCHAR" property="cardPosXml"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        cc.`id` as `cc_id`, cc.`card_task_id` as `cc_card_task_id`, cc.`card_code` as `cc_card_code`,
+        cc.`card_code_num` as `cc_card_code_num`, cc.`card_password` as `cc_card_password`,
+        cc.`card_company` as `cc_card_company`, cc.`card_price` as `cc_card_price`,
+        cc.`card_create_user` as `cc_card_create_user`, cc.`card_create_date` as `cc_card_create_date`,
+        cc.`card_activate_user` as `cc_card_activate_user`, cc.`card_activate_date` as `cc_card_activate_date`,
+        cc.`card_use_user` as `cc_card_use_user`, cc.`card_use_date` as `cc_card_use_date`,
+        cc.`card_enable` as `cc_card_enable`, cc.`card_enable_user` as `cc_card_enable_user`,
+        cc.`card_enable_date` as `cc_card_enable_date`, cc.`card_status` as `cc_card_status`,
+        cc.`card_use_store` as `cc_card_use_store`, cc.`card_expire_date` as `cc_card_expire_date`,
+        cc.`create_date` as `cc_create_date`,
+        cc.`update_date` as `cc_update_date`, cc.`expire_date` as `cc_expire_date`,
+        cc.`card_platform` as `cc_card_platform`, cc.`card_platform_order` as `cc_card_platform_order`,
+        cc.`card_remark` as `cc_card_remark`, cc.`card_pos_xml` as `cc_card_pos_xml`
+    </sql>
+
+
+    <select id="findCustomCardList" resultMap="BaseResultMap">
+        SELECT cc.id, cc.card_code, cc.card_code_num, cc.card_password, cc.card_company,
+        cc.card_create_user, cc.card_create_date, cc.card_expire_date,
+        cc.card_price, cc.card_enable, cc.card_status, cc.card_platform, cc.card_platform_order
+        from custom_card cc
+        left join custom_card_task ct on ct.id = cc.card_task_id
+        <where>
+            cc.expire_date is NULL
+            <if test="cardTaskId != null">
+                and cc.card_task_id = #{cardTaskId}
+            </if>
+            <if test="cardTaskName != null and cardTaskName != ''">
+                and ct.card_task_name like concat('%', #{cardTaskName}, '%')
+            </if>
+            <if test="cardEnable != null">
+                and cc.card_enable = #{cardEnable}
+            </if>
+            <if test="cardCode != null and cardCode != ''">
+                and cc.card_code like concat('%', #{cardCode}, '%')
+            </if>
+            <if test="cardCompany != null and cardCompany != ''">
+                and cc.card_company like concat('%', #{cardCompany}, '%')
+            </if>
+            <if test="cardCodeStart != null and cardCodeStart != ''">
+                and #{cardCodeBefore} = substring(cc.card_code, 1, 6)
+                and cc.card_code_num >= #{cardCodeStart}
+            </if>
+            <if test="cardCodeEnd != null and cardCodeEnd != ''">
+                and #{cardCodeBefore} = substring(cc.card_code, 1, 6)
+                and #{cardCodeEnd} >= cc.card_code_num
+            </if>
+            <if test="cardStatus != null">
+                <choose>
+                    <when test="cardStatus == 3">
+                        and now() > cc.card_expire_date
+                        and cc.card_status in (0, 1)
+                    </when>
+                    <otherwise>
+                        and cc.card_expire_date > now()
+                        and cc.card_status = #{cardStatus}
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="cardOrderBy != null">
+                order by ${cardOrderBy}
+            </if>
+        </where>
+    </select>
+
+    <select id="getCustomCard" resultMap="BaseResultMap">
+        select * from custom_card
+        <where>
+            expire_date is NULL
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="cardCode != null and cardCode != ''">
+                and card_code = #{cardCode}
+            </if>
+            <if test="cardPassword != null and cardPassword != ''">
+                and card_password = #{cardPassword}
+            </if>
+            <if test="cardCodeBefore != null and cardCodeBefore != ''">
+                and #{cardCodeBefore} = substring(card_code, 1, 10)
+            </if>
+            order by id desc
+            limit 1
+        </where>
+    </select>
+
+    <select id="getCustomCardByPassword" resultMap="BaseResultMap">
+        select id from custom_card
+        where expire_date is NULL
+        and card_password = #{password}
+    </select>
+
+    <!--区间，连续，冻结，解冻-->
+    <update id="customCardEnableByBatchAction" parameterType="com.chunhe.custom.pc.model.CustomCard">
+        update `custom_card` set card_enable = #{cardEnabled},
+        card_enable_user = #{userName},
+        card_enable_date = now()
+        <where>
+            expire_date is NULL
+            <if test="cardTaskId != null">
+                and card_task_id = #{cardTaskId}
+            </if>
+            <if test="cardCodeBefore != null and cardCodeBefore != ''">
+                and #{cardCodeBefore} = substring(card_code, 1, 6)
+            </if>
+            <if test="cardCodeStart != null">
+                and card_code_num >= #{cardCodeStart}
+            </if>
+            <if test="cardCodeEnd != null">
+                and #{cardCodeEnd} >= card_code_num
+            </if>
+        </where>
+    </update>
+
+    <!--区间，连续，激活-->
+    <update id="customCardActivateByBatchAction" parameterType="com.chunhe.custom.pc.model.CustomCard">
+        update `custom_card` set card_status = 1,
+        card_activate_user = #{userName},
+        card_activate_date = now()
+        <where>
+            expire_date is NULL
+            <if test="cardCodeBefore != null and cardCodeBefore != ''">
+                and #{cardCodeBefore} = substring(card_code, 1, 6)
+            </if>
+            <if test="cardCodeStart != null">
+                and card_code_num >= #{cardCodeStart}
+            </if>
+            <if test="cardCodeEnd != null">
+                and #{cardCodeEnd} >= card_code_num
+            </if>
+        </where>
+    </update>
+
+    <!--不连续，冻结，解冻-->
+    <update id="customCardEnableByBatchActionFile" parameterType="com.chunhe.custom.pc.model.CustomCard">
+        update `custom_card` set card_enable = #{cardEnabled},
+        card_enable_user = #{userName},
+        card_enable_date = now()
+        <where>
+            expire_date is NULL
+            <if test="cardCodeArr != null and cardCodeArr != ''">
+                and card_code in (${cardCodeArr})
+            </if>
+        </where>
+    </update>
+
+    <!--不连续，激活-->
+    <update id="customCardActivateByBatchActionFile" parameterType="com.chunhe.custom.pc.model.CustomCard">
+        update `custom_card` set card_status = 1,
+        card_activate_user = #{userName},
+        card_activate_date = now()
+        <where>
+            expire_date is NULL
+            <if test="cardCodeArr != null and cardCodeArr != ''">
+                and card_code in (${cardCodeArr})
+            </if>
+        </where>
+    </update>
+
+</mapper>

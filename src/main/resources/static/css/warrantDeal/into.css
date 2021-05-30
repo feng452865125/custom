@@ -1,0 +1,159 @@
+
+.top-right-btn {
+    float: right;
+    margin-right: 10px;
+}
+
+.cabinet {
+    height: 272px;
+    width: 1082px;
+}
+
+.cabinet-body {
+    float: left;
+    border: 1px solid #999999;
+    height: 270px;
+    width: 673px;
+}
+
+.cabinet-box {
+    border: 1px solid #999999;
+    height: 75px;
+    width: 100px;
+    margin: 5px;
+    background-color: #fff;
+    text-align: center;
+    line-height: 70px;
+    float: left;
+    cursor: pointer;
+}
+
+.cabinet-box:hover {
+    background-color: #a6b5e8;
+    color: #FFF;
+}
+
+.cabinet-box-active {
+    background-color: #556bc4;
+    color: #FFF;
+}
+
+/*.cabinet-series span{*/
+    /*display:inline-block;*/
+/*}*/
+
+.cabinet-info {
+    float: left;
+    margin-left: 10px;
+    border: 1px solid #999999;
+    height: 270px;
+    width: 399px;
+}
+
+.cabinet-info .form-group {
+    margin-bottom: 10px;
+}
+
+.cabinet-info label {
+    /*width: 90px;*/
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.cabinet-info input {
+    border:none;
+}
+
+.cabinet-info-div {
+    margin-top: 15px;
+}
+
+.row-body {
+    margin-top: 10px;
+    height: 352px;
+    width: 1082px;
+    border: 1px solid #999999;
+}
+
+.row-div {
+    float: left;
+    height: 350px;
+    width: 150px;
+    padding: 5px 0 ;
+    background-color: #FFFFFF;
+}
+
+.row-num {
+    font-size: 17px;
+    color: #666666;
+    margin: 6px 10px;
+    height: 50px;
+    width: 128px;
+    background-color: #FFFFFF;
+    text-align: center;
+    line-height: 50px;
+    border: 1px solid #666666;
+    cursor: pointer;
+}
+
+.row-num-active {
+    color: #FFFFFF;
+    background-color: #556bc4;
+}
+
+.row-num:hover {
+    color: #FFFFFF;
+    background-color: #a6b5e8;
+}
+
+.cell-body {
+    /*float: left;*/
+    height: 330px;
+    width: 920px;
+    margin: 10px 10px 10px 0;
+    border: 1px solid #666666;
+    background-color: #FFFFFF;
+    padding: 5px;
+    overflow:auto;
+}
+
+.cell-num {
+    float: left;
+    height: 70px;
+    width: 91px;
+    border: 1px solid #666666;
+    background-color: #FFFFFF;
+    margin: 10px;
+    text-align: center;
+    line-height: 70px;
+    color: #666666;
+    cursor: pointer;
+}
+
+.cell-num-active {
+    background-color: #999999;
+    color: #FFF;
+}
+
+.cell-num-top {
+    line-height:3;
+    font-weight:bold;
+}
+
+.cell-num-buttom {
+    line-height:1;
+    font-weight:bold;
+}
+
+.cell-num-empty{
+    background-color: #7bc342;
+}
+
+.cell-num-half{
+    background-color: #ffa61b;
+}
+
+.cell-num-full{
+    background-color: #ff2712;
+}
+

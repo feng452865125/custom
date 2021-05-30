@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.ProductMapper">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.Product">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="kt_code" jdbcType="VARCHAR" property="ktCode"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="ex_jb_kd" jdbcType="VARCHAR" property="exJbKd"/>
+        <result column="price" jdbcType="INTEGER" property="price"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate"/>
+        <result column="ex_zs_ys" jdbcType="VARCHAR" property="exZsYs"/>
+        <result column="ex_zs_jd" jdbcType="VARCHAR" property="exZsJd"/>
+        <result column="style_id" jdbcType="INTEGER" property="styleId"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="ex_sc" jdbcType="VARCHAR" property="exSc"/>
+        <result column="ex_fs" jdbcType="VARCHAR" property="exFs"/>
+        <result column="ex_diamond_fs_min" jdbcType="INTEGER" property="exDiamondFsMin"/>
+        <result column="ex_diamond_fs_max" jdbcType="INTEGER" property="exDiamondFsMax"/>
+        <result column="ex_yy" jdbcType="VARCHAR" property="exYy"/>
+        <result column="ex_fs_count" jdbcType="INTEGER" property="exFsCount"/>
+        <result column="jscz" jdbcType="VARCHAR" property="jscz"/>
+        <result column="nxbs" jdbcType="VARCHAR" property="nxbs"/>
+        <result column="jsys" jdbcType="VARCHAR" property="jsys"/>
+        <result column="img_max_url" jdbcType="VARCHAR" property="imgMaxUrl"/>
+        <result column="wear_url30" jdbcType="VARCHAR" property="wearUrl30"/>
+        <result column="wear_url50" jdbcType="VARCHAR" property="wearUrl50"/>
+        <result column="wear_url70" jdbcType="VARCHAR" property="wearUrl70"/>
+        <result column="wear_url100" jdbcType="VARCHAR" property="wearUrl100"/>
+        <result column="is_nxbs" jdbcType="VARCHAR" property="isNxbs"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        p.`id` as `p_id`, p.`code` as `p_code`, p.`kt_code` as `p_kt_code`, p.`name` as `p_name`,
+        p.`ex_jb_kd` as `p_ex_jb_kd`,
+        p.`price` as `p_price`, p.`create_date` as `p_create_date`, p.`update_date` as `p_update_date`,
+        p.`expire_date` as `p_expire_date`, p.`ex_zs_ys` as `p_ex_zs_ys`, p.`ex_zs_jd` as `p_ex_zs_jd`,
+        p.`style_id` as `p_style_id`, p.`type` as `p_type`, p.`ex_sc` as `p_ex_sc`, p.`ex_fs` as `p_ex_fs`,
+        p.`ex_diamond_fs_min` as `p_ex_diamond_fs_min`, p.`ex_diamond_fs_max` as `p_ex_diamond_fs_max`,
+        p.`ex_yy` as `p_ex_yy`, p.`ex_fs_count` as `p_ex_fs_count`, p.`jscz` as `p_jscz`, p.`nxbs` as `p_nxbs`,
+        p.`jsys` as `p_jsys`, p.`img_max_url` as `p_img_max_url`, p.`wear_url30` as `p_wear_url30`,
+        p.`wear_url50` as `p_wear_url50`, p.`wear_url70` as `p_wear_url70`, p.`wear_url100` as `p_wear_url100`,
+        p.`is_nxbs` as `p_is_nxbs`
+    </sql>
+
+    <select id="findProductList" resultMap="BaseResultMap">
+        SELECT pr.* FROM `product` pr
+        <where>
+            1=1
+            and pr.expire_date is null
+            and pr.kt_code != '0'
+            <if test="styleId != null">
+                and pr.style_id = #{styleId}
+            </if>
+            <if test="type != null">
+                and pr.type = #{type}
+            </if>
+            <if test="exSc != null">
+                and pr.ex_sc like concat('%', #{exSc}, '%')
+            </if>
+            <if test="exJbKd != null">
+                and pr.ex_jb_kd = #{exJbKd}
+            </if>
+            <if test="jscz != null">
+                and pr.jscz = #{jscz}
+            </if>
+            <if test="jsys != null">
+                and pr.jsys = #{jsys}
+            </if>
+            <if test="code != null">
+                and pr.code like concat('%', #{code}, '%')
+            </if>
+            <if test="ktCode != null">
+                and pr.kt_code like concat('%', #{ktCode}, '%')
+            </if>
+            <if test="groupBy != null">
+                group by ${groupBy}
+            </if>
+            <if test="orderBy != null">
+                order by ${orderBy}
+            </if>
+        </where>
+    </select>
+
+    <select id="getProduct" resultMap="BaseResultMap">
+        SELECT pr.* FROM `product` pr
+        <where>
+            1=1
+            and pr.expire_date is null
+            <if test="id != null and id != ''">
+                and pr.id = #{id}
+            </if>
+            <if test="ktCode != null and ktCode != ''">
+                and pr.kt_code = #{ktCode}
+            </if>
+            <if test="code != null and code != ''">
+                and pr.code = #{code}
+            </if>
+            limit 1
+        </where>
+    </select>
+
+    <select id="getProductKtCode" resultMap="BaseResultMap">
+        SELECT pr.* FROM `product` pr
+        <where>
+            1=1
+            and pr.expire_date is null
+            <if test="styleId != null">
+                and pr.style_id = #{styleId}
+            </if>
+            <if test="type != null">
+                and pr.type = #{type}
+            </if>
+            <if test="exSc != null">
+                and pr.ex_sc like concat('%', #{exSc}, '%')
+            </if>
+            <if test="jscz != null">
+                and pr.jscz = #{jscz}
+            </if>
+            <if test="nxbs != null">
+                and pr.nxbs = #{nxbs}
+            </if>
+            <if test="jsys != null">
+                and pr.jsys = #{jsys}
+            </if>
+            limit 1
+        </where>
+    </select>
+
+    <select id="findProductListByPartsCode" resultMap="BaseResultMap">
+        SELECT pr.* from
+        (
+        SELECT rpp.product_code from (SELECT p1.code as p1code FROM parts p1
+        WHERE 1=1
+        and p1.type =2
+        and p1.expire_date is null
+        and p1.ys = #{jbYs}
+        ) as pp1, rel_product_parts rpp
+        WHERE rpp.parts_code in (p1code)
+        ) as q1,
+        (
+        SELECT rpp.product_code from (SELECT p2.code as p2code FROM parts p2
+        WHERE 1=1
+        and p2.type =3
+        and p2.expire_date is null
+        and p2.ys = #{htYs}
+        ) as pp2, rel_product_parts rpp
+        WHERE rpp.parts_code in (p2code)
+        ) as q2
+
+        LEFT JOIN product pr ON pr.code = product_code
+        WHERE 1=1
+        and pr.kt_code != '0'
+        and q1.product_code = q2.product_code
+        <if test="groupBy != null">
+            group by ${groupBy}
+        </if>
+        <if test="orderBy != null">
+            order by ${orderBy}
+        </if>
+    </select>
+
+    <select id="getProductByHtJbYs" resultMap="BaseResultMap">
+        SELECT pr.ex_sc from product pr,
+        (SELECT s.id from style s
+        <where>
+            1=1
+            and s.expire_date is null
+            and s.series = "UNIQUE"
+            <if test="htYs != null">
+                and s.ht_ys = #{htYs}
+            </if>
+            <if test="jbYs != null">
+                and s.jb_ys = #{jbYs}
+            </if>
+            limit 1
+        </where>
+        ) as st
+        <where>
+            1=1
+            and pr.expire_date is null
+            and pr.style_id = st.id
+            LIMIT 1
+        </where>
+
+    </select>
+
+    <select id="findProductListByStyleHt" resultMap="BaseResultMap">
+        SELECT pr.* from product pr
+        LEFT JOIN (SELECT p.* from parts p
+        <where>
+            1=1
+            and p.expire_date is null
+            and p.type = 3
+            <if test="htYs != null">
+                and p.ys = #{htYs}
+            </if>
+        </where>
+        ) as pa on pa.fs_kd = pr.ex_fs
+        <where>
+            1=1
+            and pr.expire_date is null
+            <if test="styleId != null">
+                and pr.style_id = #{styleId}
+            </if>
+            and pa.id is not null
+        </where>
+    </select>
+
+    <!--花头分数范围和戒臂宽度范围-->
+    <select id="findProductListByStyle" resultMap="BaseResultMap">
+        <!--select p.* from product p where style_id in-->
+        <!--(select s.id from style s where s.jb_ys = #{jbYs} and s.ht_ys = #{htYs} and s.expire_date is null)-->
+        <!--and p.expire_date is null-->
+        <!--<if test="groupBy != null">-->
+        <!--group by ${groupBy}-->
+        <!--</if>-->
+        <!--<if test="orderBy != null">-->
+        <!--order by ${orderBy}-->
+        <!--</if>-->
+
+        SELECT p.ex_fs, p.ex_jb_kd, p.style_id from product p
+        <where>
+            1=1
+            and p.expire_date is null
+            <if test="styleId != null">
+                and p.style_id = #{styleId}
+            </if>
+            <if test="groupBy != null">
+                group by ${groupBy}
+            </if>
+            <if test="orderBy != null">
+                order by ${orderBy}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="getProductId" resultMap="BaseResultMap">
+        select p.id
+        from product p
+        where
+        expire_date is null
+        and p.code = #{code}
+        and p.kt_code = #{ktCode}
+        <if test="exSc != null and exSc != ''">
+            and p.ex_sc like concat('%',#{exSc},'%')
+        </if>
+        LIMIT 1
+    </select>
+
+    <update id="updateProductNxbs" parameterType="com.chunhe.custom.pc.model.Product">
+        update `product`
+        set update_date = now(),
+            is_nxbs     = #{nxbs}
+        where expire_date is null
+          and style_id = #{styleId}
+    </update>
+
+
+    <select id="getProductListByPartBig" resultMap="BaseResultMap">
+        SELECT pr.ex_diamond_fs_min, pr.ex_diamond_fs_max, pr.price, pr.id
+        FROM product pr
+        <where>
+            1=1
+            and pr.expire_date is null
+            and pr.kt_code != '0'
+            <if test="zl != null">
+                and #{zl} >= pr.ex_diamond_fs_min
+                and pr.ex_diamond_fs_max >= #{zl}
+            </if>
+            GROUP BY pr.ex_fs
+            limit 1
+        </where>
+    </select>
+
+</mapper>

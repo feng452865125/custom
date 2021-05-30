@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.ThirdSupplierMapper">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.ThirdSupplier">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="short_name" jdbcType="VARCHAR" property="shortName"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="keer_username" jdbcType="VARCHAR" property="keerUsername"/>
+        <result column="keer_password" jdbcType="VARCHAR" property="keerPassword"/>
+        <result column="man_name" jdbcType="VARCHAR" property="manName"/>
+        <result column="man_mobile" jdbcType="VARCHAR" property="manMobile"/>
+        <result column="man_email" jdbcType="VARCHAR" property="manEmail"/>
+        <result column="api_url" jdbcType="VARCHAR" property="apiUrl"/>
+        <result column="api_username" jdbcType="VARCHAR" property="apiUsername"/>
+        <result column="api_password" jdbcType="VARCHAR" property="apiPassword"/>
+        <result column="work_date" jdbcType="TIMESTAMP" property="workDate"/>
+        <result column="status" jdbcType="BIT" property="status"/>
+        <result column="sap_code" jdbcType="INTEGER" property="sapCode"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate"/>
+        <result column="filter_address" jdbcType="VARCHAR" property="filterAddress"/>
+        <result column="white_zsbh_list" jdbcType="VARCHAR" property="whiteZsbhList"/>
+        <result column="location_in_hk" jdbcType="VARCHAR" property="locationInHk"/>
+        <result column="location_in_sz" jdbcType="VARCHAR" property="locationInSz"/>
+        <result column="enable_in_hk" jdbcType="INTEGER" property="enableInHk"/>
+        <result column="enable_in_sz" jdbcType="INTEGER" property="enableInSz"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        ts.`id` as `ts_id`, ts.`name` as `ts_name`, ts.`short_name` as `ts_short_name`, ts.`score` as `ts_score`,
+        ts.`address` as `ts_address`,
+        ts.`keer_username` as `ts_keer_username`, ts.`keer_password` as `ts_keer_password`,
+        ts.`man_name` as `ts_man_name`, ts.`man_mobile` as `ts_man_mobile`, ts.`man_email` as `ts_man_email`,
+        ts.`api_url` as `ts_api_url`, ts.`api_username` as `ts_api_username`, ts.`api_password` as `ts_api_password`,
+        ts.`work_date` as `ts_work_date`, ts.`status` as `ts_status`, ts.`sap_code` as `ts_sap_code`,
+        ts.`remark` as `ts_remark`, ts.`create_date` as `ts_create_date`,
+        ts.`update_date` as `ts_update_date`, ts.`expire_date` as `ts_expire_date`, ts.`filter_address` as
+        `ts_filter_address`, ts.`white_zsbh_list` as `ts_white_zsbh_list`,
+        ts.`location_in_hk` as `ts_location_in_hk`, ts.`location_in_sz` as `ts_location_in_sz`,
+        ts.`enable_in_hk` as `ts_enable_in_hk`, ts.`enable_in_sz` as `ts_enable_in_sz`
+    </sql>
+
+    <select id="findThirdSupplierList" resultMap="BaseResultMap">
+        select ts.* from `third_supplier` ts
+        <where>
+            1=1
+            and ts.expire_date is null
+            <if test="name != null">
+                and ts.name like concat('%', #{name}, '%')
+            </if>
+            <if test="shortName != null">
+                and ts.short_name = #{shortName}
+            </if>
+            <if test="status != null">
+                and ts.status = #{status}
+            </if>
+            <choose>
+                <when test="orderBy != null">
+                    order by ${orderBy}
+                </when>
+                <otherwise>
+                    order by ts.score desc, ts.work_date desc, ts.create_date desc
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <select id="getThirdSupplier" resultMap="BaseResultMap">
+        select ts.* from `third_supplier` ts
+        <where>
+            1=1
+            and ts.expire_date is null
+            <if test="status != null">
+                and ts.status = #{status}
+            </if>
+            <if test="id != null">
+                and ts.id = #{id}
+            </if>
+            <if test="shortName != null">
+                and ts.short_name = #{shortName}
+            </if>
+            <if test="keerUsername != null">
+                and ts.keer_username = #{keerUsername}
+            </if>
+            <choose>
+                <when test="orderBy != null">
+                    order by ${orderBy}
+                </when>
+                <otherwise>
+                    order by ts.score desc, ts.work_date desc
+                </otherwise>
+            </choose>
+            limit 1
+        </where>
+    </select>
+
+    <!--第三方石头维护-查询公司列表-->
+    <select id="findThirdStoneCompanyList" resultMap="BaseResultMap">
+        SELECT ts.short_name from third_supplier ts
+        where ts.expire_date is null
+        and ts.`status` = true
+    </select>
+
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunhe.custom.pc.mapper.RelProductPartsMapper">
+    <resultMap id="BaseResultMap" type="com.chunhe.custom.pc.model.RelProductParts">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="product_code" jdbcType="VARCHAR" property="productCode"/>
+        <result column="parts_code" jdbcType="VARCHAR" property="partsCode"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        rpp.`id` as `rpp_id`, rpp.`product_code` as `rpp_product_code`, rpp.`parts_code` as `rpp_parts_code`
+    </sql>
+
+    <select id="findRelProductParts" resultMap="BaseResultMap">
+        <if test="productCode == null">
+            SELECT rpp.* from rel_product_parts rpp, (SELECT * FROM `rel_product_parts`
+            <where>
+                1=1
+                <if test="partsCode != null">
+                    and parts_code = #{partsCode}
+                </if>
+            </where>
+            ) as rppn
+            <where>
+                1=1
+                and rppn.product_code = rpp.product_code
+                <if test="partsCode != null">
+                    and rpp.parts_code != #{partsCode}
+                </if>
+            </where>
+        </if>
+        <if test="productCode != null">
+            SELECT rpp.* FROM `rel_product_parts` rpp
+            <where>
+                1=1
+                <if test="productCode != null">
+                    and rpp.product_code = #{productCode}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="getRelProductParts" resultMap="BaseResultMap">
+        SELECT rpp.* from rel_product_parts rpp
+        <where>
+            1=1
+            and rpp.product_code = #{productCode}
+            and rpp.parts_code != #{partsCode}
+            limit 1
+        </where>
+    </select>
+</mapper>
