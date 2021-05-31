@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 //@EnableAsync
 //@EnableScheduling
 @SpringBootApplication
-@MapperScan(basePackages = {"com.chunhe.custom.framework.mapper", "com.chunhe.custom.pc.mapper", "com.chunhe.custom.mapper"})
+@MapperScan(basePackages = {"com.chunhe.custom.mapper"})
 ///**
 // * 方法一
 // * spring boot jar启动的写法

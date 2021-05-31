@@ -174,18 +174,14 @@ public class DictUtils {
     public static <T> List<T> findKeysByTypeAndValue(String type, String valueArray) {
         List<T> values = Lists.newArrayList();
         JSONObject jsonObject = findDicByType(type);
-        JSONArray dict = jsonObject.getJSONArray("dict");
-        for (int i = 0; i < dict.size(); i++) {
-            JSONObject dic = dict.getJSONObject(i);
-            JSONArray keys = dic.getJSONArray("keys");
-            for (int j = 0; j < keys.size(); j++) {
-                JSONObject keyObj = keys.getJSONObject(j);
-                if (valueArray == null) {
-                    values.add((T) keyObj.get("key"));
-                }
-                if (valueArray != null && valueArray.contains(keyObj.getString("value"))) {
-                    values.add((T) keyObj.get("key"));
-                }
+        JSONArray keys = jsonObject.getJSONArray("keys");
+        for (int j = 0; j < keys.size(); j++) {
+            JSONObject keyObj = keys.getJSONObject(j);
+            if (valueArray == null) {
+                values.add((T) keyObj.get("key"));
+            }
+            if (valueArray != null && valueArray.contains(keyObj.getString("value"))) {
+                values.add((T) keyObj.get("key"));
             }
         }
         return values;

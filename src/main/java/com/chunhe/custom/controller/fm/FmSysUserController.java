@@ -55,23 +55,23 @@ public class FmSysUserController extends BaseController {
     private FmSysUserRoleService fmSysUserRoleService;
 
     @RequestMapping(value = "/list")
-    @PreAuthorize("hasAuthority('user:page')")
+    @PreAuthorize("hasAuthority('sysUser:page')")
     public String sysUserList(Model model) {
         JSONObject statusList = DictUtils.findDicByType("");
         model.addAttribute("statusList", statusList);
-        return "pages/user/list";
+        return "pages/sysUser/list";
     }
 
     @RequestMapping(value = "/add")
-    @PreAuthorize("hasAuthority('user:add')")
+    @PreAuthorize("hasAuthority('sysUser:add')")
     public String add(Model model) {
         List<SysRole> roles = fmSysRoleService.sysRoleAllList();
         model.addAttribute("roles", roles);
-        return "pages/user/add";
+        return "pages/sysUser/add";
     }
 
     @RequestMapping("/edit/{id}")
-    @PreAuthorize("hasAuthority('user:edit')")
+    @PreAuthorize("hasAuthority('sysUser:edit')")
     public String edit(@PathVariable Long id, Model model) {
         SysUser sysUser = fmSysUserService.selectByKey(id);
         model.addAttribute("user",sysUser);
@@ -84,11 +84,11 @@ public class FmSysUserController extends BaseController {
         List<SysRole> roles = fmSysRoleService.sysRoleAllList();
         model.addAttribute("roles", roles);
 
-        return "pages/user/edit";
+        return "pages/sysUser/edit";
     }
 
     @RequestMapping("/view/{id}")
-    @PreAuthorize("hasAuthority('user:view')")
+    @PreAuthorize("hasAuthority('sysUser:view')")
     public String view(@PathVariable Long id, Model model) {
         // 用户
         SysUser sysUser = fmSysUserService.selectByKey(id);
@@ -99,7 +99,7 @@ public class FmSysUserController extends BaseController {
         List<SysRole> roles = fmSysRoleService.selectRoles(sysUserRole);
         model.addAttribute("roles", roles);
 
-        return "pages/user/view";
+        return "pages/sysUser/view";
     }
 
     /**
@@ -131,7 +131,7 @@ public class FmSysUserController extends BaseController {
 
     @RequestMapping(value = "/pagination", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasAuthority('user:list')")
+    @PreAuthorize("hasAuthority('sysUser:list')")
     public DataTablesResponse<SysUser> pagination(@Valid @RequestBody final DataTablesRequest dataTablesRequest) {
         DataTablesResponse<SysUser> data = fmSysUserService.selectPage(dataTablesRequest,
                 new ISelect() {
@@ -145,7 +145,7 @@ public class FmSysUserController extends BaseController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasAuthority('user:add')")
+    @PreAuthorize("hasAuthority('sysUser:add')")
     public ResponseEntity save(@RequestBody Map<String, Object> map) {
         ServiceResponse result = fmSysUserService.save(map);
         if (!result.isSucc()) {
@@ -156,7 +156,7 @@ public class FmSysUserController extends BaseController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    @PreAuthorize("hasAuthority('user:edit')")
+    @PreAuthorize("hasAuthority('sysUser:edit')")
     public ResponseEntity update(@PathVariable long id, @RequestBody Map<String, Object> map) {
         map.put("id", id);
 //        packageAndValid(null, map, "sysUserValidator", SysUserValidator.IDENTITY_PATCH);
@@ -261,7 +261,7 @@ public class FmSysUserController extends BaseController {
      */
     @RequestMapping(value= "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    @PreAuthorize("hasAuthority('user:delete')")
+    @PreAuthorize("hasAuthority('sysUser:delete')")
     public ResponseEntity delete(@PathVariable Integer id) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("id", id);

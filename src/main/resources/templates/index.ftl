@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>千叶珠宝定制后台管理系统</title>
+    <title>XXXXXXX管理系统</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -65,7 +65,7 @@ desired effect
             <span class="logo-mini">菜单</span>
             <!-- logo for regular state and mobile devices -->
         [#--<span class="logo-lg">物业管理系统</span>--]
-            <img src="dist/img/logo.png" class="logo-lg" style="height: 50px; width: 95px;" alt="千叶珠宝">
+            <img src="" class="logo-lg" style="height: 50px; width: 95px;" alt="">
         </a>
 
         <!-- Header Navbar -->

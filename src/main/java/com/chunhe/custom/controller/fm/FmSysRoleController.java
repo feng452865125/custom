@@ -54,9 +54,9 @@ public class FmSysRoleController extends BaseController {
 
 
     @RequestMapping(value = "/list")
-    @PreAuthorize("hasAuthority('role:page')")
+    @PreAuthorize("hasAuthority('sysRole:page')")
     public String list() {
-        return "pages/role/list";
+        return "pages/sysRole/list";
     }
 
 
@@ -67,7 +67,7 @@ public class FmSysRoleController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/pagination", method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('role:list')")
+    @PreAuthorize("hasAuthority('sysRole:list')")
     public DataTablesResponse<SysRole> serverPagination(@Valid @RequestBody final DataTablesRequest dataTablesRequest) {
         DataTablesResponse<SysRole> data = fmSysRoleService.selectPage(dataTablesRequest,
                 new ISelect() {
@@ -86,11 +86,11 @@ public class FmSysRoleController extends BaseController {
      * @return
      */
     @RequestMapping("/add")
-    @PreAuthorize("hasAuthority('role:add')")
+    @PreAuthorize("hasAuthority('sysRole:add')")
     public String add(Model model) {
         Map<String, List<SysPermission>> permissionsMap = fmSysPermissionService.findAllPermissions();
         model.addAttribute("permissionsMap", permissionsMap);
-        return "pages/role/add";
+        return "pages/sysRole/add";
     }
 
     /**
@@ -100,7 +100,7 @@ public class FmSysRoleController extends BaseController {
      * @return
      */
     @RequestMapping("/edit/{id}")
-    @PreAuthorize("hasAuthority('role:edit')")
+    @PreAuthorize("hasAuthority('sysRole:edit')")
     public String editView(@PathVariable Long id, Model model) {
         SysRole sysRole = fmSysRoleService.selectByKey(id);
         List<String> rolePermissions = Lists.newArrayList(fmSysRolePermissionService.selectByRoleId(id));
@@ -108,7 +108,7 @@ public class FmSysRoleController extends BaseController {
         model.addAttribute("role", sysRole);
         model.addAttribute("rolePermissions", rolePermissions);
         model.addAttribute("permissionsMap", permissionsMap);
-        return "pages/role/edit";
+        return "pages/sysRole/edit";
     }
 
     /**
@@ -118,20 +118,20 @@ public class FmSysRoleController extends BaseController {
      * @return
      */
     @RequestMapping("/view/{id}")
-    @PreAuthorize("hasAuthority('role:view')")
+    @PreAuthorize("hasAuthority('sysRole:view')")
     public String view(@PathVariable Long id, Model model){
         SysRole sysRole = fmSysRoleService.selectByKey(id);
         Map<String, List<SysPermission>> rolePermissionsMap = fmSysPermissionService.getRolePermissionsMap(id);
         model.addAttribute("role", sysRole);
         model.addAttribute("rolePermissionsMap", rolePermissionsMap);
-        return "pages/role/view";
+        return "pages/sysRole/view";
     }
 
     /**
      *  获取所有的未删除角色
      * @return
      */
-    @PreAuthorize("hasAuthority('role:list')")
+    @PreAuthorize("hasAuthority('sysRole:list')")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public List<SysRole> allList() {
@@ -146,7 +146,7 @@ public class FmSysRoleController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('role:add')")
+    @PreAuthorize("hasAuthority('sysRole:add')")
     public ResponseEntity save(@RequestBody Map<String, Object> roleMap){
         ServiceResponse result = fmSysRoleService.save(roleMap);
         if (!result.isSucc()) {
@@ -161,7 +161,7 @@ public class FmSysRoleController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @PreAuthorize("hasAuthority('role:edit')")
+    @PreAuthorize("hasAuthority('sysRole:edit')")
     public ResponseEntity update(@PathVariable Long id, @RequestBody Map<String, Object> roleMap){
         roleMap.put("id", id);
         ServiceResponse result = fmSysRoleService.update(roleMap);
@@ -178,7 +178,7 @@ public class FmSysRoleController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/{id}" , method = RequestMethod.DELETE)
-    @PreAuthorize("hasAuthority('role:edit')")
+    @PreAuthorize("hasAuthority('sysRole:edit')")
     public ResponseEntity delete(@PathVariable Integer id){
         Map<String, Object> permissionMap = new HashMap<String, Object>();
         permissionMap.put("id", id);

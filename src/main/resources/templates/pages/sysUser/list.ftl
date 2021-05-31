@@ -3,7 +3,7 @@
 [#include "../../component/authorize.ftl"]
 [#include "../../component/modal.ftl"]
 
-[@content title="店铺维护" subTitle=""]
+[@content title="账号维护" subTitle=""]
 <link rel="stylesheet" href="${springMacroRequestContext.contextPath}/plugins/datatables/dataTables.bootstrap.css">
 <link rel="stylesheet"
       href="${springMacroRequestContext.contextPath}/plugins/bootstrap-switch/css/bootstrap3/bootstrap-switch.css"
@@ -19,16 +19,16 @@
             <div class="box-body">
                 [@searchable id="searchable" targetId="example"]
                     <div class="input-group">
-                        <span class="input-group-addon">店铺编码</span>
+                        <span class="input-group-addon">账号编码</span>
                         <input name="username" class="form-control username" placeholder="请输入编码查询">
                     </div>
                     <div class="input-group">
-                        <span class="input-group-addon">店铺名称</span>
+                        <span class="input-group-addon">账号名称</span>
                         <input name="name" class="form-control name" placeholder="请输入名称查询">
                     </div>
                     <div class="input-group">
-                        <span class="input-group-addon">营业状态</span>
-                        <select class="form-control status" name="status">
+                        <span class="input-group-addon">状态</span>
+                        <select class="form-control sysUserIsEnable" name="sysUserIsEnable">
                             <option value="">请选择状态</option>
                              [#list statusList.keys as status]
                                 <option value="${status.key}">${status.label}</option>
@@ -37,19 +37,19 @@
                     </div>
                 [/@searchable]
                 <div>
-                    [@authorize ifAnyGranted="user:add"]
+                    [@authorize ifAnyGranted="sysUser:add"]
                         <a class="btn btn-flat bg-olive" href="${springMacroRequestContext.contextPath}/user/add"
                            redirect>新增</a>
                     [/@authorize]
-                    [@authorize ifAnyGranted="user:edit"]
+                    [@authorize ifAnyGranted="sysUser:edit"]
                         <a class="btn btn-flat bg-olive all-password" href="javascript:;">批量修改密码</a>
                     [/@authorize]
                 </div>
                 <table id="example" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>店铺编码</th>
-                        <th>店铺名称</th>
+                        <th>账号编码</th>
+                        <th>账号名称</th>
                         <th>地址</th>
                         <th>pos终端号</th>
                         <th>门店状态</th>
@@ -69,7 +69,7 @@
     <!-- /.col -->
 </div>
 <!-- /.row -->
-    [@modal id="modal-all-password" title="批量修改店铺密码" confirmBtnClass="all-password-sure"]
+    [@modal id="modal-all-password" title="批量修改账号密码" confirmBtnClass="all-password-sure"]
     <div>
         <div class="form-group">
             <span class="input-group-addon">密码</span>
@@ -125,13 +125,13 @@
                 {
                     data: 'id', orderable: false, render: function (data, type, full, meta) {
                         var operations = [];
-                    [@authorize ifAnyGranted="user:view"]
+                    [@authorize ifAnyGranted="sysUser:view"]
                         operations.push('<a redirect href="${springMacroRequestContext.contextPath}/user/view/' + data + '">详情</a>');
                     [/@authorize]
-                    [@authorize ifAnyGranted="user:edit"]
+                    [@authorize ifAnyGranted="sysUser:edit"]
                         operations.push('<a redirect href="${springMacroRequestContext.contextPath}/user/edit/' + data + '">编辑</a>');
                     [/@authorize]
-                    [@authorize ifAnyGranted="user:delete"]
+                    [@authorize ifAnyGranted="sysUser:delete"]
                         operations.push('<a class="btn-delete" href="javascript:;" data-id="' + data + '">删除</a>')
                     [/@authorize]
                         return operations.join(' | ');

@@ -37,15 +37,15 @@ public class FmSysPermissionController extends BaseController {
     private FmSysPermissionService fmSysPermissionService;
 
     @RequestMapping(value = "/list")
-    @PreAuthorize("hasAuthority('permission:page')")
+    @PreAuthorize("hasAuthority('sysPermission:page')")
     public String list() {
-        return "pages/permission/list";
+        return "pages/sysPermission/list";
     }
 
     @RequestMapping("/add")
-    @PreAuthorize("hasAuthority('permission:add')")
+    @PreAuthorize("hasAuthority('sysPermission:add')")
     public String add() {
-        return "pages/permission/add";
+        return "pages/sysPermission/add";
     }
 
 
@@ -56,7 +56,7 @@ public class FmSysPermissionController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/pagination", method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('permission:list')")
+    @PreAuthorize("hasAuthority('sysPermission:list')")
     public DataTablesResponse<SysPermission> serverPagination(@Valid @RequestBody final DataTablesRequest dataTablesRequest) {
 
         DataTablesResponse<SysPermission> data = fmSysPermissionService.selectPage(dataTablesRequest,
@@ -70,19 +70,19 @@ public class FmSysPermissionController extends BaseController {
     }
 
     @RequestMapping("/edit/{id}")
-    @PreAuthorize("hasAuthority('permission:edit')")
+    @PreAuthorize("hasAuthority('sysPermission:edit')")
     public String editView(@PathVariable Integer id, Model model) {
         SysPermission permission = fmSysPermissionService.selectByKey(id);
         model.addAttribute("permission", permission);
-        return "pages/permission/edit";
+        return "pages/sysPermission/edit";
     }
 
     @RequestMapping("/view/{id}")
-    @PreAuthorize("hasAuthority('permission:view')")
+    @PreAuthorize("hasAuthority('sysPermission:view')")
     public String view(@PathVariable Integer id, Model model){
         SysPermission permission = fmSysPermissionService.selectByKey(id);
         model.addAttribute("permission", permission);
-        return "pages/permission/view";
+        return "pages/sysPermission/view";
     }
 
     /**
@@ -92,7 +92,7 @@ public class FmSysPermissionController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/{id}" , method = RequestMethod.DELETE)
-    @PreAuthorize("hasAuthority('permission:delete')")
+    @PreAuthorize("hasAuthority('sysPermission:delete')")
     public ResponseEntity delete(@PathVariable Integer id){
         ServiceResponse result = fmSysPermissionService.deleteById(id);
         if(!result.isSucc()){
@@ -108,7 +108,7 @@ public class FmSysPermissionController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @PreAuthorize("hasAuthority('permission:edit')")
+    @PreAuthorize("hasAuthority('sysPermission:edit')")
     public ResponseEntity update(@PathVariable Integer id, @RequestBody Map<String, Object> permissionMap) {
         permissionMap.put("id", id);
         ServiceResponse result = fmSysPermissionService.update(permissionMap);
@@ -121,7 +121,7 @@ public class FmSysPermissionController extends BaseController {
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('permission:add')")
+    @PreAuthorize("hasAuthority('sysPermission:add')")
     public ResponseEntity save(@RequestBody Map<String, Object> permissionMap){
         ServiceResponse result = fmSysPermissionService.save(permissionMap);
         if (!result.isSucc()) {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>千叶珠宝管理系统</title>
+  <title>XXXXXXX管理系统</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -30,7 +30,7 @@
 <div class="login-box">
   <div class="login-logo">
     <a href="javascript:;">
-        千叶珠宝管理系统
+      XXXXXXX管理系统
     </a>
   </div>
   <!-- /.login-logo -->
