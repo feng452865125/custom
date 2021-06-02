@@ -48,13 +48,13 @@ public class FmSysPermissionService extends BaseService<SysPermission> {
             example.setOrderByClause(orders);
         }
         Example.Criteria criteria = example.createCriteria();
-        DataTablesRequest.Column name = dataTablesRequest.getColumn("name");
-        if (StringUtils.isNotBlank(name.getSearch().getValue())) {
-            criteria.andLike("name", name.getSearch().getValue());
+        DataTablesRequest.Column sysPermissionName = dataTablesRequest.getColumn("sysPermissionName");
+        if (StringUtils.isNotBlank(sysPermissionName.getSearch().getValue())) {
+            criteria.andLike("sysPermissionName", sysPermissionName.getSearch().getValue());
         }
-        DataTablesRequest.Column code = dataTablesRequest.getColumn("code");
-        if (StringUtils.isNotBlank(code.getSearch().getValue())) {
-            criteria.andLike("code", code.getSearch().getValue());
+        DataTablesRequest.Column sysPermissionCode = dataTablesRequest.getColumn("sysPermissionCode");
+        if (StringUtils.isNotBlank(sysPermissionCode.getSearch().getValue())) {
+            criteria.andLike("sysPermissionCode", sysPermissionCode.getSearch().getValue());
         }
         criteria.andIsNull("deleteDate");
         return getMapper().selectByExample(example);

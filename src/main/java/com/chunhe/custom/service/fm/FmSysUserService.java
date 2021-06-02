@@ -36,7 +36,7 @@ import java.util.*;
  */
 
 @Service
-public class FmSysUserService extends BaseService<SysUser>  implements UserDetailsService {
+public class FmSysUserService extends BaseService<SysUser> implements UserDetailsService {
 
     private Logger logger = LogManager.getLogger(getClass());
 
@@ -52,7 +52,7 @@ public class FmSysUserService extends BaseService<SysUser>  implements UserDetai
 
     @Autowired
     private FmSysPermissionService fmSysPermissionService;
-    
+
     @Autowired
     private FmSysUserRoleService fmSysUserRoleService;
 
@@ -108,7 +108,7 @@ public class FmSysUserService extends BaseService<SysUser>  implements UserDetai
         }
         return new PlatformUser(sysUser, roles, permissions);
     }
-    
+
     /**
      * 同步数据时用到，所有用户信息（门店）
      *
@@ -123,7 +123,7 @@ public class FmSysUserService extends BaseService<SysUser>  implements UserDetai
      * 用户编码是否重复，code
      * 登录账号是否重复，username
      */
-    public Boolean isExistByParam(Long id, String property, String value) {
+    public Boolean isExistByParam(Integer id, String property, String value) {
         Example example = new Example(SysUser.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo(property, value)
@@ -154,27 +154,27 @@ public class FmSysUserService extends BaseService<SysUser>  implements UserDetai
         if (StringUtils.isNotBlank(orders)) {
             example.setOrderByClause(orders);
         }
-        //店铺编码（登录账号）
+        //登录账号/姓名/号码
         Example.Criteria criteria = example.createCriteria();
-        DataTablesRequest.Column username = dataTablesRequest.getColumn("username");
-        if (StringUtils.isNotBlank(username.getSearch().getValue())) {
-            criteria.andLike("username", username.getSearch().getValue());
+        DataTablesRequest.Column sysUserUsername = dataTablesRequest.getColumn("sysUserUsername");
+        if (StringUtils.isNotBlank(sysUserUsername.getSearch().getValue())) {
+            criteria.andLike("sysUserUsername", sysUserUsername.getSearch().getValue())
+                    .orLike("sysUserName", sysUserUsername.getSearch().getValue())
+                    .orLike("sysUserMobile", sysUserUsername.getSearch().getValue());
         }
-        //店铺名称
-        DataTablesRequest.Column name = dataTablesRequest.getColumn("name");
-        if (StringUtils.isNotBlank(name.getSearch().getValue())) {
-            criteria.andLike("name", name.getSearch().getValue());
+        //启用禁用状态
+        DataTablesRequest.Column sysUserIsEnable = dataTablesRequest.getColumn("sysUserIsEnable");
+        if (StringUtils.isNotBlank(sysUserIsEnable.getSearch().getValue())) {
+            criteria.andEqualTo("sysUserIsEnable", sysUserIsEnable.getSearch().getValue());
         }
-        //营业状态
-        DataTablesRequest.Column status = dataTablesRequest.getColumn("status");
-        if (StringUtils.isNotBlank(status.getSearch().getValue())) {
-            criteria.andEqualTo("status", status.getSearch().getValue());
+        //加锁解锁状态
+        DataTablesRequest.Column sysUserIsLocked = dataTablesRequest.getColumn("sysUserIsLocked");
+        if (StringUtils.isNotBlank(sysUserIsLocked.getSearch().getValue())) {
+            criteria.andEqualTo("sysUserIsLocked", sysUserIsLocked.getSearch().getValue());
         }
         criteria.andIsNull("deleteDate")
-                .andNotEqualTo("username", Constant.USER_ADMIN)
-                .andNotEqualTo("status", "5");
-        List<SysUser> sysUserList = getMapper().selectByExample(example);
-        return sysUserList;
+                .andNotEqualTo("sysUserUsername", Constant.USER_ADMIN);
+        return getMapper().selectByExample(example);
     }
 
     /**
@@ -217,24 +217,24 @@ public class FmSysUserService extends BaseService<SysUser>  implements UserDetai
     /**
      * 锁定/解锁
      *
-     * @param isLocked 是否锁定
+     * @param
      */
     @Transactional
-    public Boolean locked(Long id, Boolean isLocked) {
+    public Boolean lock(Integer id) {
         SysUser sysUser = selectByKey(id);
-        sysUser.setSysUserIsLocked(isLocked);
+        sysUser.setSysUserIsLocked(!sysUser.getSysUserIsLocked());
         return update(sysUser) == 1;
     }
 
     /**
      * 可用/不可用
      *
-     * @param isEnabled 是否可用
+     * @param
      */
     @Transactional(readOnly = false)
-    public Boolean enabled(Long id, Boolean isEnabled) {
+    public Boolean enable(Integer id) {
         SysUser sysUser = selectByKey(id);
-        sysUser.setSysUserIsEnable(isEnabled);
+        sysUser.setSysUserIsEnable(!sysUser.getSysUserIsEnable());
         return update(sysUser) == 1;
     }
 
@@ -316,13 +316,11 @@ public class FmSysUserService extends BaseService<SysUser>  implements UserDetai
         if (update(user) != 1) {
             return ServiceResponse.error("删除用户失败");
         }
-
         // 删除角色
         if (fmSysUserRoleService.deleteByKey(id) < 0) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return ServiceResponse.error("删除用户角色关联失败");
         }
-
         return ServiceResponse.succ("删除用户成功");
     }
 
@@ -372,7 +370,4 @@ public class FmSysUserService extends BaseService<SysUser>  implements UserDetai
     }
 
 
-
-
-    
 }

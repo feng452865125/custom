@@ -3,10 +3,8 @@ package com.chunhe.custom.controller.fm;
 import com.alibaba.fastjson.JSONObject;
 import com.chunhe.custom.datatables.DataTablesRequest;
 import com.chunhe.custom.datatables.DataTablesResponse;
-import com.chunhe.custom.entity.PlatformUser;
-import com.chunhe.custom.entity.SysRole;
-import com.chunhe.custom.entity.SysUser;
-import com.chunhe.custom.entity.SysUserRole;
+import com.chunhe.custom.entity.*;
+import com.chunhe.custom.exception.ResultBody;
 import com.chunhe.custom.mybatis.BaseController;
 import com.chunhe.custom.response.ServiceResponse;
 import com.chunhe.custom.service.fm.FmSysRoleService;
@@ -54,13 +52,6 @@ public class FmSysUserController extends BaseController {
     @Autowired
     private FmSysUserRoleService fmSysUserRoleService;
 
-    @RequestMapping(value = "/list")
-    @PreAuthorize("hasAuthority('sysUser:page')")
-    public String sysUserList(Model model) {
-        JSONObject statusList = DictUtils.findDicByType("");
-        model.addAttribute("statusList", statusList);
-        return "pages/sysUser/list";
-    }
 
     @RequestMapping(value = "/add")
     @PreAuthorize("hasAuthority('sysUser:add')")
@@ -70,37 +61,90 @@ public class FmSysUserController extends BaseController {
         return "pages/sysUser/add";
     }
 
+
     @RequestMapping("/edit/{id}")
     @PreAuthorize("hasAuthority('sysUser:edit')")
     public String edit(@PathVariable Long id, Model model) {
         SysUser sysUser = fmSysUserService.selectByKey(id);
-        model.addAttribute("user",sysUser);
-
+        model.addAttribute("sysUser",sysUser);
         // 角色用户关联表
         SysUserRole sysUserRole = fmSysUserRoleService.selectByKey(id);
         model.addAttribute("sysUserRole", sysUserRole);
-
         //所有角色列表
         List<SysRole> roles = fmSysRoleService.sysRoleAllList();
         model.addAttribute("roles", roles);
-
         return "pages/sysUser/edit";
     }
+
 
     @RequestMapping("/view/{id}")
     @PreAuthorize("hasAuthority('sysUser:view')")
     public String view(@PathVariable Long id, Model model) {
         // 用户
         SysUser sysUser = fmSysUserService.selectByKey(id);
-        model.addAttribute("user",sysUser);
-
+        model.addAttribute("sysUser",sysUser);
         // 角色用户关联表
         SysUserRole sysUserRole = fmSysUserRoleService.selectByKey(id);
         List<SysRole> roles = fmSysRoleService.selectRoles(sysUserRole);
         model.addAttribute("roles", roles);
-
         return "pages/sysUser/view";
     }
+
+
+    @RequestMapping(value = "/list")
+    @PreAuthorize("hasAuthority('sysUser:page')")
+    public String sysUserList(Model model) {
+        JSONObject isEnable = DictUtils.findDictByType(Constant.DICT_IS_ENABLE);
+        JSONObject isLock = DictUtils.findDictByType(Constant.DICT_IS_LOCK);
+        model.addAttribute("isEnable", isEnable);
+        model.addAttribute("isLock", isLock);
+        return "pages/sysUser/list";
+    }
+
+
+    @RequestMapping(value = "/pagination", method = RequestMethod.POST)
+    @ResponseBody
+    @PreAuthorize("hasAuthority('sysUser:list')")
+    public DataTablesResponse<SysUser> pagination(@Valid @RequestBody final DataTablesRequest dataTablesRequest) {
+        DataTablesResponse<SysUser> data = fmSysUserService.selectPage(dataTablesRequest,
+                new ISelect() {
+                    @Override
+                    public void doSelect() {
+                        fmSysUserService.sysUserList(dataTablesRequest);
+                    }
+                });
+        return data;
+    }
+
+
+    /**
+     * 删除某个用户
+     * @param id
+     * @return
+     */
+    @RequestMapping(value= "/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    @PreAuthorize("hasAuthority('sysUser:delete')")
+    public ResponseEntity delete(@PathVariable Integer id) {
+        ServiceResponse result = fmSysUserService.deleteById(id);
+        if(!result.isSucc()) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result.getContent());
+        }
+        return  ResponseEntity.status(HttpStatus.OK).body(result.getContent());
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
+    @PreAuthorize("hasAuthority('sysUser:add')")
+    public ResponseEntity save(@RequestBody Map<String, Object> map) {
+        ServiceResponse result = fmSysUserService.save(map);
+        if (!result.isSucc()) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result.getContent());
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("新增成功");
+    }
+
 
     /**
      * 检查账户是否被使用
@@ -108,7 +152,7 @@ public class FmSysUserController extends BaseController {
     @RequestMapping(value = "/check/{type}", method = RequestMethod.GET)
     @ResponseBody
     public String codeCheck(@RequestParam Map<String, Object> map, @PathVariable String type){
-        Long id = ConvertUtils.convert(map.get("id"), Long.class);
+        Integer id = ConvertUtils.convert(map.get("id"), Integer.class);
         if(type.equals("code")){
             String code = ConvertUtils.convert(map.get("code"), String.class);
             if(code != null){
@@ -129,37 +173,11 @@ public class FmSysUserController extends BaseController {
         return null;
     }
 
-    @RequestMapping(value = "/pagination", method = RequestMethod.POST)
-    @ResponseBody
-    @PreAuthorize("hasAuthority('sysUser:list')")
-    public DataTablesResponse<SysUser> pagination(@Valid @RequestBody final DataTablesRequest dataTablesRequest) {
-        DataTablesResponse<SysUser> data = fmSysUserService.selectPage(dataTablesRequest,
-                new ISelect() {
-                    @Override
-                    public void doSelect() {
-                        fmSysUserService.sysUserList(dataTablesRequest);
-                    }
-                });
-        return data;
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseBody
-    @PreAuthorize("hasAuthority('sysUser:add')")
-    public ResponseEntity save(@RequestBody Map<String, Object> map) {
-        ServiceResponse result = fmSysUserService.save(map);
-        if (!result.isSucc()) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result.getContent());
-        }
-        return ResponseEntity.status(HttpStatus.OK).body("新增成功");
-    }
-
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     @PreAuthorize("hasAuthority('sysUser:edit')")
     public ResponseEntity update(@PathVariable long id, @RequestBody Map<String, Object> map) {
         map.put("id", id);
-//        packageAndValid(null, map, "sysUserValidator", SysUserValidator.IDENTITY_PATCH);
         ServiceResponse result = fmSysUserService.update(map);
         if (!result.isSucc()) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result.getContent());
@@ -190,6 +208,7 @@ public class FmSysUserController extends BaseController {
 
     static BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
+
     @RequestMapping(value= "/changePwd11", method = RequestMethod.POST)
     public ResponseEntity<String> changePwd11(@org.apache.ibatis.annotations.Param("id") String id) {
         String aaa = bCryptPasswordEncoder.encode(id);
@@ -197,99 +216,49 @@ public class FmSysUserController extends BaseController {
         return ResponseEntity.status(HttpStatus.OK).body("操作成功");
     }
 
+
     /**
-     * 解锁某个用户
+     * 锁定/解锁某个用户
      * @param id
      * @return
      */
-    @RequestMapping(value= "/{id}/unlocked", method = RequestMethod.PATCH)
-    public ResponseEntity<String> unlocked(@PathVariable long id) {
-        if(fmSysUserService.locked(id, Boolean.FALSE)) {
+    @RequestMapping(value= "/lock/{id}", method = RequestMethod.PATCH)
+    public ResponseEntity<String> lock(@PathVariable Integer id, Model model) {
+        if(fmSysUserService.lock(id)) {
             return ResponseEntity.status(HttpStatus.OK).body("操作成功");
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("操作失败");
         }
     }
 
-    /**
-     * 锁定某个用户
-     * @param id
-     * @return
-     */
-    @RequestMapping(value= "/{id}/lock", method = RequestMethod.PATCH)
-    public ResponseEntity<String> lock(@PathVariable long id, Model model) {
-        if(fmSysUserService.locked(id, Boolean.TRUE)) {
-            return ResponseEntity.status(HttpStatus.OK).body("操作成功");
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("操作失败");
-        }
-    }
 
     /**
-     * 禁用某个用户
+     * 启用/禁用某个用户
      * @param id
      * @return
      */
-    @RequestMapping(value= "/{id}/disabled", method = RequestMethod.PATCH)
-    public ResponseEntity<String> disabled(@PathVariable long id) {
-        if(fmSysUserService.enabled(id, Boolean.FALSE)) {
-            return ResponseEntity.status(HttpStatus.OK).body("操作成功");
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("操作失败");
-        }
-    }
-
-    /**
-     * 启用某个用户
-     * @param id
-     * @return
-     */
-    @RequestMapping(value= "/{id}/enabled", method = RequestMethod.PATCH)
+    @RequestMapping(value= "/enable/{id}", method = RequestMethod.PATCH)
     @ResponseBody
-    public ResponseEntity<String> enabled(@PathVariable Long id, Model model) {
-        if(fmSysUserService.enabled(id, Boolean.TRUE)) {
+    public ResponseEntity<String> enable(@PathVariable Integer id, Model model) {
+        if(fmSysUserService.enable(id)) {
             return ResponseEntity.status(HttpStatus.OK).body("操作成功");
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("操作失败");
         }
     }
 
-    /**
-     * 删除某个用户
-     * @param id
-     * @return
-     */
-    @RequestMapping(value= "/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    @PreAuthorize("hasAuthority('sysUser:delete')")
-    public ResponseEntity delete(@PathVariable Integer id) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("id", id);
-        ServiceResponse result = fmSysUserService.deleteById(id);
-        if(!result.isSucc()) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result.getContent());
-        }
-        return  ResponseEntity.status(HttpStatus.OK).body(result.getContent());
-    }
-
-    /**
-     * 批量修改店铺密码
-     * @param map
-     * @param authentication
-     * @return
-     */
-    @RequestMapping(value= "/changeAllPwd", method = RequestMethod.POST)
-    public ResponseEntity changeAllPwd(@RequestBody Map<String, Object> map, Authentication authentication) {
-        String password = StringUtils.isEmpty(map.get("password")) ? null : ConvertUtils.convert(map.get("password"), String.class);
-        String rePassword = StringUtils.isEmpty(map.get("rePassword")) ? null : ConvertUtils.convert(map.get("rePassword"), String.class);
-        if(StringUtils.isEmpty(password) || StringUtils.isEmpty(rePassword)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("密码不能为空");
-        }
-
-        ServiceResponse result = fmSysUserService.changeAllPassword(password, rePassword);
-        if(!result.isSucc()) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result.getContent());
-        }
-        return ResponseEntity.status(HttpStatus.OK).body("操作成功");
-    }
+//    /**
+//     * 启用/禁用某个用户
+//     * @param id
+//     * @return
+//     */
+//    @RequestMapping(value= "/enable/{id}", method = RequestMethod.PATCH)
+//    @ResponseBody
+//    public ResultBody enable(@PathVariable Integer id, Model model) {
+//        if(fmSysUserService.enable(id)) {
+//           return ResultBody.success(Constant.MESSAGE_UPDATE_SUCCESS);
+//        } else {
+//            return ResultBody.error(Constant.MESSAGE_UPDATE_ERROR);
+//        }
+//    }
 }

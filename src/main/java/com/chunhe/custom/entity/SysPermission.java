@@ -39,11 +39,6 @@ public class SysPermission extends BaseEntity {
     private String sysPermissionPname;
 
     /**
-     * 禁用启用
-     */
-    private Boolean sysPermissionIsEnable;
-
-    /**
      * 是否系统内置
      */
     private Boolean sysPermissionIsSystem;

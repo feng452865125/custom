@@ -3,12 +3,16 @@
 <app>
     <dicts>
         <dict type="isEnable" name="禁用/启用状态">
-            <key value="0" label="禁用"/>
-            <key value="1" label="启用"/>
+            <key key="0" value="禁用"/>
+            <key key="1" value="启用"/>
+        </dict>
+        <dict type="isLock" name="加锁/解锁状态">
+            <key key="0" value="解锁"/>
+            <key key="1" value="加锁"/>
         </dict>
         <dict type="sexType" name="性别">
-            <key value="1" label="男"/>
-            <key value="2" label="女"/>
+            <key key="1" value="男"/>
+            <key key="2" value="女"/>
         </dict>
 
 

@@ -49,7 +49,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
-        logger.info("redis 加载ing...");
+        logger.info("redis template 加载ing...");
         RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         // 配置连接工厂
         template.setConnectionFactory(factory);

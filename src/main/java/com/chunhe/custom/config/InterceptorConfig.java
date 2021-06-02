@@ -26,7 +26,7 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
 
     @Bean
     public Interceptor getMyInterceptor() {
-        DictUtils.init("app.xml");
+        DictUtils.init("dict.xml");
         return new Interceptor();
     }
 

@@ -33,9 +33,12 @@ public class ResultBody {
         this.message = errorInfo.getResultMsg();
     }
 
+    /*******************************************************************************************/
+
     /**
      * 成功
-     *
+     * @param code
+     * @param message
      * @param data
      * @return
      */
@@ -49,17 +52,16 @@ public class ResultBody {
 
     /**
      * 成功
-     *
+     * @param message
+     * @param data
      * @return
      */
-    public static ResultBody success() {
-        return success(null);
+    public static ResultBody success(String message, Object data) {
+        return success(CommonEnum.SUCCESS.getResultCode(), message, data);
     }
-
 
     /**
      * 成功
-     *
      * @param data
      * @return
      */
@@ -69,28 +71,28 @@ public class ResultBody {
 
     /**
      * 成功
-     *
+     * @param message
      * @return
      */
-    public static ResultBody success(String message, Object data) {
-        return success(CommonEnum.SUCCESS.getResultCode(), message, data);
+    public static ResultBody success(String message) {
+        return success(CommonEnum.SUCCESS.getResultCode(), message, null);
     }
 
-
     /**
-     * 失败
+     * 成功
+     * @return
      */
-    public static ResultBody error(BaseErrorInfoInterface errorInfo) {
-        ResultBody rb = new ResultBody();
-        rb.setCode(errorInfo.getResultCode());
-        rb.setMessage(errorInfo.getResultMsg());
-        rb.setResult(null);
-        return rb;
+    public static ResultBody success() {
+        return success(null);
     }
+
+
+    /*******************************************************************************************/
 
     /**
      * 失败
-     *
+     * @param code
+     * @param message
      * @param data
      * @return
      */
@@ -104,17 +106,40 @@ public class ResultBody {
 
     /**
      * 失败
+     * @param message
+     * @param data
+     * @return
      */
-    public static ResultBody error(String code, String message) {
-        return error(code, message, null);
+    public static ResultBody error(String message, Object data) {
+        return success(CommonEnum.ERROR.getResultCode(), message, data);
     }
 
     /**
      * 失败
+     * @param data
+     * @return
+     */
+    public static ResultBody error(Object data) {
+        return success(CommonEnum.ERROR.getResultCode(), CommonEnum.ERROR.getResultMsg(), data);
+    }
+
+    /**
+     * 失败
+     * @param message
+     * @return
      */
     public static ResultBody error(String message) {
-        return error(CommonEnum.ERROR_PARAM.getResultCode(), message, null);
+        return success(CommonEnum.ERROR.getResultCode(), message, null);
     }
+
+    /**
+     * 失败
+     * @return
+     */
+    public static ResultBody error() {
+        return success(null);
+    }
+
 
     @Override
     public String toString() {

@@ -10,10 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by xuqiang on 2017/6/11.
+ * <p>
+ * 登录 freemarker-控制层
+ * </p>
+ *
+ * @author AutoGenerator from white
+ * @since 2021-05-30
  */
+
 @Controller
-public class AuthorizationController {
+public class FmLoginController {
 
     @RequestMapping(value = "/login")
     public String login() {

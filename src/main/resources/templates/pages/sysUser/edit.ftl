@@ -1,7 +1,7 @@
 [#include "../../component/content.ftl" /]
 [#include "../../component/areaTreeModal.ftl" /]
 
-[@content title="店铺维护" subTitle=""]
+[@content title="账号维护" subTitle=""]
 <link rel="stylesheet" href="${springMacroRequestContext.contextPath}/plugins/iCheck/all.css">
 
 <div class="row">
@@ -14,7 +14,7 @@
             </div>
             <!-- /.series-header -->
             <!-- form start -->
-            <form id="form1" action="${springMacroRequestContext.contextPath}/user/${user.id}" role="form">
+            <form id="form1" action="${springMacroRequestContext.contextPath}/SysUser/${user.id}" role="form">
                 <div class="box-body">
                     <div class="row">
                         <div class="col-xs-offset-1 col-xs-5 col-md-4">
@@ -206,7 +206,7 @@
 
         $.submitForm("#form1", ".btn-submit", "PUT", ["${_csrf.parameterName}", "${_csrf.token}"],
                 function (data) {
-                    $.redirect("${springMacroRequestContext.contextPath}/user/list", function () {
+                    $.redirect("${springMacroRequestContext.contextPath}/SysUser/list", function () {
                     });
                 }, function (err) {
 

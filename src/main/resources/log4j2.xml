@@ -11,8 +11,8 @@
             <PatternLayout pattern="${logsPattern}"/>
         </Console>
 
-        <RollingRandomAccessFile name="FILE-INFO" fileName="logs/log-info.log"
-                                 filePattern="logs/log-info.%d{yyyy-MM-dd-HH}.log">
+        <RollingRandomAccessFile name="FILE-INFO" fileName="logs/info/log-info.log"
+                                 filePattern="logs/info/log-info.%d{yyyy-MM-dd-HH}.log">
             <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${logsPattern}"/>
             <!--默认一天一个文件-->
@@ -30,8 +30,8 @@
         </RollingRandomAccessFile>
 
 
-        <RollingRandomAccessFile name="FILE-DEBUG" fileName="logs/log-debug.log"
-                                 filePattern="logs/log-debug.%d{yyyy-MM-dd-HH}.log">
+        <RollingRandomAccessFile name="FILE-DEBUG" fileName="logs/debug/log-debug.log"
+                                 filePattern="logs/debug/log-debug.%d{yyyy-MM-dd-HH}.log">
             <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${logsPattern}"/>
             <!--默认一天一个文件-->
@@ -48,8 +48,8 @@
             </DefaultRolloverStrategy>
         </RollingRandomAccessFile>
 
-        <RollingRandomAccessFile name="FILE-WARN" fileName="logs/log-warn.log"
-                                 filePattern="logs/log-warn.%d{yyyy-MM-dd-HH}.log">
+        <RollingRandomAccessFile name="FILE-WARN" fileName="logs/warn/log-warn.log"
+                                 filePattern="logs/warn/log-warn.%d{yyyy-MM-dd-HH}.log">
             <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${logsPattern}"/>
             <!--默认一天一个文件-->
@@ -66,8 +66,8 @@
             </DefaultRolloverStrategy>
         </RollingRandomAccessFile>
 
-        <RollingRandomAccessFile name="FILE-ERROR" fileName="logs/log-error.log"
-                                 filePattern="logs/log-error.%d{yyyy-MM-dd-HH}.log">
+        <RollingRandomAccessFile name="FILE-ERROR" fileName="logs/error/log-error.log"
+                                 filePattern="logs/error/log-error.%d{yyyy-MM-dd-HH}.log">
             <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${logsPattern}"/>
             <!--默认一天一个文件-->
@@ -86,7 +86,7 @@
     </appenders>
 
     <loggers>
-        <AsyncLogger name="com.chunhe.custom.framework.mapper" level="DEBUG" includeLocation="false" additivity="false">
+        <AsyncLogger name="com.chunhe.custom.mapper" level="DEBUG" includeLocation="false" additivity="false">
             <AppenderRef ref="FILE-DEBUG"/>
             <AppenderRef ref="Console"/>
         </AsyncLogger>

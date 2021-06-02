@@ -23,7 +23,6 @@ public class DictUtils {
     public static final Logger logger = LogManager.getLogger(DictUtils.class);
 
     private static JSONArray dict = new JSONArray();
-    //    private static JSONArray groups = new JSONArray();
     private static List<JSONObject> arrays = Lists.newArrayList();
 
     /**
@@ -63,13 +62,12 @@ public class DictUtils {
 
 
     /**
-     * 传入需要的数据种类 遍历索引json数组判断数据字典是否经过分组，在数据字典中找到对应的标签组的json数组并返回
+     * 传入需要的数据种类 遍历索引json数组，在数据字典中找到对应的标签组的json数组并返回
      * 若未找到返回null
      */
-    public static JSONObject findDicByType(String type) {
+    public static JSONObject findDictByType(String type) {
         for (JSONObject index : arrays) {
             if (type.equals(index.getString("type"))) {
-                // search in dict and return object.
                 Iterator<Object> iter = dict.iterator();
                 while (iter.hasNext()) {
                     JSONObject dic = (JSONObject) iter.next();
@@ -87,18 +85,13 @@ public class DictUtils {
      * 当匹配到目标键值，返回键值对应的标记 未匹配到返回null
      */
     public static String findValueByTypeAndKey(String type, Integer keyInt) {
-        String key = String.valueOf(keyInt);
-        JSONObject jsonObject = findDicByType(type);
-        JSONArray dict = jsonObject.getJSONArray("dict");
+        String keyIndex = String.valueOf(keyInt);
+        JSONObject jsonObject = findDictByType(type);
+        JSONArray dict = jsonObject.getJSONArray("keys");
         for (int i = 0; i < dict.size(); i++) {
-            JSONObject dic = dict.getJSONObject(i);
-            String prefix = dic.getString("value");
-            JSONArray keys = dic.getJSONArray("keys");
-            for (int j = 0; j < keys.size(); j++) {
-                JSONObject keyObj = keys.getJSONObject(j);
-                if (key.equals(prefix + keyObj.getString("key"))) {
-                    return keyObj.getString("value");
-                }
+            JSONObject object = dict.getJSONObject(i);
+            if (keyIndex.equals(object.getString("key"))) {
+                return object.getString("value");
             }
         }
         return null;
@@ -109,8 +102,8 @@ public class DictUtils {
      */
     @Deprecated
     public static Integer findKeyByTypeAndValue(String type, String value) {
-        JSONObject jsonObject = findDicByType(type);
-        JSONArray dict = jsonObject.getJSONArray("dict");
+        JSONObject jsonObject = findDictByType(type);
+        JSONArray dict = jsonObject.getJSONArray("keys");
         for (int i = 0; i < dict.size(); i++) {
             JSONObject dic = dict.getJSONObject(i);
             JSONArray keys = dic.getJSONArray("keys");
@@ -140,8 +133,8 @@ public class DictUtils {
      */
     public static List<String> findValuesByTypeAndKey(String type, String keyArray) {
         List<String> values = Lists.newArrayList();
-        JSONObject jsonObject = findDicByType(type);
-        JSONArray dict = jsonObject.getJSONArray("dict");
+        JSONObject jsonObject = findDictByType(type);
+        JSONArray dict = jsonObject.getJSONArray("keys");
         for (int i = 0; i < dict.size(); i++) {
             JSONObject dic = dict.getJSONObject(i);
             String prefix = dic.getString("value");
@@ -173,7 +166,7 @@ public class DictUtils {
     @Deprecated
     public static <T> List<T> findKeysByTypeAndValue(String type, String valueArray) {
         List<T> values = Lists.newArrayList();
-        JSONObject jsonObject = findDicByType(type);
+        JSONObject jsonObject = findDictByType(type);
         JSONArray keys = jsonObject.getJSONArray("keys");
         for (int j = 0; j < keys.size(); j++) {
             JSONObject keyObj = keys.getJSONObject(j);
@@ -221,8 +214,9 @@ public class DictUtils {
 
     public static void main(String[] args) {
         DictUtils.init("dict.xml");
-        List<String> keys = DictUtils.findKeysByType("sexType");
-        System.out.println(keys);
+        JSONObject jsonObject = DictUtils.findDictByType("sexType");
+        String v = DictUtils.findValueByTypeAndKey("sexType", 1);
+        System.out.println(jsonObject);
     }
 
 

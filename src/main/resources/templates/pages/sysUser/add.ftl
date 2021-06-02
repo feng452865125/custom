@@ -1,6 +1,6 @@
 [#include "../../component/content.ftl" /]
 [#include "../../component/areaTreeModal.ftl" /]
-[@content title="用户" subTitle=""]
+[@content title="账号维护" subTitle=""]
 <link rel="stylesheet" href="${springMacroRequestContext.contextPath}/plugins/iCheck/all.css">
 <div class="row">
     <!-- left column -->
@@ -12,14 +12,14 @@
             </div>
             <!-- /.series-header -->
             <!-- form start -->
-            <form id="form1" action="${springMacroRequestContext.contextPath}/user" role="form">
+            <form id="form1" action="${springMacroRequestContext.contextPath}/SysUser" role="form">
                 <div class="box-body">
                     <div class="row">
                         <div class="col-xs-offset-1 col-xs-5 col-md-4">
                             <div class="form-group">
-                                <label for="username">登录账号</label>
-                                <input class="form-control" name="username" id="username" placeholder="请输入登录账号"
-                                       data-rule="required;length(1~32);remote(get:${springMacroRequestContext.contextPath}/user/check/username)"
+                                <label for="sysUserUsername">登录账号</label>
+                                <input class="form-control" name="sysUserUsername" id="sysUserUsername" placeholder="请输入登录账号"
+                                       data-rule="required;length(1~32);remote(get:${springMacroRequestContext.contextPath}/SysUser/check/username)"
                                        data-msg-required="登录账号不能为空"
                                        data-msg-remote="登录账号已存在"
                                 >
@@ -144,7 +144,7 @@
 
         $.submitForm("#form1", ".btn-submit", "POST", ["${_csrf.parameterName}", "${_csrf.token}"],
                 function (data) {
-                    $.redirect("${springMacroRequestContext.contextPath}/user/list", function () {
+                    $.redirect("${springMacroRequestContext.contextPath}/SysUser/list", function () {
                     });
                 }, function (err) {
 

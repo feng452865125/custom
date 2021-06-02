@@ -48,6 +48,21 @@ public class FmSysPermissionController extends BaseController {
         return "pages/sysPermission/add";
     }
 
+    @RequestMapping("/edit/{id}")
+    @PreAuthorize("hasAuthority('sysPermission:edit')")
+    public String editView(@PathVariable Integer id, Model model) {
+        SysPermission permission = fmSysPermissionService.selectByKey(id);
+        model.addAttribute("permission", permission);
+        return "pages/sysPermission/edit";
+    }
+
+    @RequestMapping("/view/{id}")
+    @PreAuthorize("hasAuthority('sysPermission:view')")
+    public String view(@PathVariable Integer id, Model model){
+        SysPermission permission = fmSysPermissionService.selectByKey(id);
+        model.addAttribute("permission", permission);
+        return "pages/sysPermission/view";
+    }
 
     /**
      * 分页查询
@@ -69,21 +84,7 @@ public class FmSysPermissionController extends BaseController {
         return data;
     }
 
-    @RequestMapping("/edit/{id}")
-    @PreAuthorize("hasAuthority('sysPermission:edit')")
-    public String editView(@PathVariable Integer id, Model model) {
-        SysPermission permission = fmSysPermissionService.selectByKey(id);
-        model.addAttribute("permission", permission);
-        return "pages/sysPermission/edit";
-    }
 
-    @RequestMapping("/view/{id}")
-    @PreAuthorize("hasAuthority('sysPermission:view')")
-    public String view(@PathVariable Integer id, Model model){
-        SysPermission permission = fmSysPermissionService.selectByKey(id);
-        model.addAttribute("permission", permission);
-        return "pages/sysPermission/view";
-    }
 
     /**
      * 删除
@@ -100,6 +101,19 @@ public class FmSysPermissionController extends BaseController {
         }
         return  ResponseEntity.status(HttpStatus.OK).body(result.getContent());
     }
+
+
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('sysPermission:add')")
+    public ResponseEntity save(@RequestBody Map<String, Object> permissionMap){
+        ServiceResponse result = fmSysPermissionService.save(permissionMap);
+        if (!result.isSucc()) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result.getContent());
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("新增成功");
+    }
+
 
     /**
      * 更新
@@ -119,16 +133,7 @@ public class FmSysPermissionController extends BaseController {
 
     }
 
-    @ResponseBody
-    @RequestMapping(method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('sysPermission:add')")
-    public ResponseEntity save(@RequestBody Map<String, Object> permissionMap){
-        ServiceResponse result = fmSysPermissionService.save(permissionMap);
-        if (!result.isSucc()) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result.getContent());
-        }
-        return ResponseEntity.status(HttpStatus.OK).body("新增成功");
-    }
+
 
     @ResponseBody
     @RequestMapping(value = "/codeCheck", method = RequestMethod.GET)

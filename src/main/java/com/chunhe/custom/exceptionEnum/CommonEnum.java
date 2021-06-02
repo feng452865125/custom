@@ -6,7 +6,8 @@ public enum CommonEnum implements BaseErrorInfoInterface {
 
     // 数据操作错误定义
     SUCCESS("200", "成功!"),
-    ERROR_SIGN("401", "签名过期，重新登录!"),
+    ERROR("300", "失败!"),
+    ERROR_SIGN("400", "签名过期，重新登录!"),
     ERROR_PARAM("406", "请求的数据或格式错误!"),
     ERROR_BEAN("406", "请求的对象错误或不存在!"),
     NOT_FOUND("404", "未找到该资源!"),

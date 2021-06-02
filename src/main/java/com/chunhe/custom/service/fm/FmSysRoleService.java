@@ -65,9 +65,9 @@ public class FmSysRoleService extends BaseService<SysRole> {
             example.setOrderByClause(orders);
         }
         Example.Criteria criteria = example.createCriteria();
-        DataTablesRequest.Column name = dataTablesRequest.getColumn("name");
-        if (StringUtils.isNotBlank(name.getSearch().getValue())) {
-            criteria.andLike("name", name.getSearch().getValue());
+        DataTablesRequest.Column sysRoleName = dataTablesRequest.getColumn("sysRoleName");
+        if (StringUtils.isNotBlank(sysRoleName.getSearch().getValue())) {
+            criteria.andLike("sysRoleName", sysRoleName.getSearch().getValue());
         }
         criteria.andIsNull("deleteDate");
         return getMapper().selectByExample(example);

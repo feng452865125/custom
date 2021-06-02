@@ -1,6 +1,6 @@
 [#include "../../component/content.ftl" /]
 
-[@content title="店铺维护" subTitle=""]
+[@content title="账号维护" subTitle=""]
 <div class="row">
     <!-- left column -->
     <div class="col-md-12">
